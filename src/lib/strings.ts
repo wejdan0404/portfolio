@@ -92,7 +92,7 @@ export const strings = {
     ),
   },
   about: {
-    pageTitle: t("About", "عنها"),
+    pageTitle: t("About", "نبذة عني"),
     sections: {
       who: t("Who", "من"),
       how: t("How I work", "كيف أشتغل"),
