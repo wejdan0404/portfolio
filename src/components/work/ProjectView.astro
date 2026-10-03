@@ -95,6 +95,30 @@ const approachFigures = (() => {
   return (heroFromImages ? images.slice(1) : images).slice(0, 2);
 })();
 
+// Per-screen walkthrough: all poster screens plus any images that aren't
+// already shown in the approach figures. Each item has its own alt text,
+// which doubles as the caption. Only shown when there's at least one screen.
+type WalkItem = {
+  src: string;
+  alt?: { en: string; ar: string };
+  w?: number;
+  h?: number;
+  kind: "screen" | "artifact";
+};
+const walkthrough: WalkItem[] = [
+  ...posterScreens.map((p) => ({ ...p, kind: "screen" as const })),
+  ...images
+    .filter((img) => !approachFigures.some((f) => f.src === img.src))
+    .map((img) => ({
+      src: img.src,
+      alt: img.alt,
+      w: img.width,
+      h: img.height,
+      kind: "artifact" as const,
+    })),
+];
+const hasWalkthrough = walkthrough.length >= 2;
+
 const evidence: Array<{
   value: string;
   label: { en: string; ar: string };
@@ -118,7 +142,9 @@ const L = {
   work: pick(strings.nav.work, locale),
   prev: locale === "ar" ? "السابق" : "Previous",
   next: locale === "ar" ? "التالي" : "Next",
-  back: locale === "ar" ? "العودة إلى الأعمال" : "Back to work",
+  back: locale === "ar" ? "الأعمال" : "Back to work",
+  walkthrough: locale === "ar" ? "واجهة واجهة" : "Screen by screen",
+  walkthroughHeading: locale === "ar" ? "ما يشوفه المستخدم." : "What the user sees.",
   problem: pick(strings.caseStudyLabels.problem, locale),
   approach: pick(strings.caseStudyLabels.approach, locale),
   role: pick(strings.caseStudyLabels.role_, locale),
@@ -329,13 +355,58 @@ const flaggedForReflection =
     </div>
   </section>
 
+  <!-- Walkthrough: screen by screen, each with its own caption -->
+  {hasWalkthrough && (
+    <section class="pv-walk" aria-labelledby={`pv-walk-${d.slug}`}>
+      <div class="container-wide pv-walk-head">
+        <span class="pv-label">{L.walkthrough}</span>
+        <h2 id={`pv-walk-${d.slug}`} class="pv-h2">{L.walkthroughHeading}</h2>
+      </div>
+      <ol class="container-wide pv-walk-list" role="list">
+        {walkthrough.map((w, i) => (
+          <li class={`pv-walk-item pv-walk-${w.kind} pv-walk-${i % 2 === 0 ? "l" : "r"}`} data-reveal>
+            <div class="pv-walk-screen">
+              {w.kind === "screen" ? (
+                <DeviceFrame
+                  src={w.src}
+                  alt={w.alt ? pick(w.alt, locale) : title}
+                  width={w.w}
+                  height={w.h}
+                  size="lg"
+                  eager={i === 0}
+                />
+              ) : (
+                <figure class="pv-walk-artifact">
+                  <img
+                    src={w.src.startsWith("http") ? w.src : withBase(w.src)}
+                    alt={w.alt ? pick(w.alt, locale) : title}
+                    width={w.w ?? 1600}
+                    height={w.h ?? 1200}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </figure>
+              )}
+            </div>
+            <div class="pv-walk-copy">
+              <span class="pv-walk-num numeric">{String(i + 1).padStart(2, "0")}</span>
+              <p class="pv-walk-caption">
+                {w.alt ? pick(w.alt, locale) : title}
+              </p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </section>
+  )}
+
   <!-- Approach -->
   <section class="pv-block pv-block-alt" aria-labelledby={`pv-approach-${d.slug}`}>
     <div class="container-wide pv-block-grid">
       <div class="pv-block-head">
         <span class="pv-label">{L.approach}</span>
         <h2 id={`pv-approach-${d.slug}`} class="pv-h2">
-          {locale === "ar" ? "كيف اقتربنا من المشكلة." : "How we approached it."}
+          {locale === "ar" ? "طريقة الحل." : "How I approached it."}
         </h2>
       </div>
       <div class="pv-block-body">
@@ -344,7 +415,7 @@ const flaggedForReflection =
         ) : (
           <ReviewFlag required={["approach"]} locale={locale} />
         )}
-        {approachFigures.length > 0 && (
+        {!hasWalkthrough && approachFigures.length > 0 && (
           <div class="pv-figs">
             {approachFigures.map((img) => (
               <figure class="pv-fig">
@@ -1118,6 +1189,89 @@ const flaggedForReflection =
     font-weight: 600;
   }
   html[lang="ar"] .pv-pn-dir { letter-spacing: 0; text-transform: none; font-size: 0.85rem; }
+  /* Walkthrough — screen by screen, alternating sides */
+  .pv-walk {
+    padding-block: clamp(2.5rem, 5vw, 4rem);
+    background: var(--surface-default);
+  }
+  .pv-walk-head {
+    display: grid;
+    gap: 0.75rem;
+    margin-block-end: clamp(2.5rem, 5vw, 4rem);
+    max-width: 56ch;
+  }
+  .pv-walk-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: clamp(4rem, 8vw, 8rem);
+  }
+  .pv-walk-item {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+    align-items: center;
+  }
+  @media (min-width: 820px) {
+    .pv-walk-item { grid-template-columns: 1fr 1fr; }
+    .pv-walk-l .pv-walk-screen { order: 1; }
+    .pv-walk-l .pv-walk-copy   { order: 2; }
+    .pv-walk-r .pv-walk-screen { order: 2; }
+    .pv-walk-r .pv-walk-copy   { order: 1; }
+  }
+  .pv-walk-screen {
+    position: relative;
+    display: grid;
+    place-items: center;
+    padding: clamp(1.5rem, 3vw, 2.5rem);
+    background: color-mix(in oklab, var(--pt-light, var(--brand-secondary)) 32%, var(--surface-subtle));
+    border-radius: 24px;
+    border: 1px solid var(--border-subtle);
+    min-height: clamp(360px, 50vw, 560px);
+    overflow: hidden;
+  }
+  html[data-theme="dark"] .pv-walk-screen,
+  :root:not([data-theme="light"]) .pv-walk-screen {
+    background: color-mix(in oklab, var(--pt-dark, var(--surface-elevated)) 55%, var(--surface-subtle));
+  }
+  .pv-walk-screen > :global(.dframe) {
+    max-width: 280px;
+    width: 100%;
+  }
+  .pv-walk-screen .pv-walk-artifact {
+    width: 100%;
+    margin: 0;
+  }
+  .pv-walk-screen .pv-walk-artifact img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 12px;
+    background: var(--surface-elevated);
+  }
+  .pv-walk-copy {
+    display: grid;
+    gap: 1rem;
+    align-content: center;
+    padding-inline: clamp(0.5rem, 2vw, 2rem);
+  }
+  .pv-walk-num {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    font-variant-numeric: tabular-nums;
+  }
+  .pv-walk-caption {
+    font-size: clamp(1.125rem, 1.4vw, 1.375rem);
+    line-height: 1.4;
+    color: var(--text-primary);
+    font-weight: 500;
+    max-width: 32ch;
+  }
+  html[lang="ar"] .pv-walk-caption { line-height: 1.75; font-weight: 500; }
+
   .pv-pn-title {
     font-size: 1.0625rem;
     font-weight: 600;
