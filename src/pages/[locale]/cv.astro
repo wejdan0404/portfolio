@@ -10,13 +10,14 @@ const locale = Astro.params.locale as Locale;
 
 const EMAIL = "wejdan4458@gmail.com";
 
+// Honest copy: no fake download button, no fake dates.
 const headline = {
-  en: "Download my CV.",
-  ar: "حمّلي سيرتي الذاتية.",
+  en: "The CV is being updated.",
+  ar: "السيرة الذاتية بالتحديث.",
 };
 const body = {
-  en: "Download my one-page CV as a PDF. The document is currently available in English.",
-  ar: "حمّلي سيرتي الذاتية بصيغة PDF. الملف متاح حاليًا باللغة الإنجليزية.",
+  en: "A fresh version is on the way. Meanwhile, drop me a short note and I'll send a tailored copy.",
+  ar: "النسخة الجديدة جاية. لحد ما تطلع، كلّمني بسطر قصير وأرسل لك نسخة مناسبة.",
 };
 ---
 
@@ -26,14 +27,16 @@ const body = {
       <span class="type-eyebrow">{pick(strings.cv.pageTitle, locale)}</span>
       <h1 class="cv-headline">{pick(headline, locale)}</h1>
       <p class="cv-body">{pick(body, locale)}</p>
-      <a class="btn btn-primary cv-download" href="/cv.pdf" download="Wejdan-CV.pdf">
-        {locale === "ar" ? "تحميل السيرة الذاتية (PDF)" : "Download CV (PDF)"}
-      </a>
       <p class="cv-contact">
+        <!-- Mixed-direction content: isolate the email so bidi doesn't reorder it -->
         {locale === "ar" ? (
-          <>للاستفسار عن خبرتي أو السيرة، راسليني على <a href={`mailto:${EMAIL}?subject=CV%20Request`} dir="ltr" class="cv-mail"><bdi>{EMAIL}</bdi></a>.</>
+          <>
+            راسلني على <a href={`mailto:${EMAIL}?subject=CV%20Request`} dir="ltr" class="cv-mail"><bdi>{EMAIL}</bdi></a> وأرسل لك نسخة.
+          </>
         ) : (
-          <>For questions about my experience or CV, email <a href={`mailto:${EMAIL}?subject=CV%20Request`} dir="ltr" class="cv-mail"><bdi>{EMAIL}</bdi></a>.</>
+          <>
+            Email <a href={`mailto:${EMAIL}?subject=CV%20Request`} dir="ltr" class="cv-mail"><bdi>{EMAIL}</bdi></a> for a copy.
+          </>
         )}
       </p>
     </div>
@@ -69,7 +72,6 @@ const body = {
     max-width: 56ch;
   }
   html[lang="ar"] .cv-body { font-size: 1.15rem; line-height: 1.85; }
-  .cv-download { width: fit-content; margin-block: 0.5rem; }
   .cv-contact {
     margin-block-start: 0.5rem;
     padding: 1rem 1.25rem;
