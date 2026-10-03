@@ -161,7 +161,17 @@ const copy = {
   @media (max-width: 420px) {
     .hero-actions { gap: 0.625rem 0.75rem; }
     .hero-actions .btn { flex: 1 1 auto; justify-content: center; }
-    .hero-actions .hero-link { flex-basis: 100%; }
+    /* Full-width row so it drops below the buttons, but the underline
+       hugs the text instead of running the whole row. */
+    .hero-actions .hero-link {
+      flex-basis: 100%;
+      border-block-end: 0;
+      align-self: start;
+    }
+    .hero-actions .hero-link > :first-child {
+      border-block-end: 1px solid currentColor;
+      padding-block-end: 2px;
+    }
   }
   .hero-link {
     display: inline-flex;
