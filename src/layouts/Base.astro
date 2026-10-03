@@ -42,7 +42,13 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://wejdan.info
     <meta name="theme-color" content="#0e121c" media="(prefers-color-scheme: dark)" />
     <title>{pageTitle}</title>
     <meta name="description" content={pageDescription} />
+    <!-- SVG first for browsers that take it; .ico is the fallback for the ones
+         that do not (Safari, older Edge) and was missing, which is why the tab
+         kept showing a stale or blank icon. -->
     <link rel="icon" type="image/svg+xml" href={withBase("/favicon.svg")} />
+    <link rel="icon" type="image/x-icon" sizes="16x16 32x32 48x48" href={withBase("/favicon.ico")} />
+    <link rel="apple-touch-icon" sizes="180x180" href={withBase("/apple-touch-icon.png")} />
+    <link rel="manifest" href={withBase("/site.webmanifest")} />
     <link rel="canonical" href={canonical} />
     <link rel="alternate" hreflang="ar" href={new URL(`/ar${path}`, Astro.site ?? "https://wejdan.info").toString()} />
     <link rel="alternate" hreflang="en" href={new URL(`/en${path}`, Astro.site ?? "https://wejdan.info").toString()} />
