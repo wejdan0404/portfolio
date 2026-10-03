@@ -75,7 +75,7 @@ const screens = posterScreens.slice(0, screenCount);
         <div class={`poster poster-${variant} poster-count-${screens.length}`} aria-hidden="true">
           {/* Soft gradient background per project */}
           <span class="poster-bg"></span>
-          <span class="poster-grain"></span>
+          <span class="poster-grain wj-texture" data-texture="paper-grain" aria-hidden="true"></span>
           {/* Decorative accents */}
           <span class="poster-star poster-star-a" aria-hidden="true"></span>
           <span class="poster-star poster-star-b" aria-hidden="true"></span>
@@ -98,7 +98,7 @@ const screens = posterScreens.slice(0, screenCount);
       ) : singleHero ? (
         <div class="poster poster-single" aria-hidden="true">
           <span class="poster-bg"></span>
-          <span class="poster-grain"></span>
+          <span class="poster-grain wj-texture" data-texture="paper-grain" aria-hidden="true"></span>
           <div class="poster-single-wrap">
             <img
               src={singleHero.src.startsWith("http") ? singleHero.src : withBase(singleHero.src)}
@@ -113,7 +113,7 @@ const screens = posterScreens.slice(0, screenCount);
       ) : (
         <div class="brand-comp">
           <span class="bc-grad" aria-hidden="true"></span>
-          <span class="bc-grain" aria-hidden="true"></span>
+          <span class="bc-grain wj-texture" data-texture="soft-grain" aria-hidden="true"></span>
           <svg class="bc-w" viewBox="0 0 48 48" width="54%" height="54%" aria-hidden="true">
             <path fill-rule="evenodd" clip-rule="evenodd" d={W_MONOGRAM_PATH}
                   fill="var(--logo-primary)"/>
@@ -209,6 +209,9 @@ const screens = posterScreens.slice(0, screenCount);
     isolation: isolate;
   }
 
+  /* § 06 Texture: the grain here is the Figma variant, applied as a mask by
+     .wj-texture. Only the stacking context stays local. */
+  .poster-grain, .bc-grain { z-index: 1; }
   .poster-bg {
     position: absolute;
     inset: 0;
@@ -220,7 +223,6 @@ const screens = posterScreens.slice(0, screenCount);
         color-mix(in oklab, var(--pt-light, var(--brand-secondary)) 55%, white 0%) 42%,
         color-mix(in oklab, var(--pt-light, var(--brand-secondary)) 20%, var(--surface-subtle)) 100%);
   }
-  :global(:root[data-theme="dark"]) .poster-bg,
   :global(:root[data-theme="dark"]) .poster-bg {
     background:
       radial-gradient(140% 110% at 50% 0%,
@@ -238,47 +240,6 @@ const screens = posterScreens.slice(0, screenCount);
     }
   }
 
-  /* Fine grain — very subtle, kept small so SSR is cheap */
-  .poster-grain {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    pointer-events: none;
-    opacity: 0.045;
-    mix-blend-mode: overlay;
-    background-image:
-      radial-gradient(1px 1px at 20% 10%, #000 50%, transparent 51%),
-      radial-gradient(1px 1px at 60% 30%, #000 50%, transparent 51%),
-      radial-gradient(1px 1px at 80% 70%, #000 50%, transparent 51%),
-      radial-gradient(1px 1px at 35% 85%, #000 50%, transparent 51%),
-      radial-gradient(1px 1px at 10% 60%, #000 50%, transparent 51%),
-      radial-gradient(1px 1px at 50% 50%, #000 50%, transparent 51%);
-    background-size: 180px 180px;
-  }
-  :global(:root[data-theme="dark"]) .poster-grain,
-  :global(:root[data-theme="dark"]) .poster-grain {
-    opacity: 0.07;
-    background-image:
-      radial-gradient(1px 1px at 20% 10%, #fff 50%, transparent 51%),
-      radial-gradient(1px 1px at 60% 30%, #fff 50%, transparent 51%),
-      radial-gradient(1px 1px at 80% 70%, #fff 50%, transparent 51%),
-      radial-gradient(1px 1px at 35% 85%, #fff 50%, transparent 51%),
-      radial-gradient(1px 1px at 10% 60%, #fff 50%, transparent 51%),
-      radial-gradient(1px 1px at 50% 50%, #fff 50%, transparent 51%);
-  }
-  @media (prefers-color-scheme: dark) {
-    :global(:root:not([data-theme="light"])) .poster-grain {
-      opacity: 0.07;
-      background-image:
-        radial-gradient(1px 1px at 20% 10%, #fff 50%, transparent 51%),
-        radial-gradient(1px 1px at 60% 30%, #fff 50%, transparent 51%),
-        radial-gradient(1px 1px at 80% 70%, #fff 50%, transparent 51%),
-        radial-gradient(1px 1px at 35% 85%, #fff 50%, transparent 51%),
-        radial-gradient(1px 1px at 10% 60%, #fff 50%, transparent 51%),
-        radial-gradient(1px 1px at 50% 50%, #fff 50%, transparent 51%);
-    }
-  }
-
   /* Decorative star accents */
   .poster-star {
     position: absolute;
@@ -288,7 +249,6 @@ const screens = posterScreens.slice(0, screenCount);
     clip-path: polygon(50% 0%, 55% 45%, 100% 50%, 55% 55%, 50% 100%, 45% 55%, 0% 50%, 45% 45%);
     opacity: 0.5;
   }
-  :global(:root[data-theme="dark"]) .poster-star,
   :global(:root[data-theme="dark"]) .poster-star { background: var(--brand-secondary); opacity: 0.4; }
   @media (prefers-color-scheme: dark) {
     :global(:root:not([data-theme="light"])) .poster-star { background: var(--brand-secondary); opacity: 0.4; }
@@ -444,7 +404,6 @@ const screens = posterScreens.slice(0, screenCount);
         color-mix(in oklab, var(--pt-light, var(--brand-secondary)) 60%, white) 50%,
         color-mix(in oklab, var(--pt-light, var(--brand-secondary)) 25%, var(--surface-elevated)) 100%);
   }
-  :global(:root[data-theme="dark"]) .bc-grad,
   :global(:root[data-theme="dark"]) .bc-grad {
     background:
       radial-gradient(120% 100% at 50% 0%,
@@ -460,18 +419,6 @@ const screens = posterScreens.slice(0, screenCount);
           color-mix(in oklab, var(--pt-dark, var(--brand-primary)) 70%, black) 50%,
           var(--surface-dark) 100%);
     }
-  }
-  .bc-grain {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    pointer-events: none;
-    opacity: 0.05;
-    mix-blend-mode: overlay;
-    background-image: radial-gradient(1px 1px at 25% 20%, #000 50%, transparent 51%),
-                      radial-gradient(1px 1px at 70% 60%, #000 50%, transparent 51%),
-                      radial-gradient(1px 1px at 45% 80%, #000 50%, transparent 51%);
-    background-size: 160px 160px;
   }
   .bc-w {
     position: absolute;
@@ -497,7 +444,6 @@ const screens = posterScreens.slice(0, screenCount);
     white-space: nowrap;
   }
   html[dir="rtl"] .bc-displaytitle { transform: translateX(50%); letter-spacing: 0; text-transform: none; }
-  :global(:root[data-theme="dark"]) .bc-displaytitle,
   :global(:root[data-theme="dark"]) .bc-displaytitle { color: #fff; opacity: 0.85; }
   @media (prefers-color-scheme: dark) {
     :global(:root:not([data-theme="light"])) .bc-displaytitle { color: #fff; opacity: 0.85; }

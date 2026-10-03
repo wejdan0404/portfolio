@@ -55,7 +55,11 @@ const copy = {
 
     <aside class="hero-visual" aria-label={copy.visualLabel}>
       <div class="panel">
+        <!-- § 07 Depth and light: "One signal is enough." One glow orb,
+             in the one composition the density ladder allows it. -->
         <span class="panel-gradient" aria-hidden="true"></span>
+        <span class="panel-glow wj-glow" aria-hidden="true"></span>
+        <span class="panel-grain wj-texture" data-texture="soft-grain" aria-hidden="true"></span>
         <svg class="panel-w" viewBox="0 0 48 48" width="60%" height="60%" aria-hidden="true">
           <path fill-rule="evenodd" clip-rule="evenodd" d={W_MONOGRAM_PATH}
                 fill="var(--logo-primary)"/>
@@ -217,20 +221,37 @@ const copy = {
     place-items: center;
     isolation: isolate;
   }
+  /* The field is the canonical brand gradient from § 07; the light on top of
+     it is one glow orb, and the surface carries one texture. Three layers,
+     one of each kind — "stacked textures" and a second light source are both
+     out by the rules. */
   .panel-gradient {
     position: absolute;
     inset: 0;
-    background:
-      radial-gradient(120% 90% at 50% 10%,
-        color-mix(in oklab, var(--brand-secondary) 65%, transparent) 0%,
-        color-mix(in oklab, var(--brand-secondary) 20%, transparent) 40%,
-        transparent 72%),
-      linear-gradient(180deg,
-        color-mix(in oklab, var(--brand-secondary) 22%, var(--surface-elevated)) 0%,
-        var(--surface-elevated) 100%);
     z-index: 0;
     pointer-events: none;
+    /* A quiet lift off the panel surface, so the glow above it has something
+       to sit on. The canonical brand gradient is not used here: it ends on
+       pale sky, which leaves the mark with nothing to hold against. */
+    background: linear-gradient(
+      180deg,
+      color-mix(in oklab, var(--glow-accent) 16%, var(--surface-elevated)) 0%,
+      var(--surface-elevated) 100%
+    );
   }
+  .panel-glow {
+    --wj-glow-size: clamp(190px, 24vw, 330px);
+    --wj-glow-opacity: 0.85;
+    inset-block-start: -12%;
+    inset-inline-start: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+  }
+  /* `html[...]` and not a bare `[dir="rtl"]`: Astro scopes the ancestor in a
+     bare attribute selector to this component too, and <html> never carries a
+     component scope, so the rule would silently never match. */
+  html[dir="rtl"] .panel-glow { transform: translateX(50%); }
+  .panel-grain { z-index: 1; opacity: 0.9; }
   .panel-w {
     position: relative;
     z-index: 1;

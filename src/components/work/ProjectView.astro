@@ -259,7 +259,7 @@ const flaggedForReflection =
         {heroKind === "poster" ? (
           <div class={`pv-poster pv-poster-${heroScreens.length}`} role="img" aria-label={title}>
             <span class="pv-poster-bg" aria-hidden="true"></span>
-            <span class="pv-poster-grain" aria-hidden="true"></span>
+            <span class="pv-poster-grain wj-texture" data-texture="paper-grain" aria-hidden="true"></span>
             <span class="pv-poster-star pv-poster-star-a" aria-hidden="true"></span>
             <span class="pv-poster-star pv-poster-star-b" aria-hidden="true"></span>
             <span class="pv-poster-star pv-poster-star-c" aria-hidden="true"></span>
@@ -777,6 +777,8 @@ const flaggedForReflection =
     overflow: hidden;
     isolation: isolate;
   }
+  /* § 06 Texture — see WorkCard. */
+  .pv-poster-grain { z-index: 1; }
   .pv-poster-bg {
     position: absolute;
     inset: 0;
@@ -788,7 +790,6 @@ const flaggedForReflection =
         color-mix(in oklab, var(--pt-light, var(--brand-secondary)) 55%, white) 42%,
         color-mix(in oklab, var(--pt-light, var(--brand-secondary)) 22%, var(--surface-subtle)) 100%);
   }
-  :global(:root[data-theme="dark"]) .pv-poster-bg,
   :global(:root[data-theme="dark"]) .pv-poster-bg {
     background:
       radial-gradient(140% 120% at 50% 0%,
@@ -805,39 +806,6 @@ const flaggedForReflection =
           color-mix(in oklab, var(--pt-dark, var(--brand-primary)) 25%, var(--surface-default)) 100%);
     }
   }
-  .pv-poster-grain {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    pointer-events: none;
-    opacity: 0.05;
-    mix-blend-mode: overlay;
-    background-image:
-      radial-gradient(1px 1px at 20% 10%, #000 50%, transparent 51%),
-      radial-gradient(1px 1px at 60% 30%, #000 50%, transparent 51%),
-      radial-gradient(1px 1px at 80% 70%, #000 50%, transparent 51%),
-      radial-gradient(1px 1px at 35% 85%, #000 50%, transparent 51%);
-    background-size: 220px 220px;
-  }
-  :global(:root[data-theme="dark"]) .pv-poster-grain,
-  :global(:root[data-theme="dark"]) .pv-poster-grain {
-    opacity: 0.08;
-    background-image:
-      radial-gradient(1px 1px at 20% 10%, #fff 50%, transparent 51%),
-      radial-gradient(1px 1px at 60% 30%, #fff 50%, transparent 51%),
-      radial-gradient(1px 1px at 80% 70%, #fff 50%, transparent 51%),
-      radial-gradient(1px 1px at 35% 85%, #fff 50%, transparent 51%);
-  }
-  @media (prefers-color-scheme: dark) {
-    :global(:root:not([data-theme="light"])) .pv-poster-grain {
-      opacity: 0.08;
-      background-image:
-        radial-gradient(1px 1px at 20% 10%, #fff 50%, transparent 51%),
-        radial-gradient(1px 1px at 60% 30%, #fff 50%, transparent 51%),
-        radial-gradient(1px 1px at 80% 70%, #fff 50%, transparent 51%),
-        radial-gradient(1px 1px at 35% 85%, #fff 50%, transparent 51%);
-    }
-  }
   .pv-poster-star {
     position: absolute;
     z-index: 2;
@@ -845,7 +813,6 @@ const flaggedForReflection =
     background: var(--brand-primary);
     clip-path: polygon(50% 0%, 55% 45%, 100% 50%, 55% 55%, 50% 100%, 45% 55%, 0% 50%, 45% 45%);
   }
-  :global(:root[data-theme="dark"]) .pv-poster-star,
   :global(:root[data-theme="dark"]) .pv-poster-star { background: var(--brand-secondary); }
   @media (prefers-color-scheme: dark) {
     :global(:root:not([data-theme="light"])) .pv-poster-star { background: var(--brand-secondary); }
@@ -936,7 +903,6 @@ const flaggedForReflection =
     place-items: center;
     overflow: hidden;
   }
-  :global(:root[data-theme="dark"]) .pv-brand-panel,
   :global(:root[data-theme="dark"]) .pv-brand-panel {
     background:
       radial-gradient(120% 100% at 50% 0%,
@@ -992,7 +958,6 @@ const flaggedForReflection =
     white-space: nowrap;
   }
   html[dir="rtl"] .pv-brand-caption { transform: translateX(50%); }
-  :global(:root[data-theme="dark"]) .pv-brand-caption,
   :global(:root[data-theme="dark"]) .pv-brand-caption { color: #fff; opacity: 0.88; }
   @media (prefers-color-scheme: dark) {
     :global(:root:not([data-theme="light"])) .pv-brand-caption { color: #fff; opacity: 0.88; }

@@ -1,0 +1,94 @@
+/* Graphic language — depth and light
+ *
+ * Source: Figma pei6kBFtNKDcYAwPBG1gTN, page "06 — GRAPHIC LANGUAGE",
+ * § 07 Depth and light. Three light sources, with the stops, opacities and
+ * blur radii read off the Figma nodes rather than approximated:
+ *
+ *   Glow orb    "Light makes depth."   320 circle, radial #9BC4EE
+ *               a.85 -> a.25 at 50% -> a0 at 100%, layer blur 80.
+ *   Light beam  "One signal is enough." three stacked passes of one linear
+ *               gradient — #BEDAF7 a0, #9BC4EE a.90 at 35%, #6172B5 a.60 at
+ *               70%, #2B3358 a0 — at 725/609/580 wide, opacity .55/.75/.95,
+ *               blur 62.5/18.4/12.
+ *   Grain       the texture set; see textures.css.
+ *
+ * The beam's own caption is the rule: one signal is enough. One light source
+ * per composition, and the hero is the only place the system allows a full
+ * one (Density Level 4 — "hero only, once per artefact").
+ *
+ * Blur is expressed relative to the element so the light scales with whatever
+ * it sits on, instead of being pinned to the 320 box Figma drew it in.
+ */
+
+.wj-glow {
+  position: absolute;
+  pointer-events: none;
+  border-radius: 50%;
+  /* Figma: radial #9BC4EE at 85% -> 25% at half -> 0 at the edge. */
+  background: radial-gradient(
+    circle at 50% 50%,
+    color-mix(in oklab, var(--glow-accent) 85%, transparent) 0%,
+    color-mix(in oklab, var(--glow-accent) 25%, transparent) 50%,
+    transparent 100%
+  );
+  /* Figma: layer blur 80 on a 320 orb = a quarter of its size.
+     blur() only accepts a length, so --wj-glow-size must be one too — a
+     percentage here makes the whole filter invalid and the blur vanishes
+     without warning. Call sites scale it with clamp()/vw, not %. */
+  width: var(--wj-glow-size, 320px);
+  height: var(--wj-glow-size, 320px);
+  filter: blur(calc(var(--wj-glow-size, 320px) / 4));
+  opacity: var(--wj-glow-opacity, 1);
+}
+
+.wj-beam {
+  position: absolute;
+  pointer-events: none;
+  inset-inline: 0;
+  height: var(--wj-beam-height, 102px);
+}
+.wj-beam::before,
+.wj-beam::after,
+.wj-beam > span {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 50%;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: linear-gradient(
+    90deg,
+    color-mix(in oklab, var(--brand-secondary) 0%, transparent) 0%,
+    color-mix(in oklab, var(--glow-accent) 90%, transparent) 35%,
+    color-mix(in oklab, var(--brand-primary) 60%, transparent) 70%,
+    transparent 100%
+  );
+}
+/* The three passes, widest and softest first. */
+.wj-beam::before { width: 125%; opacity: 0.55; filter: blur(62.5px); }
+.wj-beam > span  { width: 105%; opacity: 0.75; filter: blur(18.4px); }
+.wj-beam::after  { width: 100%; opacity: 0.95; filter: blur(12px); }
+
+[dir="rtl"] .wj-beam::before,
+[dir="rtl"] .wj-beam::after,
+[dir="rtl"] .wj-beam > span { transform: translateX(50%) scaleX(-1); }
+
+/* The canonical brand gradient, from the § 07 grain comparison tile:
+   #3D4877 -> #6172B5 at 45% -> #9BC4EE. Bound to tokens, not the hexes. */
+.wj-brand-gradient {
+  /* Figma: #3D4877 -> #6172B5 at 45% -> #9BC4EE. The first stop has no
+     semantic token of its own, and --action-hover (which matches it in light)
+     inverts to a pale blue in dark, flipping the whole gradient. Mixing
+     brand-primary into surface-dark lands on #404C78 and holds in both
+     themes, which is what a brand surface needs. */
+  background: linear-gradient(
+    160deg,
+    color-mix(in oklab, var(--brand-primary) 62%, var(--surface-dark)) 0%,
+    var(--brand-primary) 45%,
+    var(--glow-accent) 100%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wj-glow, .wj-beam { transition: none; }
+}
