@@ -1,0 +1,64 @@
+---
+import { type Locale } from "../../lib/i18n";
+import { strings, pick } from "../../lib/strings";
+
+export interface Props {
+  status: "tested" | "planned" | "early";
+  locale: Locale;
+  small?: boolean;
+  /** If true, render only the mark with no label text (for compact legends). */
+  markOnly?: boolean;
+}
+const { status, locale, small = false, markOnly = false } = Astro.props;
+const label = pick(strings.statusLabel[status], locale);
+---
+
+<span class={`evdot ${small ? "evdot-sm" : ""} ${markOnly ? "evdot-mark-only" : ""}`}>
+  <span class={`evdot-mark evdot-mark-${status}`} aria-hidden="true"></span>
+  {markOnly ? null : <span class="evdot-label">{label}</span>}
+</span>
+
+<style>
+  .evdot {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    line-height: 1.1;
+  }
+  html[lang="ar"] .evdot { font-size: 0.9rem; letter-spacing: 0; text-transform: none; }
+  .evdot-sm { font-size: 0.75rem; }
+  html[lang="ar"] .evdot-sm { font-size: 0.85rem; }
+
+  /* The dot itself — override the global .dot utilities with scoped shape */
+  .evdot-mark {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    flex-shrink: 0;
+    box-sizing: border-box;
+  }
+  .evdot-sm .evdot-mark { width: 9px; height: 9px; }
+
+  /* Tested — solid, filled with the brand accent */
+  .evdot-mark-tested {
+    background: var(--brand-primary);
+    border: 1.5px solid var(--brand-primary);
+  }
+  /* Planned — outline only */
+  .evdot-mark-planned {
+    background: transparent;
+    border: 1.5px solid var(--text-secondary);
+  }
+  /* Early — dashed outline */
+  .evdot-mark-early {
+    background: transparent;
+    border: 1.5px dashed var(--text-muted);
+  }
+
+  .evdot-mark-only { gap: 0; }
+</style>

@@ -1,0 +1,67 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import Base from "../../../layouts/Base.astro";
+import ProjectView from "../../../components/work/ProjectView.astro";
+import { type Locale, LOCALES } from "../../../lib/i18n";
+import { pick } from "../../../lib/strings";
+
+const DEFAULT_ORDER = ["mishkat", "arcadea", "rafiq", "wraf", "vui", "petcare"];
+
+export async function getStaticPaths() {
+  const all = await getCollection("case-studies");
+  all.sort((a, b) => {
+    const oa = typeof (a.data as any).order === "number"
+      ? (a.data as any).order
+      : DEFAULT_ORDER.indexOf(a.data.slug);
+    const ob = typeof (b.data as any).order === "number"
+      ? (b.data as any).order
+      : DEFAULT_ORDER.indexOf(b.data.slug);
+    return (oa === -1 ? 999 : oa) - (ob === -1 ? 999 : ob);
+  });
+
+  const paths: Array<{
+    params: { locale: Locale; slug: string };
+    props: {
+      entry: CollectionEntry<"case-studies">;
+      prev?: CollectionEntry<"case-studies">;
+      next?: CollectionEntry<"case-studies">;
+    };
+  }> = [];
+
+  for (const l of LOCALES) {
+    for (let i = 0; i < all.length; i++) {
+      paths.push({
+        params: { locale: l, slug: all[i].data.slug },
+        props: {
+          entry: all[i],
+          prev: i > 0 ? all[i - 1] : undefined,
+          next: i < all.length - 1 ? all[i + 1] : undefined,
+        },
+      });
+    }
+  }
+  return paths;
+}
+
+const { entry, prev, next } = Astro.props as {
+  entry: CollectionEntry<"case-studies">;
+  prev?: CollectionEntry<"case-studies">;
+  next?: CollectionEntry<"case-studies">;
+};
+const locale = Astro.params.locale as Locale;
+
+const d = entry.data as any;
+const title = pick(d.title, locale);
+const sub = pick(d.sub, locale);
+const pageTitle = title; // Base appends site title
+const pageDescription = sub;
+---
+
+<Base
+  locale={locale}
+  path={`/work/${entry.data.slug}`}
+  title={pageTitle}
+  description={pageDescription}
+>
+  <ProjectView entry={entry} prev={prev} next={next} locale={locale} />
+</Base>

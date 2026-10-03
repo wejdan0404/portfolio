@@ -1,0 +1,946 @@
+---
+/**
+ * ProjectView — shared body for /[locale]/work/[slug].astro.
+ *
+ * Renders the full case-study page: sticky PV bar, hero, context strip,
+ * problem, approach, evidence (metric tiles or honest "no results" note),
+ * closing, review-mode-only reflection placeholder, credits, and prev/next.
+ *
+ * Honest-by-default:
+ *   - Status "planned": no metrics render; "No completed test results." note.
+ *   - Status "early":   "Early exploration" note; no metrics.
+ *   - No teammate names ever appear in copy.
+ *   - [CONTENT REQUIRED] flags are hidden in normal mode; visible with
+ *     ?review=1 or #review (sets data-review="1" on body).
+ */
+
+import type { CollectionEntry } from "astro:content";
+import { type Locale, localePath } from "../../lib/i18n";
+import { strings, pick } from "../../lib/strings";
+import EvidenceDot from "./EvidenceDot.astro";
+import MetricTile from "./MetricTile.astro";
+import ReviewFlag from "./ReviewFlag.astro";
+
+export interface Props {
+  entry: CollectionEntry<"case-studies">;
+  prev?: CollectionEntry<"case-studies">;
+  next?: CollectionEntry<"case-studies">;
+  locale: Locale;
+}
+const { entry, prev, next, locale } = Astro.props;
+
+// Treat the data as a superset so this component works whether the content
+// collection follows the richer schema (year/context/teamSize/hero/images[])
+// or the lean schema (slug/tier/status/order/.../images/flags).
+const d = entry.data as any;
+
+const title = pick(d.title, locale);
+const sub = pick(d.sub, locale);
+const problemText = d.problem ? pick(d.problem, locale) : "";
+const approachText = d.approach ? pick(d.approach, locale) : "";
+const roleText = d.role ? pick(d.role, locale) : "";
+const closingText = d.closing ? pick(d.closing, locale) : "";
+const contextText = d.context ? pick(d.context, locale) : "";
+const taglineText = d.tagline ? pick(d.tagline, locale) : "";
+const sourceNoteText = d.sourceNote ? pick(d.sourceNote, locale) : "";
+
+const images: Array<{
+  src: string;
+  alt?: { en: string; ar: string };
+  caption?: { en: string; ar: string };
+  width?: number;
+  height?: number;
+}> = Array.isArray(d.images) ? d.images : [];
+
+const heroKind: "image" | "composition" | "brand" =
+  d.hero?.kind === "image"
+    ? "image"
+    : d.coverTreatment === "brand" || d.hero?.kind === "composition"
+    ? "composition"
+    : images.length > 0
+    ? "image"
+    : "composition";
+
+const heroImage: typeof images[number] | undefined =
+  heroKind === "image"
+    ? d.hero?.image
+      ? { src: d.hero.image, alt: d.hero.alt, width: d.hero.width, height: d.hero.height }
+      : images[0]
+    : undefined;
+
+// Figures used in the Approach block — up to two, drawn from `images` after
+// the first one if that one is also the hero.
+const approachFigures = (() => {
+  if (heroKind !== "image") return images.slice(0, 2);
+  // If the hero comes from `hero.image` (not from images[0]), start from 0.
+  // Otherwise, skip the first because it is already the hero.
+  const heroFromImages = !d.hero?.image && images.length > 0;
+  return (heroFromImages ? images.slice(1) : images).slice(0, 2);
+})();
+
+const evidence: Array<{
+  value: string;
+  label: { en: string; ar: string };
+  n?: number;
+  source?: string;
+}> = Array.isArray(d.evidence) ? d.evidence : [];
+
+const status: "tested" | "planned" | "early" = d.status;
+const teamSize: number | undefined = typeof d.teamSize === "number" ? d.teamSize : undefined;
+const year: string | undefined = typeof d.year === "string" ? d.year : undefined;
+
+const back = localePath(locale, "work");
+
+// Prev/next href + label
+const prevHref = prev ? localePath(locale, `work/${prev.data.slug}`) : undefined;
+const nextHref = next ? localePath(locale, `work/${next.data.slug}`) : undefined;
+const prevTitle = prev ? pick((prev.data as any).title, locale) : "";
+const nextTitle = next ? pick((next.data as any).title, locale) : "";
+
+const L = {
+  work: pick(strings.nav.work, locale),
+  prev: locale === "ar" ? "السابق" : "Previous",
+  next: locale === "ar" ? "التالي" : "Next",
+  back: locale === "ar" ? "العودة إلى الأعمال" : "Back to work",
+  problem: pick(strings.caseStudyLabels.problem, locale),
+  approach: pick(strings.caseStudyLabels.approach, locale),
+  role: pick(strings.caseStudyLabels.role_, locale),
+  context: pick(strings.caseStudyLabels.context, locale),
+  team: pick(strings.caseStudyLabels.teamSize, locale),
+  year: pick(strings.caseStudyLabels.year, locale),
+  statusL: pick(strings.caseStudyLabels.status, locale),
+  closing: pick(strings.caseStudyLabels.closing, locale),
+  evidenceTested: pick(strings.caseStudyLabels.evidence, locale),
+  evidencePlanned: locale === "ar" ? "التقييم مُخطَّط" : "Evaluation planned",
+  evidenceEarly: locale === "ar" ? "استكشاف مبكر" : "Early exploration",
+  evidenceNoneTested: locale === "ar"
+    ? "لا توجد نتائج اختبار مكتملة."
+    : "No completed test results.",
+  evidenceNoneEarly: locale === "ar"
+    ? "عمل مبكر؛ لم تُجمع أدلة قابلة للعرض بعد."
+    : "An early piece; no evidence has been collected to show yet.",
+  reflection: locale === "ar" ? "تأمل" : "Reflection",
+  reflectionPlaceholder: locale === "ar"
+    ? "فقرة تأمّل من وجدان — ستُضاف لاحقًا."
+    : "A short reflection from Wejdan — to be written.",
+  credits: locale === "ar"
+    ? "عمل جماعي؛ الإسهامات الفردية مذكورة أعلاه."
+    : "A team project; individual contributions as noted above.",
+  sub: pick(strings.caseStudyLabels.outcome, locale),
+  sources: locale === "ar" ? "المصادر" : "Sources",
+  teamFmt: (n: number) =>
+    locale === "ar" ? `فريق من ${n}` : n === 1 ? "Solo" : `Team of ${n}`,
+  statusText: pick(strings.statusLabel[status], locale),
+};
+
+const evidenceHeading = (() => {
+  if (status === "tested") return L.evidenceTested;
+  if (status === "planned") return L.evidencePlanned;
+  return L.evidenceEarly;
+})();
+
+// Reflection is pending for every case study right now (per CLAUDE.md §7).
+// In review mode it appears as a [CONTENT REQUIRED] placeholder; in normal
+// mode the whole block is skipped.
+const flaggedForReflection =
+  (d.flags && Array.isArray(d.flags.contentRequired) && d.flags.contentRequired.includes("reflection")) ||
+  d.flags?.reflection === true ||
+  true; // default: every case study still has an empty reflection.
+---
+
+<article class="pv" data-pv>
+  <!-- Sticky PV bar -->
+  <nav class="pv-bar" aria-label={L.work}>
+    <div class="container-wide pv-bar-inner">
+      <a href={back} class="pv-back">
+        <svg class="pv-arrow mirror" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"
+             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        <span class="pv-back-label">{L.back}</span>
+      </a>
+      <ol class="pv-crumbs" aria-label={locale === "ar" ? "مسار التنقل" : "Breadcrumb"}>
+        <li><a href={back}>{L.work}</a></li>
+        <li aria-hidden="true" class="pv-crumb-sep">
+          <svg class="mirror" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 6l6 6-6 6"/>
+          </svg>
+        </li>
+        <li aria-current="page" class="pv-crumb-current">{title}</li>
+      </ol>
+      <div class="pv-nav-pair">
+        {prevHref ? (
+          <a href={prevHref} class="pv-nav-btn" aria-label={`${L.prev}: ${prevTitle}`}>
+            <svg class="pv-arrow mirror" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"
+                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+            <span class="pv-nav-label">{L.prev}</span>
+          </a>
+        ) : <span class="pv-nav-btn pv-nav-disabled" aria-hidden="true"></span>}
+        {nextHref ? (
+          <a href={nextHref} class="pv-nav-btn" aria-label={`${L.next}: ${nextTitle}`}>
+            <span class="pv-nav-label">{L.next}</span>
+            <svg class="pv-arrow pv-arrow-fwd mirror" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"
+                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M13 5l7 7-7 7"/>
+            </svg>
+          </a>
+        ) : <span class="pv-nav-btn pv-nav-disabled" aria-hidden="true"></span>}
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="pv-hero">
+    <div class="container-wide pv-hero-grid">
+      <div class="pv-hero-text">
+        <div class="pv-eyebrow">
+          <EvidenceDot status={status} locale={locale} />
+          {year ? <span class="pv-eyebrow-dot">·</span> : null}
+          {year ? <span class="pv-year">{year}</span> : null}
+        </div>
+        <h1 class="pv-title">{title}</h1>
+        <p class="pv-sub">{sub}</p>
+        {taglineText ? <p class="pv-tagline">{taglineText}</p> : null}
+        {roleText ? (
+          <p class="pv-role">
+            <span class="pv-role-lab">{L.role}</span>
+            <span class="pv-role-text">{roleText}</span>
+          </p>
+        ) : (
+          <ReviewFlag required={["role"]} locale={locale} />
+        )}
+      </div>
+      <figure class="pv-hero-media">
+        {heroKind === "image" && heroImage ? (
+          <img
+            src={heroImage.src}
+            alt={heroImage.alt ? pick(heroImage.alt, locale) : title}
+            width={heroImage.width ?? 1600}
+            height={heroImage.height ?? 1200}
+            loading="eager"
+            decoding="async"
+          />
+        ) : (
+          /* Brand composition panel: W + three stars + title */
+          <div class="pv-brand-panel" role="img" aria-label={title}>
+            <div class="pv-brand-stars" aria-hidden="true">
+              <span class="pv-brand-star"></span>
+              <span class="pv-brand-star"></span>
+              <span class="pv-brand-star"></span>
+            </div>
+            <span class="pv-brand-w" aria-hidden="true">
+              {locale === "ar" ? d.title.ar.slice(0, 1) : d.title.en.slice(0, 1)}
+            </span>
+            <span class="pv-brand-caption">{title}</span>
+          </div>
+        )}
+        {heroImage?.caption ? (
+          <figcaption class="pv-fig-cap">{pick(heroImage.caption, locale)}</figcaption>
+        ) : null}
+      </figure>
+    </div>
+  </header>
+
+  <!-- Context strip -->
+  <section class="pv-context" aria-label={L.context}>
+    <div class="container-wide">
+      <dl class="pv-context-grid">
+        <div class="pv-ctx-cell">
+          <dt>{L.year}</dt>
+          <dd>{year ?? <ReviewFlag required={["year"]} locale={locale} />}</dd>
+        </div>
+        <div class="pv-ctx-cell pv-ctx-wide">
+          <dt>{L.context}</dt>
+          <dd>
+            {contextText || <ReviewFlag required={["context"]} locale={locale} />}
+          </dd>
+        </div>
+        <div class="pv-ctx-cell">
+          <dt>{L.statusL}</dt>
+          <dd class="pv-ctx-status">
+            <EvidenceDot status={status} locale={locale} />
+          </dd>
+        </div>
+        <div class="pv-ctx-cell">
+          <dt>{L.team}</dt>
+          <dd>{teamSize ? L.teamFmt(teamSize) : <ReviewFlag required={["teamSize"]} locale={locale} />}</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- Problem -->
+  <section class="pv-block" aria-labelledby={`pv-problem-${d.slug}`}>
+    <div class="container-wide pv-block-grid">
+      <div class="pv-block-head">
+        <span class="pv-label">{L.problem}</span>
+        <h2 id={`pv-problem-${d.slug}`} class="pv-h2">
+          {locale === "ar" ? "ما الذي كان يحتاج إلى حل؟" : "What needed solving."}
+        </h2>
+      </div>
+      <div class="pv-block-body">
+        {problemText ? (
+          <p class="pv-prose">{problemText}</p>
+        ) : (
+          <ReviewFlag required={["problem"]} locale={locale} />
+        )}
+      </div>
+    </div>
+  </section>
+
+  <!-- Approach -->
+  <section class="pv-block pv-block-alt" aria-labelledby={`pv-approach-${d.slug}`}>
+    <div class="container-wide pv-block-grid">
+      <div class="pv-block-head">
+        <span class="pv-label">{L.approach}</span>
+        <h2 id={`pv-approach-${d.slug}`} class="pv-h2">
+          {locale === "ar" ? "كيف اقتربنا من المشكلة." : "How we approached it."}
+        </h2>
+      </div>
+      <div class="pv-block-body">
+        {approachText ? (
+          <p class="pv-prose">{approachText}</p>
+        ) : (
+          <ReviewFlag required={["approach"]} locale={locale} />
+        )}
+        {approachFigures.length > 0 && (
+          <div class="pv-figs">
+            {approachFigures.map((img) => (
+              <figure class="pv-fig">
+                <img
+                  src={img.src}
+                  alt={img.alt ? pick(img.alt, locale) : title}
+                  width={img.width ?? 1600}
+                  height={img.height ?? 1200}
+                  loading="lazy"
+                  decoding="async"
+                />
+                {img.caption ? (
+                  <figcaption class="pv-fig-cap">{pick(img.caption, locale)}</figcaption>
+                ) : null}
+              </figure>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <!-- Evidence -->
+  <section class="pv-block" aria-labelledby={`pv-evidence-${d.slug}`}>
+    <div class="container-wide pv-block-grid">
+      <div class="pv-block-head">
+        <span class="pv-label">
+          <EvidenceDot status={status} locale={locale} markOnly />
+          <span class="pv-label-text">{evidenceHeading}</span>
+        </span>
+        <h2 id={`pv-evidence-${d.slug}`} class="pv-h2">
+          {status === "tested"
+            ? (locale === "ar" ? "ما قاله الاختبار." : "What the test said.")
+            : status === "planned"
+            ? (locale === "ar" ? "الخطة دون اختبار." : "Planned, not run.")
+            : (locale === "ar" ? "لم يصل بعد إلى الاختبار." : "Not yet at the test stage.")}
+        </h2>
+      </div>
+      <div class="pv-block-body">
+        {status === "tested" && evidence.length > 0 ? (
+          <div class="pv-metrics">
+            {evidence.map((e) => (
+              <MetricTile
+                value={e.value}
+                label={e.label}
+                n={e.n}
+                source={e.source}
+                locale={locale}
+                size="md"
+              />
+            ))}
+          </div>
+        ) : status === "tested" ? (
+          <ReviewFlag required={["evidence"]} locale={locale} />
+        ) : (
+          <p class="pv-note">
+            {status === "planned" ? L.evidenceNoneTested : L.evidenceNoneEarly}
+          </p>
+        )}
+
+        {Array.isArray(d.openItems) && d.openItems.length > 0 && (
+          <aside class="pv-open">
+            <h3 class="pv-open-h">
+              {locale === "ar" ? "ما يبقى مفتوحًا" : "What stays open"}
+            </h3>
+            <ul>
+              {d.openItems.map((it: { en: string; ar: string }) => (
+                <li>{pick(it, locale)}</li>
+              ))}
+            </ul>
+          </aside>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <!-- Closing -->
+  <section class="pv-block pv-block-alt" aria-labelledby={`pv-closing-${d.slug}`}>
+    <div class="container-wide pv-block-grid">
+      <div class="pv-block-head">
+        <span class="pv-label">{L.closing}</span>
+        <h2 id={`pv-closing-${d.slug}`} class="pv-h2">
+          {locale === "ar" ? "ما يبقى من هذا المشروع." : "What this one leaves behind."}
+        </h2>
+      </div>
+      <div class="pv-block-body">
+        {closingText ? (
+          <p class="pv-prose pv-prose-lede">{closingText}</p>
+        ) : (
+          <ReviewFlag required={["closing"]} locale={locale} />
+        )}
+        {sourceNoteText ? (
+          <p class="pv-source-note">{sourceNoteText}</p>
+        ) : null}
+      </div>
+    </div>
+  </section>
+
+  <!-- Reflection (review mode only) -->
+  {flaggedForReflection && (
+    <section class="pv-block pv-block-review" aria-labelledby={`pv-reflection-${d.slug}`}>
+      <div class="container-wide pv-block-grid">
+        <div class="pv-block-head">
+          <span class="pv-label">{L.reflection}</span>
+          <h2 id={`pv-reflection-${d.slug}`} class="pv-h2">
+            {locale === "ar" ? "ماذا أخذتُ من هذا المشروع؟" : "What I took from it."}
+          </h2>
+        </div>
+        <div class="pv-block-body">
+          <ReviewFlag required={["reflection"]} locale={locale} variant="stacked" />
+          <p class="pv-prose pv-prose-dim">{L.reflectionPlaceholder}</p>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Credits -->
+  <section class="pv-credits" aria-label={locale === "ar" ? "ائتمان" : "Credits"}>
+    <div class="container-wide">
+      <p class="pv-credits-line">{L.credits}</p>
+    </div>
+  </section>
+
+  <!-- Prev / next -->
+  <nav class="pv-prevnext" aria-label={locale === "ar" ? "تنقّل بين الدراسات" : "Case-study navigation"}>
+    <div class="container-wide pv-prevnext-grid">
+      {prevHref ? (
+        <a href={prevHref} class="pv-pn pv-pn-prev">
+          <span class="pv-pn-dir">
+            <svg class="pv-arrow mirror" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"
+                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+            <span>{L.prev}</span>
+          </span>
+          <span class="pv-pn-title">{prevTitle}</span>
+        </a>
+      ) : <span></span>}
+      {nextHref ? (
+        <a href={nextHref} class="pv-pn pv-pn-next">
+          <span class="pv-pn-dir">
+            <span>{L.next}</span>
+            <svg class="pv-arrow mirror" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"
+                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M13 5l7 7-7 7"/>
+            </svg>
+          </span>
+          <span class="pv-pn-title">{nextTitle}</span>
+        </a>
+      ) : <span></span>}
+    </div>
+  </nav>
+</article>
+
+<script is:inline>
+  // Review mode: enabled by `?review=1` in the URL or `#review` in the hash.
+  // Flips `data-review="1"` on <body>, which flips ReviewFlag + review blocks
+  // from hidden to visible. Normal visitors never see any of it.
+  (function () {
+    try {
+      var q = new URLSearchParams(location.search);
+      var isReview = q.get("review") === "1" || location.hash === "#review";
+      if (isReview) {
+        document.body.setAttribute("data-review", "1");
+      }
+    } catch (e) { /* ignore */ }
+  })();
+</script>
+
+<style>
+  .pv { display: block; }
+
+  /* Sticky project-view bar */
+  .pv-bar {
+    position: sticky;
+    top: 68px; /* height of the site header */
+    z-index: 20;
+    background: color-mix(in oklab, var(--surface-default) 92%, transparent);
+    backdrop-filter: saturate(1.4) blur(14px);
+    -webkit-backdrop-filter: saturate(1.4) blur(14px);
+    border-block-end: 1px solid var(--border-subtle);
+  }
+  .pv-bar-inner {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    min-height: 52px;
+    padding-block: 0.5rem;
+  }
+  .pv-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    padding: 0.5rem 0.6rem;
+    border-radius: 999px;
+    min-height: 44px;
+  }
+  .pv-back:hover { background: var(--surface-subtle); color: var(--text-primary); }
+  .pv-back-label { display: none; }
+  @media (min-width: 560px) { .pv-back-label { display: inline; } }
+
+  .pv-crumbs {
+    display: none;
+    align-items: center;
+    gap: 0.5rem;
+    list-style: none;
+    padding: 0; margin: 0;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    flex: 1;
+    min-width: 0;
+  }
+  @media (min-width: 760px) { .pv-crumbs { display: inline-flex; } }
+  html[lang="ar"] .pv-crumbs { font-size: 0.95rem; }
+  .pv-crumbs a { color: var(--text-muted); text-decoration: none; }
+  .pv-crumbs a:hover { color: var(--text-primary); }
+  .pv-crumb-sep { display: inline-flex; align-items: center; opacity: 0.6; }
+  .pv-crumb-current {
+    color: var(--text-primary);
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .pv-nav-pair {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin-inline-start: auto;
+  }
+  .pv-nav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 999px;
+    text-decoration: none;
+    color: var(--text-primary);
+    font-size: 0.875rem;
+    font-weight: 500;
+    min-height: 44px;
+    border: 1px solid transparent;
+  }
+  .pv-nav-btn:hover { background: var(--surface-subtle); border-color: var(--border-subtle); }
+  .pv-nav-label { display: none; }
+  @media (min-width: 640px) { .pv-nav-label { display: inline; } }
+  .pv-nav-disabled { pointer-events: none; opacity: 0; width: 44px; height: 44px; }
+
+  /* Hero */
+  .pv-hero { padding-block: clamp(2.5rem, 6vw, 4.5rem); }
+  .pv-hero-grid {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 1fr;
+    align-items: center;
+  }
+  @media (min-width: 960px) {
+    .pv-hero-grid { grid-template-columns: 7fr 5fr; gap: 3rem; }
+  }
+  .pv-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-muted);
+    font-size: 0.8125rem;
+  }
+  .pv-eyebrow-dot { opacity: 0.6; }
+  .pv-year {
+    font-variant-numeric: lining-nums tabular-nums;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+  }
+  html[lang="ar"] .pv-year { letter-spacing: 0; text-transform: none; font-size: 0.85rem; }
+
+  .pv-title {
+    font-size: clamp(2.25rem, 5.5vw, 4rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.08;
+    margin-block-start: 1rem;
+    max-width: 16ch;
+  }
+  html[lang="ar"] .pv-title { letter-spacing: 0; line-height: 1.22; }
+  .pv-sub {
+    margin-block-start: 1.25rem;
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+    line-height: 1.55;
+    max-width: 48ch;
+  }
+  html[lang="ar"] .pv-sub { line-height: 1.8; font-size: 1.15rem; }
+
+  .pv-tagline {
+    margin-block-start: 0.9rem;
+    font-size: 1rem;
+    color: var(--text-accent);
+    font-style: italic;
+    max-width: 48ch;
+  }
+  html[lang="ar"] .pv-tagline { font-style: normal; }
+
+  .pv-role {
+    margin-block-start: 1.5rem;
+    padding: 1rem 1.1rem;
+    border: 1px solid var(--border-subtle);
+    background: var(--surface-subtle);
+    border-radius: 12px;
+    font-size: 0.9375rem;
+    color: var(--text-primary);
+    line-height: 1.55;
+    max-width: 56ch;
+    display: block;
+  }
+  html[lang="ar"] .pv-role { font-size: 1rem; line-height: 1.8; }
+  .pv-role-lab {
+    display: block;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-block-end: 0.4rem;
+  }
+  html[lang="ar"] .pv-role-lab { letter-spacing: 0; text-transform: none; font-size: 0.85rem; }
+
+  /* Hero media */
+  .pv-hero-media {
+    margin: 0;
+    padding: 1rem;
+    background: var(--surface-subtle);
+    border: 1px solid var(--border-subtle);
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .pv-hero-media img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    display: block;
+    background: var(--surface-elevated);
+  }
+  .pv-fig-cap {
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+  html[lang="ar"] .pv-fig-cap { font-size: 0.9rem; line-height: 1.7; }
+
+  /* Brand composition panel */
+  .pv-brand-panel {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    border-radius: 14px;
+    background: linear-gradient(140deg, var(--surface-inverse) 0%, #2b3358 55%, var(--brand-primary) 100%);
+    color: #fff;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+  }
+  .pv-brand-stars {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  .pv-brand-star {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    background: var(--brand-secondary);
+    clip-path: polygon(50% 0%, 55% 45%, 100% 50%, 55% 55%, 50% 100%, 45% 55%, 0% 50%, 45% 45%);
+    opacity: 0.9;
+  }
+  .pv-brand-star:nth-child(1) { inset-block-start: 14%; inset-inline-start: 12%; width: 18px; height: 18px; }
+  .pv-brand-star:nth-child(2) { inset-block-end: 20%; inset-inline-end: 18%; opacity: 0.6; }
+  .pv-brand-star:nth-child(3) { inset-block-start: 42%; inset-inline-end: 10%; width: 10px; height: 10px; opacity: 0.75; }
+  .pv-brand-w {
+    font-size: clamp(5rem, 14vw, 9rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    text-shadow: 0 10px 40px rgba(0,0,0,0.35);
+    line-height: 1;
+  }
+  html[lang="ar"] .pv-brand-w { letter-spacing: 0; }
+  .pv-brand-caption {
+    position: absolute;
+    inset-block-end: 1rem;
+    inset-inline-start: 1rem;
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.9);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  html[lang="ar"] .pv-brand-caption { letter-spacing: 0; text-transform: none; font-size: 0.95rem; }
+
+  /* Context strip */
+  .pv-context {
+    padding-block: 1.25rem;
+    border-block: 1px solid var(--border-subtle);
+    background: var(--surface-subtle);
+  }
+  .pv-context-grid {
+    display: grid;
+    gap: 1.25rem 2rem;
+    grid-template-columns: 1fr;
+    margin: 0;
+  }
+  @media (min-width: 760px) {
+    .pv-context-grid { grid-template-columns: auto minmax(0, 1fr) auto auto; align-items: start; }
+  }
+  .pv-ctx-cell { display: flex; flex-direction: column; gap: 0.25rem; min-width: 0; }
+  .pv-ctx-cell dt {
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin: 0;
+  }
+  html[lang="ar"] .pv-ctx-cell dt { letter-spacing: 0; text-transform: none; font-size: 0.8rem; }
+  .pv-ctx-cell dd {
+    margin: 0;
+    font-size: 0.9375rem;
+    color: var(--text-primary);
+    line-height: 1.5;
+  }
+  html[lang="ar"] .pv-ctx-cell dd { font-size: 1rem; line-height: 1.75; }
+  .pv-ctx-wide dd { max-width: 54ch; }
+  .pv-ctx-status { display: inline-flex; }
+
+  /* Content blocks */
+  .pv-block { padding-block: clamp(3rem, 7vw, 5rem); }
+  .pv-block-alt { background: var(--surface-subtle); }
+  .pv-block-review {
+    background: var(--status-surface-warning);
+    border-block: 1px dashed var(--status-warning);
+  }
+  .pv-block-grid {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+  @media (min-width: 960px) {
+    .pv-block-grid { grid-template-columns: 4fr 7fr; gap: 4rem; }
+  }
+
+  .pv-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-accent);
+    font-weight: 600;
+  }
+  html[lang="ar"] .pv-label { letter-spacing: 0; text-transform: none; font-size: 0.9rem; }
+  .pv-label-text { color: inherit; }
+
+  .pv-h2 {
+    margin-block-start: 0.6rem;
+    font-size: clamp(1.75rem, 3.4vw, 2.5rem);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    line-height: 1.14;
+    color: var(--text-primary);
+    max-width: 18ch;
+  }
+  html[lang="ar"] .pv-h2 { letter-spacing: 0; line-height: 1.3; }
+
+  .pv-prose {
+    font-size: 1.0625rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    max-width: 60ch;
+  }
+  html[lang="ar"] .pv-prose { font-size: 1.1rem; line-height: 1.85; }
+  .pv-prose-lede { font-size: 1.125rem; color: var(--text-primary); }
+  html[lang="ar"] .pv-prose-lede { font-size: 1.2rem; }
+  .pv-prose-dim { color: var(--text-muted); font-style: italic; }
+  html[lang="ar"] .pv-prose-dim { font-style: normal; }
+
+  .pv-note {
+    display: inline-block;
+    padding: 1rem 1.25rem;
+    border: 1px dashed var(--border-default);
+    border-radius: 12px;
+    color: var(--text-muted);
+    font-size: 1rem;
+    line-height: 1.6;
+    background: var(--surface-default);
+    max-width: 54ch;
+  }
+  html[lang="ar"] .pv-note { font-size: 1.05rem; line-height: 1.8; }
+
+  .pv-figs {
+    margin-block-start: 1.75rem;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 760px) { .pv-figs { grid-template-columns: 1fr 1fr; } }
+  .pv-fig { margin: 0; }
+  .pv-fig img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    border: 1px solid var(--border-subtle);
+    background: var(--surface-elevated);
+    display: block;
+  }
+  .pv-fig .pv-fig-cap { margin-top: 0.5rem; }
+
+  /* Evidence */
+  .pv-metrics {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 560px) { .pv-metrics { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 960px) { .pv-metrics { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 1200px) { .pv-metrics { grid-template-columns: repeat(2, 1fr); } }
+
+  .pv-open {
+    margin-block-start: 1.75rem;
+    padding: 1rem 1.25rem;
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    background: var(--surface-default);
+  }
+  .pv-open-h {
+    font-size: 0.8125rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-weight: 600;
+    margin: 0 0 0.5rem;
+  }
+  html[lang="ar"] .pv-open-h { letter-spacing: 0; text-transform: none; font-size: 0.95rem; }
+  .pv-open ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.4rem; }
+  .pv-open li {
+    font-size: 0.9375rem;
+    color: var(--text-secondary);
+    line-height: 1.55;
+    padding-inline-start: 1rem;
+    position: relative;
+  }
+  .pv-open li::before {
+    content: "";
+    position: absolute;
+    inset-inline-start: 0;
+    inset-block-start: 0.65em;
+    width: 6px;
+    height: 1px;
+    background: var(--text-muted);
+  }
+  html[lang="ar"] .pv-open li { font-size: 1rem; line-height: 1.8; }
+
+  .pv-source-note {
+    margin-block-start: 1.25rem;
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    font-style: italic;
+    max-width: 56ch;
+  }
+  html[lang="ar"] .pv-source-note { font-size: 0.95rem; font-style: normal; }
+
+  /* Credits */
+  .pv-credits {
+    padding-block: 2rem;
+    border-block-start: 1px solid var(--border-subtle);
+  }
+  .pv-credits-line {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    text-align: center;
+    max-width: 60ch;
+    margin-inline: auto;
+  }
+  html[lang="ar"] .pv-credits-line { font-size: 0.95rem; line-height: 1.75; }
+
+  /* Prev / next footer */
+  .pv-prevnext {
+    padding-block: 2.5rem clamp(3rem, 7vw, 5rem);
+    border-block-start: 1px solid var(--border-subtle);
+  }
+  .pv-prevnext-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 640px) {
+    .pv-prevnext-grid { grid-template-columns: 1fr 1fr; }
+  }
+  .pv-pn {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: 1.25rem 1.5rem;
+    border: 1px solid var(--border-subtle);
+    border-radius: 16px;
+    text-decoration: none;
+    color: var(--text-primary);
+    background: var(--surface-default);
+    min-height: 96px;
+    transition: background 160ms ease, border-color 160ms ease, transform 160ms ease;
+  }
+  .pv-pn:hover { background: var(--surface-subtle); border-color: var(--border-default); transform: translateY(-1px); }
+  .pv-pn-next { text-align: end; align-items: end; }
+  .pv-pn-dir {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  html[lang="ar"] .pv-pn-dir { letter-spacing: 0; text-transform: none; font-size: 0.85rem; }
+  .pv-pn-title {
+    font-size: 1.0625rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+  }
+  html[lang="ar"] .pv-pn-title { letter-spacing: 0; font-size: 1.125rem; }
+
+  /* Review-mode-only sections: hide the whole reflection unless review flag is on */
+  :global(body:not([data-review="1"])) .pv-block-review { display: none; }
+</style>

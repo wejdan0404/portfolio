@@ -1,0 +1,78 @@
+---
+import { type Locale } from "../../lib/i18n";
+
+type Bi = { en: string; ar: string };
+
+export interface Props {
+  locale: Locale;
+  eyebrow: Bi;
+  heading: Bi;
+  items: Bi[];
+}
+
+const { locale, eyebrow, heading, items } = Astro.props;
+const pick = (b: Bi) => b[locale];
+---
+
+<section class="honesty" aria-labelledby="honesty-h">
+  <div class="container-wide">
+    <div class="honesty-head">
+      <span class="type-eyebrow">{pick(eyebrow)}</span>
+      <h2 id="honesty-h" class="type-display-m">{pick(heading)}</h2>
+    </div>
+
+    <ul class="honesty-list" role="list">
+      {items.map((it) => (
+        <li class="honesty-item">
+          <span class="honesty-dash" aria-hidden="true">—</span>
+          <span class="honesty-text">{pick(it)}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .honesty {
+    padding-block: clamp(72px, 10vw, 128px);
+    border-block-start: 1px solid var(--border-subtle);
+  }
+  .honesty-head {
+    display: grid;
+    gap: 0.75rem;
+    margin-block-end: clamp(2rem, 4vw, 3rem);
+    max-width: 48ch;
+  }
+
+  .honesty-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: clamp(0.75rem, 1.6vw, 1.25rem);
+    max-width: 68ch;
+  }
+  .honesty-item {
+    display: grid;
+    grid-template-columns: 2em 1fr;
+    gap: 0.5rem;
+    align-items: baseline;
+    padding-block: 0.5rem;
+    border-block-end: 1px solid var(--border-subtle);
+  }
+  .honesty-item:last-child { border-block-end: none; }
+
+  .honesty-dash {
+    color: var(--brand-primary);
+    font-weight: 600;
+    font-size: 1.125rem;
+    line-height: 1.4;
+  }
+
+  .honesty-text {
+    font-size: clamp(1rem, 1.4vw, 1.1875rem);
+    color: var(--text-primary);
+    line-height: 1.5;
+  }
+  html[lang="ar"] .honesty-text { line-height: 1.8; }
+</style>

@@ -1,0 +1,113 @@
+{
+  "slug": "wraf",
+  "tier": "flagship",
+  "status": "tested",
+  "order": 4,
+  "coverTreatment": "brand",
+  "title": {
+    "en": "WRAF",
+    "ar": "وراف"
+  },
+  "sub": {
+    "en": "A tea-community app concept, from brief to moderated usability test.",
+    "ar": "تصوّر لتطبيق يجمع محبي الشاي، من الفكرة إلى اختبار قابلية الاستخدام الموجَّه."
+  },
+  "problem": {
+    "en": "The brief cites research reporting that tea-sector platforms present unstructured and scattered information, and adds the user's side: many varieties and brewing techniques can overwhelm, and a new platform can itself be a barrier.",
+    "ar": "يستند الموجز إلى بحث يشير إلى أن منصات قطاع الشاي تقدّم معلومات غير منظمة ومبعثرة، ويضيف الجانب المستخدَم: كثرة الأنواع وطرق التحضير قد تربك، والمنصة الجديدة قد تكون عائقًا بذاتها.",
+    "_sources": "facts.md F-11, F-12, F-17"
+  },
+  "approach": {
+    "en": "Four destinations around a home hub — Recipes, Community, Store, Personal account — with three ways in. The team mapped persuasive techniques to 12 screens (social proof, scarcity, personalisation, incentive, control), fixed a green palette with named type tokens, then built prototypes at three fidelity levels.",
+    "ar": "أربع وجهات حول صفحة رئيسية — الوصفات والمجتمع والمتجر والحساب الشخصي — وثلاثة مداخل إليها. ربط الفريق أساليب الإقناع بـ12 شاشة (الدليل الاجتماعي، والندرة، والتخصيص، والحافز، والتحكم)، وثبّت لوحة خضراء ورموز خطوط مسمّاة، ثم بنى نماذج بثلاث درجات من الدقة.",
+    "_sources": "facts.md F-20 to F-26, F-30 to F-36, F-40 to F-43"
+  },
+  "role": {
+    "en": "Team of 4. My recorded shares: 25% of each fidelity level and 50% of the Phase 4 presentation; 100% of the Phase 5 test-report introduction, 50% of 'Presenting and Analyzing Results', 40% of document adjustment; 50% of 'Stakeholder' in Assignment 1.",
+    "ar": "ضمن فريق من 4. حصصي المسجَّلة: 25% من كل درجة دقة و50% من عرض المرحلة الرابعة؛ و100% من مقدمة تقرير اختبار المرحلة الخامسة، و50% من «عرض النتائج وتحليلها»، و40% من تعديل الوثيقة؛ و50% من «أصحاب المصلحة» في الواجب الأول.",
+    "_sources": "facts.md section 4 (task share tables)"
+  },
+  "evidence": [
+    {
+      "kind": "metric",
+      "value": "7",
+      "label": {
+        "en": "Moderated participants, in-person, in their own environments",
+        "ar": "مشاركين في جلسات مُدارة حضوريًا في بيئاتهم"
+      },
+      "_sources": "facts.md C2, F-50"
+    },
+    {
+      "kind": "metric",
+      "value": "4 / 7",
+      "label": {
+        "en": "Participant records noted a navigation problem",
+        "ar": "من سجلات المشاركين تذكر مشكلة تنقل"
+      },
+      "_sources": "facts.md S-1"
+    },
+    {
+      "kind": "metric",
+      "value": "2 / 7",
+      "label": {
+        "en": "Found the community '+' add-post icon unclear",
+        "ar": "رأوا أيقونة «+» لإضافة منشور في المجتمع غير واضحة"
+      },
+      "_sources": "facts.md S-4"
+    },
+    {
+      "kind": "metric",
+      "value": "5 / 7",
+      "label": {
+        "en": "Search-task records noted no issue",
+        "ar": "من سجلات مهمة البحث لا تذكر مشكلة"
+      },
+      "_sources": "facts.md S-2"
+    },
+    {
+      "kind": "quote",
+      "value": {
+        "en": "Got a bit lost because the footer is not fixed — I had to scroll down.",
+        "ar": "ضعتُ قليلًا لأن الشريط السفلي غير مثبّت — اضطررت للتمرير."
+      },
+      "label": {
+        "en": "Participant P2 (navigation task)",
+        "ar": "المشاركة P2 (مهمة التنقل)"
+      },
+      "_sources": "facts.md F-61"
+    },
+    {
+      "kind": "callout",
+      "value": {
+        "en": "Concrete fixes raised by participants",
+        "ar": "إصلاحات محددة طرحها المشاركون"
+      },
+      "label": {
+        "en": "A footer navigation bar fixed on every page; a clearer add-post icon; cart price beside the quantity. The documents do not record whether any were made.",
+        "ar": "تثبيت شريط التنقل السفلي في كل الصفحات؛ وتوضيح أيقونة إضافة المنشور؛ ووضع السعر بجانب الكمية في السلة. ولا تسجّل الوثائق ما إذا نُفّذ شيء منها."
+      },
+      "_sources": "facts.md S-8"
+    }
+  ],
+  "closing": {
+    "en": "Four course deliverables, one test, zero post-test screens. The report's own 83.3% success figure does not reconcile with any whole-number share of 7 participants, so this page uses the recorded times, clicks and comments instead.",
+    "ar": "أربعة تسليمات مقررات، واختبار واحد، ولا شاشات بعد الاختبار. ورقم النجاح 83.3% في التقرير لا يستقيم مع أي نسبة صحيحة من 7 مشاركين، فتعتمد هذه الصفحة الأزمنة والنقرات والتعليقات المسجّلة بدلًا منه.",
+    "_sources": "facts.md F-72, section 9.5"
+  },
+  "images": [],
+  "flags": {
+    "contentRequired": [
+      "reflection",
+      "post_test_iteration_and_final_screens",
+      "uizard_persuasive_screens",
+      "fidelity_prototype_screens",
+      "survey_and_interview_results",
+      "pre_design_user_research_if_any"
+    ],
+    "ownerDecisions": [
+      "No screens survive in the sources at any fidelity level — cover rendered as a brand composition; decide whether to rebuild any of the Uizard, low- or hi-fi screens for display",
+      "The report's 83.3% success figure is excluded here as it does not reconcile with 7 participants — confirm this call",
+      "Supervisors' names appear across four courses — kept out of visible copy per no-names rule; confirm acknowledgements policy"
+    ]
+  }
+}

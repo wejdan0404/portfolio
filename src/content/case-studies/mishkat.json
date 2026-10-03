@@ -1,0 +1,137 @@
+{
+  "slug": "mishkat",
+  "tier": "flagship",
+  "status": "tested",
+  "order": 1,
+  "title": {
+    "en": "Mishkat",
+    "ar": "مِشكاة"
+  },
+  "sub": {
+    "en": "Mental wellness for gifted Saudi students.",
+    "ar": "رفاه نفسي للطلبة الموهوبين."
+  },
+  "problem": {
+    "en": "Gifted students in Arabic-language schools avoid wellness apps that feel clinical or exposed. Only 74 of 287 surveyed had used one; 225 of 287 said privacy was important.",
+    "ar": "يتجنّب الطلبة الموهوبون في المدارس العربية تطبيقات العافية ذات الطابع العلاجي. 74 فقط من أصل 287 جرّبوها، ورأى 225 من 287 أن الخصوصية مهمة.",
+    "_sources": "facts.md F20, F21, F26"
+  },
+  "approach": {
+    "en": "The home screen opens with a mood check-in; each of nine moods pairs an emoji with a text label and leads to one short activity, not a menu. Skipping carries no penalty. The AI companion stays inside Mishkat's own activities.",
+    "ar": "تبدأ الشاشة الرئيسية بتسجيل الشعور؛ ولكلٍّ من المشاعر التسعة رمز تعبيري واسم مكتوب يقود إلى نشاط قصير واحد لا إلى قائمة. ولا يترتب على التخطّي عقوبة، ويعمل المساعد الذكي ضمن أنشطة التطبيق فقط.",
+    "_sources": "facts.md F51, F52, F53, F54, F60"
+  },
+  "role": {
+    "en": "Team of 6. My part: storyboards and the information-architecture navigation flow (Week 7 proposal). The app was built in Flutter by the team; my build contribution is not documented.",
+    "ar": "ضمن فريق من 6. دوري: القصص المصوّرة ومخطط التنقل ضمن هندسة المعلومات (مقترح الأسبوع السابع). طُوّر التطبيق بـFlutter عن طريق الفريق، ومساهمتي البرمجية غير موثّقة.",
+    "_sources": "facts.md F10, F13, F15"
+  },
+  "evidence": [
+    {
+      "kind": "metric",
+      "value": "68 → 92%",
+      "label": {
+        "en": "Task completion, GP1 comparative test",
+        "ar": "إنجاز المهام في اختبار GP1 المقارن"
+      },
+      "n": 6,
+      "_sources": "facts.md F71"
+    },
+    {
+      "kind": "metric",
+      "value": "287",
+      "label": {
+        "en": "Validated survey responses",
+        "ar": "استجابة معتمدة في الاستبانة"
+      },
+      "_sources": "facts.md F20"
+    },
+    {
+      "kind": "metric",
+      "value": "6 / 6",
+      "label": {
+        "en": "Scenarios completed without intervention (GP2 test)",
+        "ar": "سيناريوهات أُنجزت دون تدخل (اختبار GP2)"
+      },
+      "n": 6,
+      "_sources": "facts.md F81, F85"
+    },
+    {
+      "kind": "metric",
+      "value": "15 / 15",
+      "label": {
+        "en": "Functional tests passed after two fixes",
+        "ar": "اختبار وظيفي اجتاز بعد إصلاحين"
+      },
+      "_sources": "facts.md F80"
+    },
+    {
+      "kind": "callout",
+      "value": {
+        "en": "No SUS score published",
+        "ar": "لم تُنشر درجة SUS"
+      },
+      "label": {
+        "en": "The questionnaire was administered; the report does not give the score.",
+        "ar": "طُبّق المقياس ولا يذكر التقرير درجته."
+      },
+      "_sources": "facts.md F84"
+    },
+    {
+      "kind": "callout",
+      "value": {
+        "en": "AI safety: no diagnosis",
+        "ar": "سلامة المساعد: لا تشخيص"
+      },
+      "label": {
+        "en": "On self-harm, abuse or danger the companion stops suggesting activities and points to a trusted adult, a school counselor or emergency services.",
+        "ar": "عند أي إشارة لإيذاء النفس أو إساءة أو خطر يتوقف المساعد عن اقتراح الأنشطة ويوجّه إلى شخص بالغ موثوق أو مرشد مدرسي أو خدمات الطوارئ."
+      },
+      "_sources": "facts.md F61"
+    }
+  ],
+  "closing": {
+    "en": "A Flutter PWA built on 15 interviews, 287 survey responses and two prototype rounds, then validated with six target users. It measures usability, not well-being — and does not claim what it did not test.",
+    "ar": "تطبيق Flutter على الويب يرتكز على 15 مقابلة و287 استجابة لاستبانة وجولتَي اختبار للنموذج الأولي، ثم تحقّق واحد مع ست مستخدمات من الفئة المستهدفة. يقيس قابلية الاستخدام، لا أثر العافية — ولا يدّعي ما لم يختبره.",
+    "_sources": "facts.md F20, F70, F81, F85, F101"
+  },
+  "images": [
+    {
+      "src": "/img/projects/mishkat/journey-map.webp",
+      "alt": {
+        "en": "Journey map of a gifted student considering a wellness app",
+        "ar": "خريطة رحلة لطالب موهوب يفكّر في تطبيق للعافية النفسية"
+      },
+      "role": "cover"
+    },
+    {
+      "src": "/img/projects/mishkat/persona-sarah.webp",
+      "alt": {
+        "en": "Primary user persona built from the survey",
+        "ar": "شخصية المستخدم المستنتجة من الاستبيان"
+      },
+      "role": "detail"
+    },
+    {
+      "src": "/img/projects/mishkat/storyboard-3-engagement.webp",
+      "alt": {
+        "en": "Storyboard frame showing in-app engagement",
+        "ar": "لقطة من قصة مصوّرة تعرض التفاعل داخل التطبيق"
+      },
+      "role": "detail"
+    }
+  ],
+  "flags": {
+    "contentRequired": [
+      "reflection",
+      "demo_links_verified",
+      "running_app_screens",
+      "clean_navigation_flow_diagram"
+    ],
+    "ownerDecisions": [
+      "Storyboard frame 3 shows a mock panel labelled 'Request Support via Sehhaty' — keep as a historical artefact of the Week 7 proposal, or redraw",
+      "The sources' Week 7 navigation flow diagram has garbled labels (Settlings, Riun, Seasion); excluded here — decide whether to rebuild and include",
+      "Public demo links (www.mishkat.us, pwa.mishkat.us) not verified in this offline session"
+    ]
+  }
+}

@@ -1,0 +1,284 @@
+---
+import Base from "../../layouts/Base.astro";
+import { type Locale, LOCALES } from "../../lib/i18n";
+import { strings, pick } from "../../lib/strings";
+
+export function getStaticPaths() {
+  return LOCALES.map((l) => ({ params: { locale: l } }));
+}
+const locale = Astro.params.locale as Locale;
+
+const EMAIL = "wejdan4458@gmail.com";
+
+const copyLabel = { en: "Copy", ar: "نسخ" };
+const copiedLabel = { en: "Copied", ar: "تم النسخ" };
+const bestWay = {
+  en: "The best way to reach me is email.",
+  ar: "أسرع طريقة للوصول إليّ هي البريد الإلكتروني.",
+};
+const linksHeading = {
+  en: "Elsewhere",
+  ar: "في أماكن أخرى",
+};
+const linkedinUnverified = {
+  en: "LinkedIn handle — not verified at the time of writing.",
+  ar: "اسم مستخدم لينكدإن — لم يُتحقَّق منه حتى الآن.",
+};
+---
+
+<Base locale={locale} path="/contact" title={pick(strings.contact.pageTitle, locale)}>
+  <section class="contact-page">
+    <div class="container-wide contact-inner">
+      <header class="contact-head">
+        <span class="type-eyebrow">{pick(strings.contact.pageTitle, locale)}</span>
+        <h1 class="contact-title">
+          {locale === "ar" ? "اكتبي لي." : "Write to me."}
+        </h1>
+        <p class="contact-body">{pick(strings.contact.body, locale)}</p>
+      </header>
+
+      <!-- Big typographic email + copy -->
+      <div class="email-block">
+        <a
+          class="email-link"
+          href={`mailto:${EMAIL}`}
+          dir="ltr"
+          aria-label={locale === "ar" ? `${pick(strings.contact.emailLabel, locale)}: ${EMAIL}` : `${EMAIL}`}
+        >
+          <bdi>{EMAIL}</bdi>
+        </a>
+        <button
+          type="button"
+          class="copy-btn"
+          data-copy-email
+          data-copy-value={EMAIL}
+          data-copy-label={pick(copyLabel, locale)}
+          data-copied-label={pick(copiedLabel, locale)}
+          aria-live="polite"
+        >
+          <svg class="copy-ico" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="12" height="12" rx="2"/>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+          </svg>
+          <span class="copy-label">{pick(copyLabel, locale)}</span>
+        </button>
+      </div>
+      <p class="contact-note">{pick(bestWay, locale)}</p>
+
+      <!-- Three lines beneath -->
+      <section class="elsewhere" aria-label={pick(linksHeading, locale)}>
+        <h2 class="elsewhere-h">{pick(linksHeading, locale)}</h2>
+        <ul class="elsewhere-list">
+          <li class="elsewhere-item">
+            <span class="elsewhere-label">{pick(strings.contact.linkedinLabel, locale)}</span>
+            <span class="elsewhere-value" dir="ltr">
+              <bdi>linkedin.com/in/wejdan-uiux</bdi>
+            </span>
+            <span class="elsewhere-note">{pick(linkedinUnverified, locale)}</span>
+          </li>
+          <li class="elsewhere-item">
+            <span class="elsewhere-label">{locale === "ar" ? "الموقع" : "Portfolio"}</span>
+            <span class="elsewhere-value" dir="ltr">
+              <bdi>wejdan.info</bdi>
+            </span>
+            <span class="elsewhere-note">
+              {locale === "ar" ? "هذا الموقع." : "This site."}
+            </span>
+          </li>
+          <li class="elsewhere-item">
+            <span class="elsewhere-label">GitHub</span>
+            <a
+              href="https://github.com/wejdan0404"
+              class="elsewhere-value elsewhere-value-link"
+              dir="ltr"
+              rel="noopener me"
+              target="_blank"
+            >
+              <bdi>github.com/wejdan0404</bdi>
+            </a>
+            <span class="elsewhere-note">
+              {locale === "ar" ? "تجارب كود عرضية." : "Occasional code experiments."}
+            </span>
+          </li>
+        </ul>
+      </section>
+    </div>
+  </section>
+</Base>
+
+<script is:inline>
+  (function () {
+    document.addEventListener("click", async function (e) {
+      var btn = e.target && e.target.closest ? e.target.closest("[data-copy-email]") : null;
+      if (!btn) return;
+      e.preventDefault();
+      var value = btn.getAttribute("data-copy-value") || "";
+      var copiedLabel = btn.getAttribute("data-copied-label") || "Copied";
+      var defaultLabel = btn.getAttribute("data-copy-label") || "Copy";
+      var label = btn.querySelector(".copy-label");
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(value);
+        } else {
+          var ta = document.createElement("textarea");
+          ta.value = value;
+          ta.setAttribute("readonly", "");
+          ta.style.position = "fixed";
+          ta.style.opacity = "0";
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand("copy");
+          document.body.removeChild(ta);
+        }
+        btn.setAttribute("data-copied", "1");
+        if (label) label.textContent = copiedLabel;
+        setTimeout(function () {
+          btn.removeAttribute("data-copied");
+          if (label) label.textContent = defaultLabel;
+        }, 1800);
+      } catch (err) { /* ignore */ }
+    });
+  })();
+</script>
+
+<style>
+  .contact-page { padding-block: clamp(3rem, 7vw, 5.5rem); }
+  .contact-inner { max-width: 1040px; }
+
+  .contact-head { display: grid; gap: 0.75rem; max-width: 60ch; margin-block-end: clamp(2rem, 5vw, 3rem); }
+  .contact-title {
+    font-size: clamp(2.25rem, 5vw, 3.5rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.08;
+    margin-block-start: 0.5rem;
+  }
+  html[lang="ar"] .contact-title { letter-spacing: 0; line-height: 1.22; }
+  .contact-body {
+    font-size: 1.0625rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    max-width: 56ch;
+  }
+  html[lang="ar"] .contact-body { font-size: 1.1rem; line-height: 1.8; }
+
+  /* Big email block */
+  .email-block {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1.25rem;
+    padding-block: clamp(1.5rem, 3vw, 2.5rem);
+    border-block-start: 1px solid var(--border-subtle);
+    border-block-end: 1px solid var(--border-subtle);
+  }
+  .email-link {
+    font-size: clamp(1.5rem, 4.5vw, 3rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+    text-decoration: none;
+    line-height: 1.1;
+    word-break: break-all;
+    text-underline-offset: 0.15em;
+    border-bottom: 2px solid var(--border-default);
+    padding-bottom: 0.1em;
+    transition: color 160ms ease, border-color 160ms ease;
+  }
+  .email-link:hover { color: var(--brand-primary); border-color: var(--brand-primary); }
+
+  .copy-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.6rem 0.9rem;
+    min-height: 44px;
+    border-radius: 999px;
+    background: var(--surface-subtle);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-primary);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 160ms ease, border-color 160ms ease, color 160ms ease;
+  }
+  .copy-btn:hover { background: var(--surface-elevated); border-color: var(--border-default); }
+  .copy-btn[data-copied="1"] {
+    background: var(--status-surface-success);
+    border-color: var(--status-success);
+    color: var(--status-success);
+  }
+  .copy-ico { flex-shrink: 0; }
+
+  .contact-note {
+    margin-block-start: 1rem;
+    font-size: 1rem;
+    color: var(--text-muted);
+    max-width: 48ch;
+  }
+  html[lang="ar"] .contact-note { font-size: 1.05rem; line-height: 1.75; }
+
+  /* Elsewhere */
+  .elsewhere {
+    margin-block-start: clamp(2.5rem, 5vw, 4rem);
+    padding-block-start: 2rem;
+    border-block-start: 1px solid var(--border-subtle);
+  }
+  .elsewhere-h {
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-weight: 600;
+    margin-block-end: 1.25rem;
+  }
+  html[lang="ar"] .elsewhere-h { letter-spacing: 0; text-transform: none; font-size: 0.95rem; }
+
+  .elsewhere-list {
+    list-style: none;
+    padding: 0; margin: 0;
+    display: grid;
+    gap: 1rem;
+  }
+  .elsewhere-item {
+    display: grid;
+    gap: 0.3rem;
+    grid-template-columns: 1fr;
+    padding-block: 0.9rem;
+    border-block-end: 1px solid var(--border-subtle);
+  }
+  @media (min-width: 760px) {
+    .elsewhere-item {
+      grid-template-columns: 10rem minmax(0, 1fr) minmax(0, 1fr);
+      gap: 1.25rem;
+      align-items: center;
+    }
+  }
+  .elsewhere-item:last-child { border-block-end: none; }
+  .elsewhere-label {
+    font-size: 0.8125rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+  html[lang="ar"] .elsewhere-label { letter-spacing: 0; text-transform: none; font-size: 0.95rem; }
+  .elsewhere-value {
+    font-size: 1.0625rem;
+    color: var(--text-primary);
+    font-weight: 500;
+    word-break: break-word;
+  }
+  html[lang="ar"] .elsewhere-value { font-size: 1.1rem; }
+  .elsewhere-value-link {
+    color: var(--text-primary);
+    text-decoration-color: color-mix(in oklab, currentColor 35%, transparent);
+  }
+  .elsewhere-value-link:hover { color: var(--brand-primary); }
+  .elsewhere-note {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+  html[lang="ar"] .elsewhere-note { font-size: 0.95rem; line-height: 1.7; }
+</style>

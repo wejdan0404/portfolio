@@ -1,0 +1,314 @@
+---
+import Base from "../../layouts/Base.astro";
+import { type Locale, LOCALES, localePath } from "../../lib/i18n";
+import { strings, pick } from "../../lib/strings";
+
+export function getStaticPaths() {
+  return LOCALES.map((l) => ({ params: { locale: l } }));
+}
+const locale = Astro.params.locale as Locale;
+
+type Bi = { en: string; ar: string };
+const t = (en: string, ar: string): Bi => ({ en, ar });
+
+// Short bio — the "who" paragraph
+const whoPara = t(
+  "I’m Wejdan — an HCI graduate from Umm Al-Qura University. I work across UX/UI design, product design, and user research, holding Arabic and English to the same quality bar.",
+  "أنا وجدان، خريجة التفاعل بين الإنسان والحاسب من جامعة أم القرى. أعمل في تصميم التجربة والواجهة وتصميم المنتج وبحث المستخدم، وأُلزم العربية والإنجليزية بالمستوى نفسه.",
+);
+
+// Longer "practice" paragraph — from the brand positioning
+const practicePara = t(
+  "My practice treats evidence as a design primitive: every claim traces back to a page citation; where a project was planned but not tested, the page says so plainly. I lean on primary research when a question deserves it, on structured critique when a question has already been answered, and on a strong design-systems foundation so that screens become the predictable output of a system rather than one-off expressions.",
+  "ممارستي تتعامل مع الأدلّة بوصفها عنصرًا أساسيًا في التصميم: كل ادّعاء يُحال إلى صفحة بعينها، وحين يكون المشروع مُخطَّطًا دون اختبار، تقول الصفحة ذلك بوضوح. أعتمد على البحث الأوّلي حين يستحقّ السؤال ذلك، وعلى النقد المنظَّم حين يكون السؤال قد أُجيب عنه، وعلى أساسٍ متين من أنظمة التصميم كي تصبح الشاشات مُخرَجًا متوقَّعًا من نظامٍ لا تعبيرًا منفردًا.",
+);
+
+// Secondary paragraphs — kept concise and non-redundant
+const secondaryParas = [
+  t(
+    "I design in Arabic and English with equal rigor. Right-to-left is load-bearing from the first component, not a theme switch bolted on later.",
+    "أصمّم بالعربية والإنجليزية بالقدر نفسه من الدقة. اتجاه القراءة من اليمين إلى اليسار أساسٌ منذ المكوّن الأول، لا سمةً تُضاف لاحقًا.",
+  ),
+];
+
+// Four principles — same as the home About section, kept in sync.
+const principles = [
+  {
+    k: "01",
+    en: "Research-grounded",
+    ar: "مُستنِد إلى البحث",
+    body: {
+      en: "Every claim traces to a page citation; where evidence is missing, the page says so.",
+      ar: "كلّ ادّعاء يُحال إلى صفحة بعينها؛ وحين تغيب الأدلّة تقول الصفحة ذلك.",
+    },
+  },
+  {
+    k: "02",
+    en: "Arabic held to standard",
+    ar: "العربية بالمستوى نفسه",
+    body: {
+      en: "RTL is load-bearing from the first component — not a theme switch, not a translation.",
+      ar: "اليمين-إلى-اليسار محور العمل من أول مكوّن — ليس زِرَّ سمة، وليس ترجمة.",
+    },
+  },
+  {
+    k: "03",
+    en: "Systems before screens",
+    ar: "الأنظمة قبل الشاشات",
+    body: {
+      en: "Tokens, components, and type scales come first; screens are their predictable output.",
+      ar: "الرموز والمكوّنات والسلالم الطباعية أولًا؛ والشاشات نتيجتها المتوقّعة.",
+    },
+  },
+  {
+    k: "04",
+    en: "Decoration serves clarity",
+    ar: "الزينة في خدمة الوضوح",
+    body: {
+      en: "When in doubt, cut the ornament before cutting the signal.",
+      ar: "عند الشك، احذف الزخرفة قبل أن تحذف الإشارة.",
+    },
+  },
+];
+
+const basedLine = t(
+  "Currently based in Makkah / Jeddah; open to remote work.",
+  "مقرّي حاليًا في مكّة المكرّمة / جدة، ومستعدّة للعمل عن بُعد.",
+);
+---
+
+<Base locale={locale} path="/about" title={pick(strings.about.pageTitle, locale)}>
+  <section class="about-page">
+    <div class="container-wide">
+      <!-- Who -->
+      <header class="about-hero">
+        <span class="type-eyebrow">{pick(strings.about.pageTitle, locale)}</span>
+        <h1 class="type-display-l about-h1">
+          {locale === "ar" ? "من أنا، باختصار." : "Who I am, briefly."}
+        </h1>
+        <p class="about-lede">{pick(whoPara, locale)}</p>
+      </header>
+
+      <!-- Practice -->
+      <section class="about-practice" aria-label={locale === "ar" ? "ممارستي" : "My practice"}>
+        <h2 class="about-h2">
+          {locale === "ar" ? "كيف أعمل." : "How I work."}
+        </h2>
+        <p class="about-prose">{pick(practicePara, locale)}</p>
+        {secondaryParas.map((p) => (
+          <p class="about-prose">{pick(p, locale)}</p>
+        ))}
+      </section>
+
+      <!-- Principles 2x2 -->
+      <section class="about-principles" aria-label={locale === "ar" ? "المبادئ" : "Principles"}>
+        <h2 class="about-h2">
+          {locale === "ar" ? "المبادئ التي تقودني." : "The principles I work by."}
+        </h2>
+        <ul class="principles" role="list">
+          {principles.map((p) => (
+            <li class="principle">
+              <span class="p-k">{p.k}</span>
+              <h3 class="p-title">{locale === "ar" ? p.ar : p.en}</h3>
+              <p class="p-body">{pick(p.body, locale)}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <!-- CTAs -->
+      <section class="about-ctas" aria-label={locale === "ar" ? "روابط" : "Next"}>
+        <a href={localePath(locale, "services")} class="about-cta">
+          <div class="cta-head">
+            <span class="cta-k">01</span>
+            <h3 class="cta-h">
+              {locale === "ar" ? "ما أُقدّمه" : "Capabilities summary"}
+            </h3>
+          </div>
+          <p class="cta-sub">
+            {locale === "ar"
+              ? "ثلاث مسارات، ومعيار واحد لصدق المخرجات."
+              : "Three lanes, one standard for honest output."}
+          </p>
+          <span class="cta-arrow mirror" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </span>
+        </a>
+        <a href={localePath(locale, "cv")} class="about-cta">
+          <div class="cta-head">
+            <span class="cta-k">02</span>
+            <h3 class="cta-h">
+              {locale === "ar" ? "السيرة الذاتية" : "View CV"}
+            </h3>
+          </div>
+          <p class="cta-sub">
+            {locale === "ar"
+              ? "نسخة قابلة للمشاركة من المسار الدراسي والمهني."
+              : "A shareable snapshot of my studies and work."}
+          </p>
+          <span class="cta-arrow mirror" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </span>
+        </a>
+      </section>
+
+      <!-- Based-in line -->
+      <p class="about-based">{pick(basedLine, locale)}</p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .about-page { padding-block: clamp(3rem, 7vw, 5.5rem); }
+
+  .about-hero { max-width: 820px; display: grid; gap: 1rem; margin-block-end: clamp(3rem, 6vw, 4.5rem); }
+  .about-h1 { max-width: 20ch; margin-block-start: 0.5rem; }
+  .about-lede {
+    font-size: 1.125rem;
+    color: var(--text-primary);
+    line-height: 1.6;
+    max-width: 56ch;
+  }
+  html[lang="ar"] .about-lede { font-size: 1.15rem; line-height: 1.85; }
+
+  .about-h2 {
+    font-size: clamp(1.5rem, 2.6vw, 2rem);
+    font-weight: 600;
+    letter-spacing: -0.012em;
+    line-height: 1.2;
+    margin-block-end: 1.25rem;
+    max-width: 20ch;
+  }
+  html[lang="ar"] .about-h2 { letter-spacing: 0; line-height: 1.4; }
+
+  .about-practice {
+    max-width: 760px;
+    padding-block: clamp(1.5rem, 3vw, 2.5rem) clamp(3rem, 6vw, 4.5rem);
+    border-block-start: 1px solid var(--border-subtle);
+    margin-block-start: 1rem;
+    display: grid;
+    gap: 1rem;
+  }
+  .about-prose {
+    font-size: 1.0625rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    max-width: 62ch;
+  }
+  html[lang="ar"] .about-prose { font-size: 1.1rem; line-height: 1.85; }
+
+  .about-principles {
+    padding-block: clamp(2rem, 5vw, 4rem);
+    border-block-start: 1px solid var(--border-subtle);
+  }
+
+  /* Principles 2x2 — identical pattern to the home AboutStrip */
+  .principles {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 560px) {
+    .principles { grid-template-columns: 1fr 1fr; }
+  }
+  .principle {
+    padding: 1.5rem;
+    border-radius: 16px;
+    background: var(--surface-subtle);
+    border: 1px solid var(--border-subtle);
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    min-height: 170px;
+  }
+  .p-k {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    color: var(--brand-primary);
+    font-weight: 600;
+  }
+  html[lang="ar"] .p-k { letter-spacing: 0; font-size: 0.85rem; }
+  .p-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+  }
+  html[lang="ar"] .p-title { letter-spacing: 0; font-size: 1.2rem; }
+  .p-body {
+    font-size: 0.9375rem;
+    color: var(--text-secondary);
+    line-height: 1.55;
+  }
+  html[lang="ar"] .p-body { font-size: 1rem; line-height: 1.75; }
+
+  .about-ctas {
+    padding-block: clamp(2.5rem, 5vw, 4rem);
+    border-block-start: 1px solid var(--border-subtle);
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 760px) { .about-ctas { grid-template-columns: 1fr 1fr; gap: 1.25rem; } }
+  .about-cta {
+    position: relative;
+    display: grid;
+    gap: 0.5rem;
+    padding: 1.5rem 1.5rem 1.5rem 1.5rem;
+    padding-inline-end: 3.5rem;
+    border: 1px solid var(--border-subtle);
+    background: var(--surface-subtle);
+    border-radius: 16px;
+    text-decoration: none;
+    color: var(--text-primary);
+    min-height: 128px;
+    transition: background 160ms ease, border-color 160ms ease, transform 160ms ease;
+  }
+  .about-cta:hover { background: var(--surface-elevated); border-color: var(--border-default); transform: translateY(-1px); }
+  .cta-head { display: inline-flex; align-items: center; gap: 0.6rem; }
+  .cta-k {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--brand-primary);
+    font-weight: 600;
+  }
+  html[lang="ar"] .cta-k { letter-spacing: 0; text-transform: none; font-size: 0.85rem; }
+  .cta-h {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+  }
+  html[lang="ar"] .cta-h { letter-spacing: 0; font-size: 1.2rem; }
+  .cta-sub {
+    font-size: 0.9375rem;
+    color: var(--text-secondary);
+    line-height: 1.55;
+    max-width: 46ch;
+  }
+  html[lang="ar"] .cta-sub { font-size: 1rem; line-height: 1.75; }
+  .cta-arrow {
+    position: absolute;
+    inset-block-start: 50%;
+    inset-inline-end: 1.25rem;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    transition: color 160ms ease;
+    display: inline-flex;
+  }
+  .about-cta:hover .cta-arrow { color: var(--brand-primary); }
+
+  .about-based {
+    margin-block-start: clamp(2rem, 4vw, 3rem);
+    padding-block-start: 1.5rem;
+    border-block-start: 1px solid var(--border-subtle);
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    text-align: start;
+  }
+  html[lang="ar"] .about-based { font-size: 0.95rem; }
+</style>

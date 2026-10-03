@@ -1,0 +1,153 @@
+---
+import { getCollection } from "astro:content";
+import WorkCard from "../work/WorkCard.astro";
+import { type Locale, localePath } from "../../lib/i18n";
+import { strings, pick } from "../../lib/strings";
+
+export interface Props { locale: Locale; }
+const { locale } = Astro.props;
+
+/* Order by the explicit `order` field when the content agent sets it;
+   fall back to a sensible slug order so this still works mid-handoff. */
+const all = await getCollection("case-studies");
+
+const slugFallback = ["mishkat", "arcadea", "rafiq", "wraf", "vui", "petcare"];
+const orderKey = (e: typeof all[number]) => {
+  const o = (e.data as any).order;
+  if (typeof o === "number") return o;
+  const i = slugFallback.indexOf(e.data.slug);
+  return i >= 0 ? i : 999;
+};
+all.sort((a, b) => orderKey(a) - orderKey(b));
+
+/* 5 flagship/core up top; 1 early on the de-emphasised rail. */
+const flagshipAndCore = all.filter((e) => e.data.tier !== "early").slice(0, 5);
+const early = all.filter((e) => e.data.tier === "early").slice(0, 1);
+
+const lead = flagshipAndCore[0];
+const rest = flagshipAndCore.slice(1);
+const earlyEntry = early[0];
+---
+
+<section class="selected" aria-labelledby="selected-title">
+  <div class="container-wide">
+    <header class="selected-head">
+      <div>
+        <span class="type-eyebrow">{pick(strings.home.workEyebrow, locale)}</span>
+        <h2 id="selected-title" class="selected-heading">
+          {pick(strings.home.workHeading, locale)}
+        </h2>
+        <p class="selected-lede">{pick(strings.home.workLede, locale)}</p>
+      </div>
+      <a href={localePath(locale, "work")} class="btn-link selected-all">
+        {pick(strings.work.allCases, locale)}
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" class="mirror" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14M13 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </header>
+
+    {lead && (
+      <div class="selected-lead">
+        <WorkCard entry={lead} locale={locale} variant="lead" />
+      </div>
+    )}
+
+    <div class="selected-grid">
+      {rest.map((entry) => (
+        <div class="selected-cell">
+          <WorkCard entry={entry} locale={locale} variant="row" />
+        </div>
+      ))}
+    </div>
+
+    {earlyEntry && (
+      <div class="selected-early">
+        <p class="early-rail-label">
+          <span class="early-dot" aria-hidden="true"></span>
+          {locale === "ar" ? "استكشاف مبكر" : "Early exploration"}
+        </p>
+        <div class="selected-early-card">
+          <WorkCard entry={earlyEntry} locale={locale} variant="small" />
+        </div>
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  .selected { padding-block: clamp(56px, 8vw, 112px); }
+
+  .selected-head {
+    display: grid;
+    gap: 1rem;
+    margin-block-end: clamp(2rem, 4vw, 3rem);
+    align-items: end;
+  }
+  @media (min-width: 760px) {
+    .selected-head { grid-template-columns: 2fr 1fr; }
+    .selected-all { justify-self: end; align-self: end; }
+  }
+  .selected-heading {
+    font-size: clamp(1.75rem, 1.1rem + 2.4vw, 2.75rem);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    line-height: 1.14;
+    color: var(--text-primary);
+    margin-block-start: 0.5rem;
+    max-width: 22ch;
+    text-wrap: pretty;
+  }
+  html[lang="ar"] .selected-heading { letter-spacing: 0; line-height: 1.35; }
+  .selected-lede {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin-block-start: 1rem;
+    max-width: 60ch;
+  }
+  html[lang="ar"] .selected-lede { font-size: 1.0625rem; line-height: 1.8; }
+
+  .selected-lead { margin-block-end: clamp(1.5rem, 3vw, 2.5rem); }
+
+  .selected-grid {
+    display: grid;
+    gap: clamp(1.25rem, 2.4vw, 2rem);
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 760px) {
+    .selected-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* Early-exploration rail — subtle, de-emphasised */
+  .selected-early {
+    margin-block-start: clamp(2rem, 4vw, 3rem);
+    padding-block-start: clamp(1.5rem, 3vw, 2rem);
+    border-block-start: 1px dashed var(--border-subtle);
+    display: grid;
+    gap: 1rem;
+  }
+  @media (min-width: 760px) {
+    .selected-early { grid-template-columns: 1fr 2fr; align-items: center; }
+  }
+  .early-rail-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin: 0;
+  }
+  html[lang="ar"] .early-rail-label {
+    letter-spacing: 0;
+    text-transform: none;
+    font-size: 0.9375rem;
+  }
+  .early-dot {
+    width: 8px; height: 8px;
+    border-radius: 999px;
+    border: 1px dashed var(--text-muted);
+  }
+</style>

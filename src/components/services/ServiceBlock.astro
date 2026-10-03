@@ -1,0 +1,507 @@
+---
+import { type Locale } from "../../lib/i18n";
+
+type Bi = { en: string; ar: string };
+
+export interface Props {
+  locale: Locale;
+  variant: "design" | "research" | "systems";
+  index: number;
+  name: Bi;
+  summary: Bi;
+  included: Bi[];
+  outcome: Bi;
+  freelanceNote: Bi;
+}
+
+const { locale, variant, index, name, summary, included, outcome, freelanceNote } = Astro.props;
+const pick = (b: Bi) => b[locale];
+const twoDigit = String(index).padStart(2, "0");
+---
+
+<article class={`sb sb-${variant}`} aria-labelledby={`service-${variant}-h`}>
+  <header class="sb-header">
+    <span class="sb-index numeric" aria-hidden="true">{twoDigit}</span>
+    <span class="sb-rule" aria-hidden="true"></span>
+    <h2 id={`service-${variant}-h`} class="sb-name">{pick(name)}</h2>
+  </header>
+
+  <div class="sb-body">
+    {variant === "design" && (
+      <>
+        <div class="sb-art sb-art-design" aria-hidden="true">
+          <div class="mock">
+            <div class="mock-top">
+              <span class="mock-dot"></span>
+              <span class="mock-dot"></span>
+              <span class="mock-dot"></span>
+              <span class="mock-url"></span>
+            </div>
+            <div class="mock-inner">
+              <div class="mock-head"></div>
+              <div class="mock-sub"></div>
+              <div class="mock-cards">
+                <div class="mock-card">
+                  <span class="mock-line w60"></span>
+                  <span class="mock-line w40"></span>
+                  <span class="mock-line w80"></span>
+                </div>
+                <div class="mock-card mock-card--accent">
+                  <span class="mock-line w60"></span>
+                  <span class="mock-line w40"></span>
+                  <span class="mock-line w80"></span>
+                </div>
+              </div>
+              <div class="mock-footer">
+                <span class="mock-chip"></span>
+                <span class="mock-chip wider"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sb-prose">
+          <p class="sb-summary">{pick(summary)}</p>
+          <ul class="sb-list" role="list">
+            {included.map((it) => (
+              <li><span class="sb-bullet" aria-hidden="true">·</span><span>{pick(it)}</span></li>
+            ))}
+          </ul>
+          <p class="sb-outcome">{pick(outcome)}</p>
+          <p class="sb-freelance">{pick(freelanceNote)}</p>
+        </div>
+      </>
+    )}
+
+    {variant === "research" && (
+      <>
+        <div class="sb-prose">
+          <p class="sb-summary">{pick(summary)}</p>
+          <ul class="sb-list" role="list">
+            {included.map((it) => (
+              <li><span class="sb-bullet" aria-hidden="true">·</span><span>{pick(it)}</span></li>
+            ))}
+          </ul>
+          <p class="sb-outcome">{pick(outcome)}</p>
+          <p class="sb-freelance">{pick(freelanceNote)}</p>
+        </div>
+        <div class="sb-art sb-art-research" aria-hidden="true">
+          <div class="phase">
+            <span class="phase-dot phase-dot--solid"></span>
+            <h3 class="phase-title">{locale === "ar" ? "ملاحظة" : "Observe"}</h3>
+            <p class="phase-body">
+              {locale === "ar"
+                ? "جلسات موجَّهة، تحليل مهام، تقييم ارشادي."
+                : "Moderated sessions, task analysis, heuristic review."}
+            </p>
+          </div>
+          <div class="phase">
+            <span class="phase-dot phase-dot--outline"></span>
+            <h3 class="phase-title">{locale === "ar" ? "تحليل" : "Synthesize"}</h3>
+            <p class="phase-body">
+              {locale === "ar"
+                ? "ترميز موضوعي يفصل الدليل عن الرأي."
+                : "Thematic coding that separates evidence from opinion."}
+            </p>
+          </div>
+          <div class="phase">
+            <span class="phase-dot phase-dot--dashed"></span>
+            <h3 class="phase-title">{locale === "ar" ? "قرار" : "Decide"}</h3>
+            <p class="phase-body">
+              {locale === "ar"
+                ? "نتائج موجزة قابلة للتنفيذ لا تقرير طويل يُهمَل."
+                : "Short, actionable findings — not a long report that gets ignored."}
+            </p>
+          </div>
+        </div>
+      </>
+    )}
+
+    {variant === "systems" && (
+      <>
+        <div class="sb-prose">
+          <p class="sb-summary">{pick(summary)}</p>
+          <ul class="sb-list" role="list">
+            {included.map((it) => (
+              <li><span class="sb-bullet" aria-hidden="true">·</span><span>{pick(it)}</span></li>
+            ))}
+          </ul>
+          <p class="sb-outcome">{pick(outcome)}</p>
+          <p class="sb-freelance">{pick(freelanceNote)}</p>
+        </div>
+        <div class="sb-art sb-art-systems" aria-hidden="true">
+          <ol class="schematic" role="list">
+            <li class="schem-node schem-node--tokens">
+              <span class="schem-cap">{locale === "ar" ? "الرموز" : "Tokens"}</span>
+              <span class="schem-detail">{locale === "ar" ? "لون · طباعة · فراغ" : "color · type · space"}</span>
+              <span class="schem-chips">
+                <span class="schem-chip"></span>
+                <span class="schem-chip"></span>
+                <span class="schem-chip"></span>
+                <span class="schem-chip"></span>
+              </span>
+            </li>
+            <li class="schem-connector" aria-hidden="true"></li>
+            <li class="schem-node schem-node--components">
+              <span class="schem-cap">{locale === "ar" ? "المكوّنات" : "Components"}</span>
+              <span class="schem-detail">{locale === "ar" ? "حالات · متغيّرات" : "states · variants"}</span>
+              <span class="schem-stack">
+                <span class="schem-brick"></span>
+                <span class="schem-brick"></span>
+                <span class="schem-brick"></span>
+              </span>
+            </li>
+            <li class="schem-connector" aria-hidden="true"></li>
+            <li class="schem-node schem-node--compositions">
+              <span class="schem-cap">{locale === "ar" ? "التراكيب" : "Compositions"}</span>
+              <span class="schem-detail">{locale === "ar" ? "الصفحات · التدفّقات" : "pages · flows"}</span>
+              <span class="schem-frames">
+                <span class="schem-frame"></span>
+                <span class="schem-frame"></span>
+              </span>
+            </li>
+          </ol>
+        </div>
+      </>
+    )}
+  </div>
+</article>
+
+<style>
+  .sb {
+    display: grid;
+    gap: clamp(1.75rem, 3vw, 2.5rem);
+    padding-block: clamp(3.5rem, 7vw, 6rem);
+    border-block-start: 1px solid var(--border-subtle);
+  }
+
+  .sb-header {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: baseline;
+    gap: 1rem;
+  }
+  .sb-index {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    color: var(--text-muted);
+    font-variant-numeric: lining-nums tabular-nums;
+    direction: ltr;
+  }
+  html[lang="ar"] .sb-index { letter-spacing: 0.08em; }
+  .sb-rule {
+    display: none;
+  }
+  .sb-name {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    color: var(--text-primary);
+    max-width: 24ch;
+  }
+  html[lang="ar"] .sb-name { letter-spacing: 0; line-height: 1.3; }
+
+  .sb-body {
+    display: grid;
+    gap: clamp(1.75rem, 4vw, 3rem);
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 860px) {
+    .sb-body { grid-template-columns: 5fr 7fr; align-items: start; }
+    .sb-design .sb-body { grid-template-columns: 5fr 6fr; }
+    .sb-research .sb-body { grid-template-columns: 6fr 5fr; }
+    .sb-systems .sb-body { grid-template-columns: 5fr 6fr; }
+  }
+
+  .sb-prose > * + * { margin-block-start: 1.25rem; }
+  .sb-summary {
+    font-size: clamp(1.0625rem, 1.4vw, 1.1875rem);
+    color: var(--text-primary);
+    line-height: 1.55;
+    max-width: 56ch;
+  }
+  html[lang="ar"] .sb-summary { line-height: 1.8; }
+  .sb-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.5rem;
+    max-width: 56ch;
+  }
+  .sb-list li {
+    display: grid;
+    grid-template-columns: 1.25em 1fr;
+    gap: 0.5rem;
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.55;
+  }
+  html[lang="ar"] .sb-list li { font-size: 1.0625rem; line-height: 1.8; }
+  .sb-bullet {
+    color: var(--brand-primary);
+    font-weight: 600;
+    line-height: 1.55;
+    text-align: center;
+  }
+  .sb-outcome {
+    font-size: 1rem;
+    color: var(--text-primary);
+    line-height: 1.55;
+    max-width: 56ch;
+    padding-block-start: 1rem;
+    border-block-start: 1px solid var(--border-subtle);
+  }
+  html[lang="ar"] .sb-outcome { line-height: 1.8; font-size: 1.0625rem; }
+  .sb-freelance {
+    font-size: 0.8125rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-block-start: 0.75rem;
+  }
+  html[lang="ar"] .sb-freelance { letter-spacing: 0; text-transform: none; font-size: 0.9375rem; }
+
+  /* -------- Variant A: Design — mini-mock -------- */
+  .sb-art-design {
+    position: relative;
+    aspect-ratio: 4 / 3.1;
+    padding: clamp(1rem, 2vw, 1.5rem);
+    background: var(--surface-subtle);
+    border: 1px solid var(--border-subtle);
+    border-radius: 20px;
+  }
+  .mock {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: var(--surface-default);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    overflow: hidden;
+    display: grid;
+    grid-template-rows: 28px 1fr;
+    box-shadow: 0 2px 24px -16px rgba(14,18,28,0.3);
+  }
+  .mock-top {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding-inline: 0.75rem;
+    border-block-end: 1px solid var(--border-subtle);
+    background: var(--surface-subtle);
+  }
+  .mock-dot {
+    width: 7px; height: 7px; border-radius: 999px;
+    background: var(--border-default);
+    opacity: 0.6;
+  }
+  .mock-url {
+    flex: 1;
+    height: 10px;
+    margin-inline-start: 0.75rem;
+    border-radius: 4px;
+    background: var(--border-subtle);
+  }
+  .mock-inner {
+    padding: 1rem;
+    display: grid;
+    grid-template-rows: auto auto 1fr auto;
+    gap: 0.6rem;
+  }
+  .mock-head {
+    width: 55%; height: 14px; border-radius: 4px;
+    background: var(--text-primary);
+    opacity: 0.9;
+  }
+  .mock-sub { width: 72%; height: 8px; border-radius: 3px; background: var(--border-default); }
+  .mock-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
+    margin-block-start: 0.25rem;
+  }
+  .mock-card {
+    padding: 0.65rem;
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    background: var(--surface-default);
+    display: grid;
+    gap: 0.35rem;
+    align-content: start;
+  }
+  .mock-card--accent {
+    background: var(--brand-secondary);
+    border-color: var(--border-default);
+  }
+  .mock-card--accent .mock-line { background: var(--text-on-light-accent); opacity: 0.45; }
+  .mock-line { height: 6px; border-radius: 3px; background: var(--border-default); }
+  .w40 { width: 40%; }
+  .w60 { width: 60%; }
+  .w80 { width: 80%; }
+  .mock-footer {
+    display: flex;
+    gap: 0.4rem;
+    align-items: center;
+  }
+  .mock-chip {
+    height: 14px;
+    width: 44px;
+    border-radius: 999px;
+    background: var(--brand-primary);
+    opacity: 0.9;
+  }
+  .mock-chip.wider { width: 60px; background: transparent; border: 1px solid var(--border-default); }
+
+  /* -------- Variant B: Research — three phases -------- */
+  .sb-art-research {
+    display: grid;
+    gap: 1px;
+    background: var(--border-subtle);
+    border: 1px solid var(--border-subtle);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  @media (min-width: 540px) {
+    .sb-art-research { grid-template-columns: 1fr 1fr 1fr; }
+  }
+  .phase {
+    position: relative;
+    background: var(--surface-default);
+    padding: clamp(1rem, 2vw, 1.25rem);
+    padding-inline-start: calc(clamp(1rem, 2vw, 1.25rem) + 14px);
+    display: grid;
+    gap: 0.5rem;
+    align-content: start;
+  }
+  .phase-dot {
+    position: absolute;
+    inset-inline-start: clamp(1rem, 2vw, 1.25rem);
+    inset-block-start: calc(clamp(1rem, 2vw, 1.25rem) + 0.35rem);
+    width: 8px; height: 8px;
+    border-radius: 999px;
+  }
+  .phase-dot--solid { background: var(--brand-primary); }
+  .phase-dot--outline {
+    background: transparent;
+    border: 1.5px solid var(--brand-primary);
+  }
+  .phase-dot--dashed {
+    background: transparent;
+    border: 1.5px dashed var(--brand-primary);
+  }
+  .phase-title {
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: -0.008em;
+    color: var(--text-primary);
+    line-height: 1.2;
+  }
+  html[lang="ar"] .phase-title { letter-spacing: 0; line-height: 1.4; font-size: 1.0625rem; }
+  .phase-body {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    line-height: 1.55;
+  }
+  html[lang="ar"] .phase-body { line-height: 1.75; font-size: 0.9375rem; }
+
+  /* -------- Variant C: Systems — schematic -------- */
+  .sb-art-systems {
+    padding: clamp(1.25rem, 2vw, 1.75rem);
+    background: var(--surface-subtle);
+    border: 1px solid var(--border-subtle);
+    border-radius: 20px;
+  }
+  .schematic {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.5rem;
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+  @media (min-width: 640px) {
+    .schematic {
+      grid-template-columns: 1fr 24px 1fr 24px 1fr;
+      align-items: center;
+    }
+  }
+  .schem-node {
+    background: var(--surface-default);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 1rem;
+    display: grid;
+    gap: 0.5rem;
+    align-content: start;
+    min-height: 150px;
+  }
+  .schem-cap {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-accent);
+  }
+  html[lang="ar"] .schem-cap { letter-spacing: 0; text-transform: none; font-size: 0.9rem; }
+  .schem-detail {
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+  html[lang="ar"] .schem-detail { font-size: 0.9rem; line-height: 1.7; }
+  .schem-connector {
+    display: block;
+    height: 1px;
+    width: 100%;
+    background: var(--border-default);
+    position: relative;
+    opacity: 0.7;
+  }
+  @media (max-width: 639.9px) {
+    .schem-connector {
+      height: 24px;
+      width: 1px;
+      margin-inline-start: 1.25rem;
+    }
+  }
+  .schem-chips { display: flex; gap: 0.3rem; margin-block-start: 0.4rem; }
+  .schem-chip {
+    width: 20px; height: 20px; border-radius: 4px;
+    background: var(--brand-primary);
+  }
+  .schem-chip:nth-child(2) { background: var(--brand-secondary); }
+  .schem-chip:nth-child(3) { background: var(--text-primary); opacity: 0.9; }
+  .schem-chip:nth-child(4) { background: transparent; border: 1px solid var(--border-strong); }
+  .schem-stack {
+    display: grid;
+    gap: 0.3rem;
+    margin-block-start: 0.4rem;
+  }
+  .schem-brick {
+    height: 10px;
+    border-radius: 4px;
+    background: var(--border-default);
+  }
+  .schem-brick:nth-child(1) { width: 85%; }
+  .schem-brick:nth-child(2) { width: 65%; }
+  .schem-brick:nth-child(3) { width: 50%; background: var(--brand-primary); }
+  .schem-frames {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.4rem;
+    margin-block-start: 0.4rem;
+  }
+  .schem-frame {
+    aspect-ratio: 1.4 / 1;
+    border: 1px solid var(--border-default);
+    border-radius: 6px;
+    background:
+      linear-gradient(var(--border-subtle), var(--border-subtle)) top left / 60% 4px no-repeat,
+      linear-gradient(var(--border-subtle), var(--border-subtle)) 10% 40% / 70% 4px no-repeat,
+      linear-gradient(var(--border-subtle), var(--border-subtle)) 10% 60% / 45% 4px no-repeat,
+      var(--surface-default);
+  }
+</style>

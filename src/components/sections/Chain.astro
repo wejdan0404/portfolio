@@ -1,0 +1,137 @@
+---
+import { type Locale } from "../../lib/i18n";
+
+export interface Props { locale: Locale; }
+const { locale } = Astro.props;
+
+/* Source: /home/claude/brand/source-copy.md — Page 01 (Strategy).
+   Research → Decision → Interface. Thin top rule, counter-numbered. */
+const steps = [
+  {
+    label: locale === "ar" ? "البحث" : "Research",
+    heading: locale === "ar" ? "إشارة إنسانية" : "Human signal",
+    body: locale === "ar"
+      ? "الإنصاتُ إلى موضع الاحتكاك الفعلي."
+      : "Listen for the real friction.",
+  },
+  {
+    label: locale === "ar" ? "القرار" : "Decision",
+    heading: locale === "ar" ? "قرارُ تصميم" : "Design decision",
+    body: locale === "ar"
+      ? "اجعل الخطوة التالية واضحة."
+      : "Make the next step clear.",
+  },
+  {
+    label: locale === "ar" ? "الواجهة" : "Interface",
+    heading: locale === "ar" ? "نظامٌ رقمي" : "Digital system",
+    body: locale === "ar"
+      ? "ترجمةُ القصد إلى تدفُّقٍ قابل للاستخدام."
+      : "Turn intent into a usable flow.",
+  },
+];
+---
+
+<section class="chain" aria-labelledby="chain-title">
+  <div class="container-wide">
+    <h2 id="chain-title" class="sr-only">
+      {locale === "ar" ? "طريقة العمل" : "How the work moves"}
+    </h2>
+    <ol class="chain-list" role="list">
+      {steps.map((step, i) => (
+        <li class="chain-step">
+          <div class="chain-top" aria-hidden="true">
+            <span class="chain-rule"></span>
+            <span class="chain-num numeric">{String(i + 1).padStart(2, "0")}</span>
+          </div>
+          <p class="chain-label">{step.label}</p>
+          <h3 class="chain-heading">{step.heading}</h3>
+          <p class="chain-body">{step.body}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .sr-only {
+    position: absolute;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0,0,0,0);
+    white-space: nowrap; border: 0;
+  }
+  .chain { padding-block: clamp(56px, 8vw, 112px); }
+
+  .chain-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 760px) {
+    .chain-list { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  .chain-step {
+    display: grid;
+    gap: 0.5rem;
+    align-content: start;
+  }
+
+  .chain-top {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-block-end: 0.75rem;
+  }
+  .chain-rule {
+    flex: 1;
+    height: 1px;
+    background: var(--border-strong);
+    opacity: 0.9;
+  }
+  .chain-num {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    font-variant-numeric: lining-nums tabular-nums;
+  }
+  html[lang="ar"] .chain-num { letter-spacing: 0; }
+
+  .chain-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-accent);
+    margin: 0;
+  }
+  html[lang="ar"] .chain-label {
+    letter-spacing: 0;
+    text-transform: none;
+    font-size: 0.9375rem;
+  }
+
+  .chain-heading {
+    font-size: clamp(1.375rem, 1rem + 1.3vw, 1.75rem);
+    font-weight: 600;
+    letter-spacing: -0.012em;
+    line-height: 1.2;
+    color: var(--text-primary);
+    margin: 0;
+    text-wrap: pretty;
+  }
+  html[lang="ar"] .chain-heading { letter-spacing: 0; line-height: 1.4; }
+
+  .chain-body {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    max-width: 32ch;
+    margin: 0;
+  }
+  html[lang="ar"] .chain-body { font-size: 1.0625rem; line-height: 1.8; }
+</style>

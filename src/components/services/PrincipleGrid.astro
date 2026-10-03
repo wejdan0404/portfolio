@@ -1,0 +1,150 @@
+---
+import { type Locale } from "../../lib/i18n";
+
+type Bi = { en: string; ar: string };
+
+export interface Props {
+  locale: Locale;
+  eyebrow: Bi;
+  heading: Bi;
+  principles: {
+    mark: "letter" | "stars" | "arc" | "curve";
+    title: Bi;
+    commitment: Bi;
+  }[];
+}
+
+const { locale, eyebrow, heading, principles } = Astro.props;
+const pick = (b: Bi) => b[locale];
+---
+
+<section class="why" aria-labelledby="why-h">
+  <div class="container-wide">
+    <div class="why-head">
+      <span class="type-eyebrow">{pick(eyebrow)}</span>
+      <h2 id="why-h" class="type-display-m">{pick(heading)}</h2>
+    </div>
+
+    <ul class="why-grid" role="list">
+      {principles.map((p) => (
+        <li class={`pcard pcard-${p.mark}`}>
+          <span class={`pmark pmark-${p.mark}`} aria-hidden="true">
+            {p.mark === "letter" && <span class="g-dot"></span>}
+            {p.mark === "stars" && (
+              <>
+                <span class="g-star"></span>
+                <span class="g-star"></span>
+                <span class="g-star"></span>
+              </>
+            )}
+            {p.mark === "arc" && <span class="g-arc"></span>}
+            {p.mark === "curve" && <span class="g-curve"></span>}
+          </span>
+          <h3 class="pcard-title">{pick(p.title)}</h3>
+          <p class="pcard-body">{pick(p.commitment)}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .why {
+    padding-block: clamp(72px, 10vw, 128px);
+    border-block-start: 1px solid var(--border-subtle);
+    background: var(--surface-subtle);
+  }
+  .why-head {
+    display: grid;
+    gap: 0.75rem;
+    margin-block-end: clamp(2rem, 4vw, 3rem);
+    max-width: 48ch;
+  }
+
+  .why-grid {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 1px;
+    background: var(--border-subtle);
+    border: 1px solid var(--border-subtle);
+    border-radius: 20px;
+    overflow: hidden;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 760px) {
+    .why-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  .pcard {
+    background: var(--surface-default);
+    padding: clamp(1.5rem, 3vw, 2.25rem);
+    display: grid;
+    gap: 0.9rem;
+    align-content: start;
+    min-height: 220px;
+  }
+
+  .pmark {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 24px;
+    color: var(--brand-primary);
+  }
+
+  /* letter mark: one solid dot (W letter — the person at centre) */
+  .g-dot {
+    width: 10px; height: 10px;
+    border-radius: 999px;
+    background: var(--brand-primary);
+  }
+
+  /* three stars (evidence) */
+  .g-star {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background: var(--brand-primary);
+    clip-path: polygon(50% 0%, 55% 45%, 100% 50%, 55% 55%, 50% 100%, 45% 55%, 0% 50%, 45% 45%);
+  }
+
+  /* open arc */
+  .g-arc {
+    width: 24px;
+    height: 12px;
+    border: 1.5px solid var(--brand-primary);
+    border-block-end: none;
+    border-start-start-radius: 999px;
+    border-start-end-radius: 999px;
+  }
+
+  /* open curve — a hand-drawn tilde */
+  .g-curve {
+    width: 28px;
+    height: 10px;
+    border-radius: 999px;
+    background:
+      radial-gradient(circle at 25% 60%, var(--brand-primary) 1.5px, transparent 2px) 0 0 / 7px 10px repeat-x;
+    opacity: 0.9;
+  }
+  /* fallback curve using svg-mask would be more precise; this is deliberately subtle */
+
+  .pcard-title {
+    font-size: 1.3125rem;
+    font-weight: 600;
+    letter-spacing: -0.014em;
+    color: var(--text-primary);
+    line-height: 1.2;
+    max-width: 22ch;
+  }
+  html[lang="ar"] .pcard-title { letter-spacing: 0; line-height: 1.4; font-size: 1.375rem; }
+  .pcard-body {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    max-width: 40ch;
+  }
+  html[lang="ar"] .pcard-body { font-size: 1.0625rem; line-height: 1.8; }
+</style>

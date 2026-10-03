@@ -1,0 +1,376 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { type Locale, localePath } from "../../lib/i18n";
+import { strings, pick } from "../../lib/strings";
+import EvidenceDot from "./EvidenceDot.astro";
+
+export interface Props {
+  entry: CollectionEntry<"case-studies">;
+  locale: Locale;
+  variant?: "lead" | "row" | "small";
+}
+
+const { entry, locale, variant = "row" } = Astro.props;
+/* The case-studies collection is owned by a different agent; tolerate missing
+   fields rather than crash the home page when its schema shifts. */
+const d = entry.data as any;
+const href = localePath(locale, `work/${d.slug}`);
+const title = pick(d.title, locale);
+const sub = pick(d.sub, locale);
+
+const hero = d.hero ?? { kind: "composition" };
+const firstImage = Array.isArray(d.images) && d.images.length > 0 ? d.images[0] : null;
+const heroSrc: string | undefined =
+  (hero.kind === "image" && hero.image) ||
+  firstImage?.src ||
+  undefined;
+const hasImage = !!heroSrc;
+const altText = hero.alt
+  ? pick(hero.alt, locale)
+  : firstImage?.alt
+    ? pick(firstImage.alt, locale)
+    : title;
+
+/* Shorten the role line to its first clause for the chip. */
+const roleFirst = d.role ? pick(d.role, locale).split(/[.·]/)[0].trim() : "";
+
+/* First evidence row — a compact signal for the card. */
+const rawEvidence = Array.isArray(d.evidence) && d.evidence.length > 0 ? d.evidence[0] : null;
+const topEvidence = rawEvidence && typeof rawEvidence.value === "string" && rawEvidence.label
+  ? rawEvidence
+  : null;
+
+const statusLabel = pick(strings.statusLabel[d.status as "tested" | "planned" | "early"], locale);
+const year = typeof d.year === "string" ? d.year : "";
+const teamSize = typeof d.teamSize === "number" ? d.teamSize : 0;
+
+/* Case-insensitive glyph for the composition — in Arabic we use its own first char. */
+const glyph = ((locale === "ar" ? d.title.ar : d.title.en) || "").trim().slice(0, 1);
+---
+
+<a class={`wcard wcard-${variant} status-${d.status}`} href={href} aria-label={`${title} — ${sub}`}>
+  <div class="wcard-media">
+    <div class="wcard-frame" aria-hidden={hasImage ? undefined : "true"}>
+      {hasImage ? (
+        <img src={heroSrc} alt={altText} loading="lazy" decoding="async" />
+      ) : (
+        <div class="brand-comp">
+          <span class="bc-grad" aria-hidden="true"></span>
+          <svg class="bc-w" viewBox="0 0 48 48" width="34%" height="34%" aria-hidden="true">
+            <path d="M4.8 10.5 L11.9 36.5 L17.8 36.5 L24 18.1 L30.2 36.5 L36.1 36.5 L43.2 10.5 L37.4 10.5 L32.6 29.9 L26.5 11 L21.5 11 L15.4 29.9 L10.6 10.5 Z"
+                  fill="var(--logo-primary)"/>
+          </svg>
+          <span class="bc-stars" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </span>
+          <span class="bc-title">{glyph}</span>
+          <span class="bc-sub">{title}</span>
+        </div>
+      )}
+      <span class={`wcard-status s-${d.status}`}>
+        <EvidenceDot status={d.status} locale={locale} small={true} />
+        <span class="sr-only">{statusLabel}</span>
+      </span>
+    </div>
+  </div>
+
+  <div class="wcard-body">
+    {(year || teamSize) ? (
+      <p class="wcard-eyebrow">
+        {year ? <span>{year}</span> : null}
+        {year && teamSize ? <span class="dotsep" aria-hidden="true">·</span> : null}
+        {teamSize ? <span>{locale === "ar" ? `فريق من ${teamSize}` : `Team of ${teamSize}`}</span> : null}
+      </p>
+    ) : null}
+
+    <h3 class="wcard-title">{title}</h3>
+    <p class="wcard-sub">{sub}</p>
+
+    {roleFirst && <span class="role-chip">{roleFirst}</span>}
+
+    {topEvidence && variant === "lead" && (
+      <p class="wcard-evidence">
+        <span class="we-value numeric">{topEvidence.value}</span>
+        <span class="we-label">{pick(topEvidence.label, locale)}</span>
+      </p>
+    )}
+
+    <span class="wcard-cta">
+      <span>{pick(strings.work.openCase, locale)}</span>
+      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" class="mirror" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M5 12h14M13 5l7 7-7 7"/>
+      </svg>
+    </span>
+  </div>
+</a>
+
+<style>
+  .sr-only {
+    position: absolute;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0,0,0,0);
+    white-space: nowrap; border: 0;
+  }
+
+  .wcard {
+    display: grid;
+    gap: 1rem;
+    text-decoration: none;
+    color: inherit;
+    border-radius: 20px;
+    isolation: isolate;
+    position: relative;
+    transition: transform 200ms ease;
+  }
+  .wcard:hover { transform: translateY(-2px); }
+  .wcard:hover .wcard-cta span { color: var(--text-accent); }
+
+  /* ---------- Media frame (shared) ---------- */
+  .wcard-media {
+    position: relative;
+    width: 100%;
+  }
+  .wcard-frame {
+    position: relative;
+    border-radius: 14px;
+    border: 1px solid var(--border-subtle);
+    background: var(--surface-subtle); /* the mat */
+    padding: 20px;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    display: grid;
+    place-items: center;
+  }
+  .wcard-lead .wcard-frame { aspect-ratio: 7 / 5; }
+  .wcard-small .wcard-frame { aspect-ratio: 4 / 3; padding: 16px; }
+
+  .wcard-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    display: block;
+    background: var(--surface-default);
+    border-radius: 8px;
+  }
+
+  /* Brand composition when there's no image */
+  .brand-comp {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    background: var(--surface-elevated);
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .bc-grad {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(110% 90% at 50% 0%,
+        color-mix(in oklab, var(--brand-secondary) 55%, transparent) 0%,
+        color-mix(in oklab, var(--brand-secondary) 18%, transparent) 35%,
+        transparent 68%),
+      linear-gradient(180deg,
+        color-mix(in oklab, var(--brand-secondary) 18%, var(--surface-elevated)) 0%,
+        var(--surface-elevated) 100%);
+    z-index: 0;
+    pointer-events: none;
+  }
+  .bc-w {
+    position: absolute;
+    inset-block-start: 50%;
+    inset-inline-start: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    opacity: 0.95;
+  }
+  html[dir="rtl"] .bc-w { transform: translate(50%, -50%); }
+  .bc-title {
+    position: absolute;
+    inset-block-end: 1rem;
+    inset-inline-start: 1rem;
+    z-index: 2;
+    font-size: clamp(1rem, 2vw, 1.5rem);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
+    opacity: 0.9;
+    /* reuse — hidden visually, shown on small variant */
+    display: none;
+  }
+  .bc-sub {
+    position: absolute;
+    inset-block-end: 1rem;
+    inset-inline-end: 1rem;
+    z-index: 2;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  html[lang="ar"] .bc-sub { letter-spacing: 0; text-transform: none; font-size: 0.875rem; }
+  .bc-stars {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+  }
+  .bc-stars span {
+    position: absolute;
+    background: var(--brand-primary);
+    clip-path: polygon(50% 0%, 55% 45%, 100% 50%, 55% 55%, 50% 100%, 45% 55%, 0% 50%, 45% 45%);
+  }
+  .bc-stars span:nth-child(1) {
+    width: 10px; height: 10px;
+    inset-block-start: 14%; inset-inline-end: 16%;
+    opacity: 0.9;
+  }
+  .bc-stars span:nth-child(2) {
+    width: 7px; height: 7px;
+    inset-block-end: 28%; inset-inline-start: 14%;
+    opacity: 0.6;
+  }
+  .bc-stars span:nth-child(3) {
+    width: 5px; height: 5px;
+    inset-block-start: 28%; inset-inline-start: 22%;
+    opacity: 0.45;
+  }
+
+  /* Status badge: bottom-left */
+  .wcard-status {
+    position: absolute;
+    inset-block-end: 10px;
+    inset-inline-start: 10px;
+    z-index: 3;
+    background: color-mix(in oklab, var(--surface-default) 92%, transparent);
+    border: 1px solid var(--border-subtle);
+    border-radius: 999px;
+    padding: 0.2rem 0.5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.75rem;
+    line-height: 1;
+  }
+
+  /* ---------- Body ---------- */
+  .wcard-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    padding-block: 0.25rem 0.5rem;
+  }
+  .wcard-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+    margin: 0;
+  }
+  html[lang="ar"] .wcard-eyebrow { font-size: 0.9375rem; letter-spacing: 0; }
+  .dotsep { opacity: 0.6; }
+
+  .wcard-title {
+    font-size: clamp(1.25rem, 1rem + 0.7vw, 1.5rem);
+    font-weight: 600;
+    letter-spacing: -0.012em;
+    line-height: 1.2;
+    color: var(--text-primary);
+    margin: 0;
+  }
+  html[lang="ar"] .wcard-title { letter-spacing: 0; line-height: 1.35; }
+
+  .wcard-lead .wcard-title {
+    font-size: clamp(1.5rem, 1.1rem + 1.6vw, 2.125rem);
+  }
+  .wcard-small .wcard-title {
+    font-size: 1.125rem;
+  }
+
+  .wcard-sub {
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    color: var(--text-secondary);
+    max-width: 54ch;
+    margin: 0;
+    text-wrap: pretty;
+  }
+  html[lang="ar"] .wcard-sub { font-size: 1rem; line-height: 1.8; }
+  .wcard-lead .wcard-sub { font-size: 1.0625rem; }
+
+  .role-chip {
+    align-self: flex-start;
+    display: inline-flex;
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+    border: 1px solid var(--border-subtle);
+    background: var(--surface-subtle);
+    color: var(--text-muted);
+    font-size: 0.8125rem;
+    line-height: 1.3;
+    max-width: 100%;
+  }
+  html[lang="ar"] .role-chip { font-size: 0.9rem; }
+
+  .wcard-evidence {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    margin-block-start: 0.25rem;
+    padding-block-start: 0.75rem;
+    border-block-start: 1px solid var(--border-subtle);
+    color: var(--text-secondary);
+    font-size: 0.9375rem;
+  }
+  .we-value {
+    font-weight: 600;
+    color: var(--text-primary);
+    font-variant-numeric: lining-nums tabular-nums;
+    font-size: 1.0625rem;
+  }
+
+  .wcard-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--text-primary);
+    font-weight: 500;
+    font-size: 0.9375rem;
+    margin-block-start: 0.4rem;
+  }
+  .wcard-cta span:first-child {
+    border-block-end: 1px solid currentColor;
+    padding-block-end: 2px;
+    transition: color 160ms ease;
+  }
+
+  /* ---------- Variants ---------- */
+  .wcard-lead {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  @media (min-width: 760px) {
+    .wcard-lead {
+      grid-template-columns: 7fr 5fr;
+      gap: 2rem;
+      align-items: center;
+    }
+    .wcard-lead .wcard-body { padding-inline-end: 1rem; }
+  }
+
+  .wcard-row { grid-template-columns: 1fr; }
+  @media (min-width: 900px) {
+    .wcard-row { grid-template-columns: 1fr 1fr; align-items: center; gap: 1.5rem; }
+  }
+
+  .wcard-small { grid-template-columns: 1fr; }
+  .wcard-small .wcard-cta { font-size: 0.875rem; }
+  .wcard-small .role-chip { font-size: 0.75rem; padding: 0.2rem 0.5rem; }
+</style>

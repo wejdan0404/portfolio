@@ -1,0 +1,140 @@
+{
+  "slug": "vui",
+  "tier": "flagship",
+  "status": "planned",
+  "order": 5,
+  "title": {
+    "en": "Drive-thru voice assistant",
+    "ar": "مساعد صوتي لخدمة السيارات"
+  },
+  "sub": {
+    "en": "A conversation design: confirmation, repair and barge-in.",
+    "ar": "تصميم محادثة: التأكيد، وإصلاح التعثر، والمقاطعة."
+  },
+  "problem": {
+    "en": "The report names order-taking as the drive-thru bottleneck at peak times — stronger in Makkah during Hajj and Umrah. No data or citations back this, so it stands as a premise.",
+    "ar": "يعدّ التقرير استقبال الطلبات موضع التعثر في خدمة السيارات في أوقات الذروة، وأشد في مكة المكرمة خلال موسمي الحج والعمرة. لا بيانات ولا مراجع تدعم ذلك، فتبقى فرضية.",
+    "_sources": "facts.md F15, F19, F20"
+  },
+  "approach": {
+    "en": "Three decisions carry the conversation. Confirmation gets stricter as the chance of error grows: implicit for routine adds, explicit before payment. Each kind of breakdown — unclear or invalid input — gets its own repair. Barge-in and three timeouts decide who holds the turn.",
+    "ar": "ثلاثة قرارات تحمل الحوار. يصير التأكيد أصرح كلما ارتفع احتمال الخطأ: ضمنيّ للإضافات المعتادة، وصريح قبل الدفع. ولكل نوع من التعثر — إدخال غير واضح أو غير صالح — إصلاحه. والمقاطعة وثلاث مهلات انتظار تحدد صاحب الدور في الحديث.",
+    "_sources": "facts.md F28, F30, F34, F35, F39, F40"
+  },
+  "role": {
+    "en": "Team of 3. My 100% sections: Introduction; Products and Specifications; Deployment Location; Selecting an ASR Engine (vocabulary, barge-in, timeouts, unclear and invalid input handling); File Formatting. Shared 50/50: Operational Challenges; Interaction Scenarios.",
+    "ar": "ضمن فريق من 3. أقسامي بنسبة 100%: المقدمة؛ المنتجات والمواصفات؛ موقع التركيب؛ اختيار محرك التعرّف على الكلام (المفردات، والمقاطعة، ومهلات الانتظار، ومعالجة الإدخال غير الواضح وغير الصالح)؛ تنسيق الملف. وبنسبة 50% مشتركة: التحديات التشغيلية؛ سيناريوهات التفاعل.",
+    "_sources": "facts.md section 2 task table (p.22)"
+  },
+  "evidence": [
+    {
+      "kind": "callout",
+      "value": {
+        "en": "Evaluation planned — no completed test results claimed",
+        "ar": "التقييم مخطط له — لا توجد نتائج اختبار مكتملة"
+      },
+      "label": {
+        "en": "A Wizard-of-Oz plan with three roles (User, Wizard, Observer) and one example scenario. The report records no sessions, participants, observations or data.",
+        "ar": "خطة اختبار «ساحر أوز» بثلاثة أدوار (المستخدم، و«الساحر»، والمراقب) ومثال واحد. لا يسجّل التقرير جلسات أو مشاركين أو ملاحظات أو بيانات."
+      },
+      "_sources": "facts.md claim check pp.20–21"
+    },
+    {
+      "kind": "metric",
+      "value": "90%",
+      "label": {
+        "en": "A target in the test plan — not a measured result",
+        "ar": "هدف في خطة الاختبار — لا نتيجة مقيسة"
+      },
+      "_sources": "facts.md p.21 (Measurable Outcomes)"
+    },
+    {
+      "kind": "metric",
+      "value": "1.5 / 10 / 7 s",
+      "label": {
+        "en": "End-of-speech / no-speech / too-much-speech timeouts set in my ASR section",
+        "ar": "نهاية الكلام / عدم الكلام / الإطالة في الكلام في قسم التعرّف على الكلام"
+      },
+      "_sources": "facts.md F40"
+    },
+    {
+      "kind": "callout",
+      "value": {
+        "en": "Barge-in enabled",
+        "ar": "المقاطعة مفعّلة"
+      },
+      "label": {
+        "en": "A driver can cut in to change the drink while the assistant is still speaking.",
+        "ar": "يستطيع السائق مقاطعة المساعد ليغيّر المشروب والمساعد ما زال يتحدث."
+      },
+      "_sources": "facts.md F39"
+    },
+    {
+      "kind": "callout",
+      "value": {
+        "en": "Unclear vs invalid input",
+        "ar": "إدخال غير واضح مقابل غير صالح"
+      },
+      "label": {
+        "en": "Unclear → ask for the missing detail. Invalid → admit the miss and propose the likely intent.",
+        "ar": "غير الواضح → سؤال عن التفصيل الناقص. غير الصالح → اعتراف بأن المساعد لم يلتقطه مع اقتراح المقصود المرجّح."
+      },
+      "_sources": "facts.md F34, F35"
+    },
+    {
+      "kind": "callout",
+      "value": {
+        "en": "Academic concept — not affiliated with McDonald's",
+        "ar": "مفهوم أكاديمي — غير مرتبط بشركة ماكدونالدز"
+      },
+      "label": {
+        "en": "No logos or brand artwork; product names appear only inside quoted dialogue.",
+        "ar": "لا شعارات ولا هوية بصرية؛ وأسماء المنتجات لا تظهر إلا داخل اقتباسات الحوار."
+      },
+      "_sources": "facts.md section 7"
+    }
+  ],
+  "closing": {
+    "en": "A 22-page specification with internal tensions the case study keeps rather than hides: touch is ruled out yet offered, Arabic support is cited yet every script is in English, and payment moves between the window and the kiosk.",
+    "ar": "مواصفة من 22 صفحة تحمل تعارضات داخلية لا تخفيها هذه الدراسة: اللمس يُستبعد ثم يُعرض، ويُستشهد بدعم العربية وكل النصوص بالإنجليزية، والدفع يتنقل بين النافذة وجهاز الطلب.",
+    "_sources": "facts.md X1, X3, X4"
+  },
+  "images": [
+    {
+      "src": "/img/projects/vui/flow-full.webp",
+      "alt": {
+        "en": "Full dialogue flow for the drive-thru voice assistant",
+        "ar": "المخطط الكامل لحوار المساعد الصوتي"
+      },
+      "role": "cover"
+    },
+    {
+      "src": "/img/projects/vui/recovery-unclear.webp",
+      "alt": {
+        "en": "Recovery flow for unclear input",
+        "ar": "مسار الاسترداد عند مدخل غير واضح"
+      },
+      "role": "detail"
+    },
+    {
+      "src": "/img/projects/vui/asr-timeouts.webp",
+      "alt": {
+        "en": "ASR timeout table for the planned test",
+        "ar": "جدول توقّفات التعرّف الصوتي للاختبار المخطط"
+      },
+      "role": "detail"
+    }
+  ],
+  "flags": {
+    "contentRequired": [
+      "reflection",
+      "term_year_and_duration",
+      "how_i_would_resolve_the_touch_hearing_language_payment_tensions_today",
+      "user_research_outside_the_report_if_any"
+    ],
+    "ownerDecisions": [
+      "The source has 9 logged internal inconsistencies (voice-only vs touch, hearing claim vs voice-only channel, Arabic support vs English-only scripts, payment location, price totals that do not add up). Kept visible as an honest open-questions block; confirm the framing",
+      "If the Wizard-of-Oz test is run later, add measured results and label participants P1…Pn"
+    ]
+  }
+}

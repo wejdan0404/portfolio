@@ -1,0 +1,159 @@
+---
+import { type Locale, localePath } from "../../lib/i18n";
+import { strings, pick } from "../../lib/strings";
+
+export interface Props { locale: Locale; }
+const { locale } = Astro.props;
+
+/* Source: /home/claude/brand/source-copy.md — Page 27 capabilities.
+   Four categories (RESEARCH · DESIGN · STRATEGY · TOOLS), 3–4 items each.
+   Full lists live on /services. */
+
+type Pair = { en: string; ar: string };
+type Cat = { title: Pair; items: Pair[] };
+
+const categories: Cat[] = [
+  {
+    title: { en: "Research", ar: "البحث" },
+    items: [
+      { en: "Usability testing", ar: "اختبار قابلية الاستخدام" },
+      { en: "Heuristic evaluation", ar: "تقييم إرشادي" },
+      { en: "User interviews", ar: "مقابلات المستخدمين" },
+      { en: "Survey design", ar: "تصميم الاستبانات" },
+    ],
+  },
+  {
+    title: { en: "Design", ar: "التصميم" },
+    items: [
+      { en: "Interface design", ar: "تصميم الواجهة" },
+      { en: "Prototyping", ar: "نمذجة أوّلية" },
+      { en: "Design systems", ar: "أنظمة تصميم" },
+      { en: "Accessibility (WCAG 2.2)", ar: "الوصولية (WCAG 2.2)" },
+    ],
+  },
+  {
+    title: { en: "Strategy", ar: "الاستراتيجية" },
+    items: [
+      { en: "Product thinking", ar: "تفكير منتج" },
+      { en: "Experience audits", ar: "مراجعات تجربة" },
+      { en: "Design review", ar: "مراجعة التصميم" },
+      { en: "Human–AI UX", ar: "تجربة بين الإنسان والذكاء الاصطناعي" },
+    ],
+  },
+  {
+    title: { en: "Tools", ar: "الأدوات" },
+    items: [
+      { en: "Figma · FigJam", ar: "Figma · FigJam" },
+      { en: "HTML · CSS · JS · React", ar: "HTML · CSS · JS · React" },
+      { en: "Flutter · Firebase", ar: "Flutter · Firebase" },
+      { en: "GitHub · Notion", ar: "GitHub · Notion" },
+    ],
+  },
+];
+
+const moreEn = "See full services";
+const moreAr = "عرض الخدمات بالتفصيل";
+---
+
+<section class="caps" aria-labelledby="caps-title">
+  <div class="container-wide">
+    <header class="caps-head">
+      <span class="type-eyebrow">{pick(strings.home.capabilitiesEyebrow, locale)}</span>
+      <h2 id="caps-title" class="caps-heading">{pick(strings.home.capabilitiesHeading, locale)}</h2>
+    </header>
+
+    <div class="caps-grid">
+      {categories.map((c) => (
+        <section class="cap">
+          <h3 class="cap-title">{pick(c.title, locale)}</h3>
+          <ul class="cap-list" role="list">
+            {c.items.map((it) => (
+              <li>{pick(it, locale)}</li>
+            ))}
+          </ul>
+        </section>
+      ))}
+    </div>
+
+    <div class="caps-foot">
+      <a href={localePath(locale, "services")} class="btn-link">
+        {locale === "ar" ? moreAr : moreEn}
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" class="mirror" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14M13 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .caps { padding-block: clamp(56px, 8vw, 112px); }
+
+  .caps-head {
+    display: grid;
+    gap: 0.75rem;
+    margin-block-end: clamp(2rem, 4vw, 3rem);
+    max-width: 48ch;
+  }
+  .caps-heading {
+    font-size: clamp(1.75rem, 1.1rem + 2.4vw, 2.75rem);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    line-height: 1.14;
+    color: var(--text-primary);
+    text-wrap: pretty;
+  }
+  html[lang="ar"] .caps-heading { letter-spacing: 0; line-height: 1.35; }
+
+  .caps-grid {
+    display: grid;
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 560px) { .caps-grid { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 960px) { .caps-grid { grid-template-columns: repeat(4, 1fr); gap: clamp(1.5rem, 2.4vw, 2rem); } }
+
+  .cap {
+    display: grid;
+    gap: 1rem;
+    align-content: start;
+    padding-block-start: 1rem;
+    border-block-start: 1px solid var(--border-strong);
+  }
+  .cap-title {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-primary);
+    margin: 0;
+  }
+  html[lang="ar"] .cap-title { letter-spacing: 0; text-transform: none; font-size: 1.0625rem; }
+
+  .cap-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.5rem;
+  }
+  .cap-list li {
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    position: relative;
+    padding-inline-start: 0.9rem;
+  }
+  html[lang="ar"] .cap-list li { font-size: 1rem; line-height: 1.75; }
+  .cap-list li::before {
+    content: "";
+    position: absolute;
+    inset-block-start: 0.65em;
+    inset-inline-start: 0;
+    width: 5px;
+    height: 1px;
+    background: var(--brand-primary);
+  }
+
+  .caps-foot { margin-block-start: clamp(2rem, 4vw, 2.5rem); }
+</style>

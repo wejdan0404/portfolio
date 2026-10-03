@@ -1,0 +1,137 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../../../layouts/Base.astro";
+import WorkCard from "../../../components/work/WorkCard.astro";
+import EvidenceDot from "../../../components/work/EvidenceDot.astro";
+import { type Locale, LOCALES } from "../../../lib/i18n";
+import { strings, pick } from "../../../lib/strings";
+
+export function getStaticPaths() {
+  return LOCALES.map((l) => ({ params: { locale: l } }));
+}
+const locale = Astro.params.locale as Locale;
+
+// Deterministic order shared with the home page's WorkGrid. If a case study
+// provides an explicit numeric `order`, it wins.
+const DEFAULT_ORDER = ["mishkat", "arcadea", "rafiq", "wraf", "vui", "petcare"];
+function orderOf(entry: { data: any }) {
+  if (typeof entry.data.order === "number") return entry.data.order;
+  const i = DEFAULT_ORDER.indexOf(entry.data.slug);
+  return i === -1 ? 999 : i;
+}
+
+const all = await getCollection("case-studies");
+all.sort((a, b) => orderOf(a) - orderOf(b));
+
+const introLine = {
+  en: "Six case studies, each labelled with the evidence behind it.",
+  ar: "ست دراسات حالة، كلٌّ منها مَوسومة بالأدلّة التي تسندها.",
+};
+---
+
+<Base
+  locale={locale}
+  path="/work"
+  title={locale === "ar" ? "الأعمال" : "Work — Wejdan"}
+  description={pick(introLine, locale)}
+>
+  <section class="work-page">
+    <div class="container-wide">
+      <header class="work-head">
+        <span class="type-eyebrow">{pick(strings.nav.work, locale)}</span>
+        <h1 class="type-display-l work-h1">
+          {locale === "ar"
+            ? "ستة مشاريع. ستة تقييمات صادقة."
+            : "Six projects. Six honest evaluations."}
+        </h1>
+        <p class="work-intro">{pick(introLine, locale)}</p>
+        <p class="type-body work-lede">{pick(strings.work.pageLede, locale)}</p>
+      </header>
+
+      <section class="work-legend" aria-label={pick(strings.evidence.legendTitle, locale)}>
+        <h2 class="legend-h">{pick(strings.evidence.legendTitle, locale)}</h2>
+        <ul class="legend-list">
+          <li><EvidenceDot status="tested" locale={locale} /></li>
+          <li><EvidenceDot status="planned" locale={locale} /></li>
+          <li><EvidenceDot status="early" locale={locale} /></li>
+        </ul>
+      </section>
+
+      <div class="work-grid">
+        {all.map((entry, i) => {
+          const v: "lead" | "row" | "small" = i === 0 ? "lead" : "row";
+          return (
+            <div class={`cell cell-${v}`}>
+              <WorkCard entry={entry} locale={locale} variant={v} />
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .work-page { padding-block: clamp(3rem, 7vw, 5rem); }
+  .work-head {
+    max-width: 820px;
+    margin-block-end: 2rem;
+    display: grid;
+    gap: 1rem;
+  }
+  .work-h1 { max-width: 20ch; margin-block-start: 0.5rem; }
+  .work-intro {
+    font-size: 1.0625rem;
+    color: var(--text-primary);
+    line-height: 1.6;
+    max-width: 48ch;
+  }
+  html[lang="ar"] .work-intro { font-size: 1.1rem; line-height: 1.8; }
+  .work-lede { color: var(--text-secondary); }
+
+  .work-legend {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1.5rem;
+    padding: 0.9rem 1.1rem;
+    margin-block-end: 2rem;
+    border: 1px solid var(--border-subtle);
+    background: var(--surface-subtle);
+    border-radius: 999px;
+  }
+  @media (max-width: 559px) {
+    .work-legend { border-radius: 14px; }
+  }
+  .legend-h {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-weight: 600;
+    margin: 0;
+  }
+  html[lang="ar"] .legend-h { letter-spacing: 0; text-transform: none; font-size: 0.9rem; }
+  .legend-list {
+    list-style: none;
+    padding: 0; margin: 0;
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.25rem;
+  }
+
+  .work-grid {
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 760px) {
+    .work-grid {
+      grid-template-columns: repeat(6, 1fr);
+      gap: 1.5rem;
+    }
+    .cell-lead { grid-column: span 6; }
+    .cell-row { grid-column: span 6; }
+    .cell-small { grid-column: span 3; }
+  }
+</style>

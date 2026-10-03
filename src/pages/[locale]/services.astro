@@ -1,0 +1,524 @@
+---
+import Base from "../../layouts/Base.astro";
+import { type Locale, LOCALES } from "../../lib/i18n";
+import { strings, pick } from "../../lib/strings";
+import ServiceBlock from "../../components/services/ServiceBlock.astro";
+import ProcessStrip from "../../components/services/ProcessStrip.astro";
+import PrincipleGrid from "../../components/services/PrincipleGrid.astro";
+import HonestyBlock from "../../components/services/HonestyBlock.astro";
+
+export function getStaticPaths() {
+  return LOCALES.map((l) => ({ params: { locale: l } }));
+}
+const locale = Astro.params.locale as Locale;
+
+type Bi = { en: string; ar: string };
+const t = (en: string, ar: string): Bi => ({ en, ar });
+
+// 1. Opening statement — the practice in Wejdan's own words.
+const opening = {
+  statement: t(
+    "Research led me to the person before the screen. The system follows.",
+    "أبدأ من الإنسان قبل الشاشة، ثم يأتي النظام.",
+  ),
+  support: t(
+    "I'm a solo UX practitioner trained in Human–Computer Interaction. My work is grounded in evidence, built in Arabic and English with the same rigour, and documented so the next person can carry it forward.",
+    "ممارِسة مستقلّة لتجربة المستخدم بتدريب أكاديمي في التفاعل بين الإنسان والحاسب. العمل يستند إلى الأدلة، ويُبنى بالعربية والإنجليزية بالدقّة نفسها، ويُوَثَّق كي يُكمِله من يأتي بعدي.",
+  ),
+};
+
+// 2. The three signature services
+const freelanceNote = t("Available for freelance.", "متاحة للعمل الحر.");
+
+const services = [
+  {
+    variant: "design" as const,
+    index: 1,
+    name: t("UX / UI design", "تصميم تجربة وواجهة المستخدم"),
+    summary: t(
+      "Interface and interaction design for apps, websites and digital products — Arabic and English held to the same standard from the first wireframe.",
+      "تصميم الواجهة والتفاعل للتطبيقات والمواقع والمنتجات الرقمية — بالعربية والإنجليزية بالمعيار نفسه منذ النموذج الأوّلي.",
+    ),
+    included: [
+      t("End-to-end product flows for web and mobile", "تدفّقات منتج متكاملة للويب والجوّال"),
+      t("Interaction design and prototyping in Figma", "تصميم التفاعل والنمذجة الأوّلية في Figma"),
+      t("Arabic/RTL and English/LTR parity, from the first mockup", "تكافؤ الاتجاهين من أوّل نموذج"),
+      t("Accessibility pass to WCAG 2.2 AA on surfaces I own", "فحص إمكانية الوصول وفق WCAG 2.2 AA على ما أملكه من أسطح"),
+    ],
+    outcome: t(
+      "A screen set that holds up under the research, not just the moodboard.",
+      "مجموعة شاشات تصمد أمام البحث، لا أمام لوحة الإلهام فقط.",
+    ),
+    freelanceNote,
+  },
+  {
+    variant: "research" as const,
+    index: 2,
+    name: t("UX research and evaluation", "بحث تجربة المستخدم وتقييمها"),
+    summary: t(
+      "Usability testing, heuristic evaluation, research synthesis, and findings that teams can act on — presented with the method, the sample size, and the limits said out loud.",
+      "اختبار قابلية الاستخدام، التقييم الإرشادي، تحليل البحث، ونتائج قابلة للتنفيذ — مع ذكر الأسلوب وحجم العيّنة والحدود صراحةً.",
+    ),
+    included: [
+      t("Semi-structured user interviews", "مقابلات شبه منظّمة"),
+      t("Moderated usability testing with task metrics and SUS", "اختبار موجَّه مع مؤشّرات المهام ومقياس SUS"),
+      t("Heuristic evaluation (Nielsen's 10) and competitive benchmark", "تقييم إرشادي (نيلسن) ومقارنة تنافسية"),
+      t("Thematic analysis that separates evidence from opinion", "تحليل موضوعي يفصل الدليل عن الرأي"),
+    ],
+    outcome: t(
+      "A short, cited readout — not a long report that gets ignored.",
+      "تقرير قصير موثّق بالمصادر — لا وثيقة طويلة تُهمَل.",
+    ),
+    freelanceNote,
+  },
+  {
+    variant: "systems" as const,
+    index: 3,
+    name: t("Design systems and product UX", "أنظمة التصميم وتجربة المنتج"),
+    summary: t(
+      "Reusable systems, flows, documentation, and the product structure that holds them together — so decisions survive the handover.",
+      "أنظمة قابلة لإعادة الاستخدام، وتدفّقات، وتوثيق، وبنية منتج تحفظ كلّ ذلك — كي تبقى القرارات بعد التسليم.",
+    ),
+    included: [
+      t("Token architecture: colour, type, spacing, radius, elevation", "بنية الرموز: لون، طباعة، فراغ، استدارة، ارتفاع"),
+      t("Component libraries with variants and documented states", "مكتبات مكوّنات بحالات موثّقة ومتغيّرات"),
+      t("Information architecture and reusable flow patterns", "هندسة المعلومات وأنماط تدفّقات قابلة للتكرار"),
+      t("Documentation that designers and engineers actually read", "توثيق يقرأه المصمّمون والمهندسون فعلًا"),
+    ],
+    outcome: t(
+      "A system that stays open — easy to extend, clear to inherit.",
+      "نظام يبقى مفتوحًا — يسهل توسيعه، ويسهل أن يُستلم.",
+    ),
+    freelanceNote,
+  },
+];
+
+// 3. Capabilities — the four full lists, from source-copy.md page 27
+const capLists: { heading: Bi; items: string[] }[] = [
+  {
+    heading: t("Research", "البحث"),
+    items: [
+      "Usability testing",
+      "Heuristic evaluation",
+      "User interviews",
+      "Survey design",
+      "Competitive analysis",
+      "Journey mapping",
+      "Persona development",
+      "Task analysis",
+    ],
+  },
+  {
+    heading: t("Design", "التصميم"),
+    items: [
+      "Interface design",
+      "Wireframing",
+      "Prototyping",
+      "Design systems",
+      "Component libraries",
+      "Responsive design",
+      "Accessibility (WCAG 2.2)",
+      "Information architecture",
+    ],
+  },
+  {
+    heading: t("Strategy", "الاستراتيجية"),
+    items: [
+      "Product thinking",
+      "Experience audits",
+      "Stakeholder alignment",
+      "Design review",
+      "Human–AI interaction patterns",
+      "Agent UX",
+    ],
+  },
+  {
+    heading: t("Tools", "الأدوات"),
+    items: [
+      "Figma",
+      "FigJam",
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "React",
+      "Flutter",
+      "Firebase",
+      "VS Code",
+      "GitHub",
+      "Notion",
+      "Power BI",
+      "Canva",
+    ],
+  },
+];
+
+// Arabic translations of the capability items (not every item needs full translation; mix English + Arabic naturally)
+const capAr: Record<string, string> = {
+  "Usability testing": "اختبار قابلية الاستخدام",
+  "Heuristic evaluation": "التقييم الإرشادي",
+  "User interviews": "مقابلات المستخدمين",
+  "Survey design": "تصميم الاستبانات",
+  "Competitive analysis": "التحليل التنافسي",
+  "Journey mapping": "رسم رحلة المستخدم",
+  "Persona development": "صياغة الشخصيات",
+  "Task analysis": "تحليل المهام",
+  "Interface design": "تصميم الواجهة",
+  "Wireframing": "النماذج السلكية",
+  "Prototyping": "النمذجة الأوّلية",
+  "Design systems": "أنظمة التصميم",
+  "Component libraries": "مكتبات المكوّنات",
+  "Responsive design": "التصميم المتجاوب",
+  "Accessibility (WCAG 2.2)": "إمكانية الوصول (WCAG 2.2)",
+  "Information architecture": "هندسة المعلومات",
+  "Product thinking": "التفكير المنتجي",
+  "Experience audits": "مراجعات التجربة",
+  "Stakeholder alignment": "مواءمة أصحاب المصلحة",
+  "Design review": "مراجعة التصميم",
+  "Human–AI interaction patterns": "أنماط التفاعل بين الإنسان والذكاء الاصطناعي",
+  "Agent UX": "تجربة الوكلاء",
+};
+
+function capText(item: string): string {
+  if (locale === "ar" && capAr[item]) return capAr[item];
+  return item;
+}
+
+// 4. The four stages (page 27)
+const stages: { title: Bi; body: Bi }[] = [
+  {
+    title: t("Qualify", "التأهّل"),
+    body: t(
+      "Capture the brief and decide the fit — on both sides.",
+      "استلام الطلب وتحديد مدى الملاءمة من الطرفين.",
+    ),
+  },
+  {
+    title: t("Propose", "المقترح"),
+    body: t(
+      "Scope, timeline, deliverables and price. Agreed in the proposal; no templated pricing.",
+      "النطاق والجدول الزمني والمخرجات والسعر. يُتَّفق عليها في المقترح، ولا توجد قوالب أسعار جاهزة.",
+    ),
+  },
+  {
+    title: t("Deliver", "التنفيذ"),
+    body: t(
+      "Onboard, review and record decisions as the work moves.",
+      "البدء بالتعاون، ومراجعة العمل، وتوثيق القرارات أثناء التنفيذ.",
+    ),
+  },
+  {
+    title: t("Close", "الإغلاق"),
+    body: t(
+      "Hand off, invoice and ask for honest feedback.",
+      "التسليم، وإصدار الفاتورة، وطلب تغذية راجعة صريحة.",
+    ),
+  },
+];
+
+const processNote = t(
+  "No fixed packages. No invented timelines. Everything is set in the proposal after the brief.",
+  "لا باقات ثابتة ولا جداول زمنية مسبقة؛ يُتَّفق على كلّ شيء بعد قراءة الطلب.",
+);
+
+// 5. The four principles — from source-copy.md page 01, tied to a method commitment
+const principles = [
+  {
+    mark: "letter" as const,
+    title: t("Person at the centre", "الإنسان في المركز"),
+    commitment: t(
+      "Every project starts with the person who will use it.",
+      "يبدأ كلّ مشروع من الإنسان الذي سيستخدمه.",
+    ),
+  },
+  {
+    mark: "stars" as const,
+    title: t("Evidence, not opinion", "دليل لا رأي"),
+    commitment: t(
+      "Every design claim carries a source; a claim without evidence stays out.",
+      "كلّ ادّعاء في التصميم يحمل مصدره؛ وما لا دليل عليه يبقى خارجًا.",
+    ),
+  },
+  {
+    mark: "arc" as const,
+    title: t("A system that stays open", "نظام يبقى مفتوحًا"),
+    commitment: t(
+      "Reversible steps, visible state, clear exits — the product never closes on its user.",
+      "خطوات قابلة للتراجع، وحالة ظاهرة، ومخارج واضحة — لا ينغلق المنتج على مستخدمه.",
+    ),
+  },
+  {
+    mark: "curve" as const,
+    title: t("Continuity after handover", "استمرارية بعد التسليم"),
+    commitment: t(
+      "Decisions are documented so the next person can build on them.",
+      "تُوثَّق القرارات ليكمل من يأتي بعدي على أساسها.",
+    ),
+  },
+];
+
+// 6. Honest "what I won't claim" list
+const honesty = [
+  t(
+    "I won't publish a research finding without a source.",
+    "لن أنشر نتيجة بحثية بلا مصدر.",
+  ),
+  t(
+    "I won't ship a design that fails WCAG 2.2 AA on surfaces I own.",
+    "لن أُسلِّم تصميمًا يخفق في WCAG 2.2 AA على ما أملكه من أسطح.",
+  ),
+  t(
+    "I won't quote a timeline before the scope is clear.",
+    "لن أعرض جدولًا زمنيًا قبل أن يتّضح النطاق.",
+  ),
+];
+
+// 7. CTA email subject (localized)
+const mailSubject = locale === "ar"
+  ? "استفسار مشروع"
+  : "Project enquiry";
+const mailto = `mailto:wejdan4458@gmail.com?subject=${encodeURIComponent(mailSubject)}`;
+---
+
+<Base locale={locale} path="/services" title={pick(strings.services.pageTitle, locale)}>
+
+  <!-- 1. Opening statement -->
+  <section class="opening" aria-labelledby="opening-h">
+    <div class="container-wide">
+      <span class="type-eyebrow">{pick(strings.services.pageTitle, locale)}</span>
+      <h1 id="opening-h" class="opening-statement">{pick(opening.statement)}</h1>
+      <p class="opening-support">{pick(opening.support)}</p>
+    </div>
+  </section>
+
+  <!-- 2. Three signature services, stacked, each with its own layout -->
+  <section class="services-stack" aria-label={pick(t("Services", "الخدمات"))}>
+    <div class="container-wide">
+      {services.map((s) => (
+        <ServiceBlock
+          locale={locale}
+          variant={s.variant}
+          index={s.index}
+          name={s.name}
+          summary={s.summary}
+          included={s.included}
+          outcome={s.outcome}
+          freelanceNote={s.freelanceNote}
+        />
+      ))}
+    </div>
+  </section>
+
+  <!-- 3. Capabilities — four plain columns -->
+  <section class="caps" aria-labelledby="caps-h">
+    <div class="container-wide">
+      <div class="caps-head">
+        <span class="type-eyebrow">{locale === "ar" ? "القدرات بكاملها" : "The full set"}</span>
+        <h2 id="caps-h" class="type-display-m">
+          {locale === "ar" ? "ما يمكنني فعله في مشروع." : "What I can do on a project."}
+        </h2>
+      </div>
+
+      <div class="caps-grid">
+        {capLists.map((col) => (
+          <section class="caps-col">
+            <h3 class="caps-col-h">{pick(col.heading)}</h3>
+            <ul class="caps-col-list" role="list">
+              {col.items.map((item) => (
+                <li>{capText(item)}</li>
+              ))}
+            </ul>
+          </section>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Process strip -->
+  <ProcessStrip
+    locale={locale}
+    eyebrow={t("How a project moves", "كيف يمضي مشروع")}
+    heading={t(
+      "From first inquiry to final handoff.",
+      "من أوّل استفسار إلى التسليم النهائي.",
+    )}
+    stages={stages}
+    note={processNote}
+  />
+
+  <!-- 5. Four principles -->
+  <PrincipleGrid
+    locale={locale}
+    eyebrow={t("Why work with me", "لماذا العمل معي")}
+    heading={t(
+      "Four principles govern the work.",
+      "أربعة مبادئ تحكم العمل.",
+    )}
+    principles={principles}
+  />
+
+  <!-- 6. Honest "what I won't claim" -->
+  <HonestyBlock
+    locale={locale}
+    eyebrow={t("Honestly", "صراحةً")}
+    heading={strings.services.whatIWontTitle}
+    items={honesty}
+  />
+
+  <!-- 7. CTA — direct contact, no form -->
+  <section class="cta" aria-labelledby="cta-h">
+    <div class="container-wide">
+      <div class="cta-head">
+        <span class="type-eyebrow">{locale === "ar" ? "تواصل مباشر" : "Direct contact"}</span>
+        <h2 id="cta-h" class="type-display-m">{pick(strings.services.ctaTitle, locale)}</h2>
+      </div>
+
+      <div class="cta-body">
+        <p class="cta-paragraph">
+          {locale === "ar"
+            ? "تريد البدء بمشروع؟ راسليني على wejdan4458@gmail.com بما تريدين بناءه والمشكلة التي تحاولين حلّها. أردّ حين أستطيع — أنا شخص واحد، لا شركة."
+            : "Want to start a project? Email me at wejdan4458@gmail.com with what you want built and what you're trying to solve. I reply as soon as I can — I'm one person, not a company."}
+        </p>
+
+        <div class="cta-actions">
+          <a href={mailto} dir="ltr" class="btn btn-primary cta-mail">
+            <span>wejdan4458@gmail.com</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* 1. Opening statement — editorial top */
+  .opening {
+    padding-block: clamp(96px, 14vw, 180px) clamp(48px, 8vw, 88px);
+  }
+  .opening-statement {
+    font-size: clamp(2rem, 6vw, 4rem);
+    font-weight: 600;
+    letter-spacing: -0.022em;
+    line-height: 1.08;
+    color: var(--text-primary);
+    margin-block-start: 1.25rem;
+    max-width: 22ch;
+    text-wrap: balance;
+  }
+  html[lang="ar"] .opening-statement {
+    letter-spacing: 0;
+    line-height: 1.3;
+    max-width: 24ch;
+  }
+  .opening-support {
+    margin-block-start: 1.5rem;
+    font-size: clamp(1.0625rem, 1.4vw, 1.1875rem);
+    color: var(--text-secondary);
+    line-height: 1.6;
+    max-width: 56ch;
+  }
+  html[lang="ar"] .opening-support {
+    line-height: 1.8;
+  }
+
+  /* 2. Services stack */
+  .services-stack {
+    padding-block: 0;
+  }
+
+  /* 3. Capabilities — plain, generous */
+  .caps {
+    padding-block: clamp(72px, 10vw, 128px);
+    border-block-start: 1px solid var(--border-subtle);
+  }
+  .caps-head {
+    display: grid;
+    gap: 0.75rem;
+    margin-block-end: clamp(2rem, 4vw, 3rem);
+    max-width: 48ch;
+  }
+  .caps-grid {
+    display: grid;
+    gap: clamp(2rem, 3.5vw, 3rem) clamp(1.5rem, 3vw, 2.5rem);
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 640px) {
+    .caps-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (min-width: 960px) {
+    .caps-grid { grid-template-columns: repeat(4, 1fr); }
+  }
+  .caps-col {
+    display: grid;
+    gap: 1rem;
+    align-content: start;
+  }
+  .caps-col-h {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-accent);
+    padding-block-start: 0.75rem;
+    border-block-start: 1px solid var(--border-strong);
+  }
+  html[lang="ar"] .caps-col-h {
+    letter-spacing: 0;
+    text-transform: none;
+    font-size: 0.95rem;
+  }
+  .caps-col-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.5rem;
+  }
+  .caps-col-list li {
+    font-size: 0.9375rem;
+    color: var(--text-primary);
+    line-height: 1.55;
+  }
+  html[lang="ar"] .caps-col-list li { font-size: 1rem; line-height: 1.8; }
+
+  /* 7. CTA — personal, no form */
+  .cta {
+    padding-block: clamp(72px, 10vw, 128px);
+    border-block-start: 1px solid var(--border-subtle);
+  }
+  .cta-head {
+    display: grid;
+    gap: 0.75rem;
+    margin-block-end: clamp(2rem, 4vw, 3rem);
+    max-width: 48ch;
+  }
+  .cta-body {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+  @media (min-width: 760px) {
+    .cta-body { grid-template-columns: 1.4fr 1fr; gap: clamp(2rem, 4vw, 3rem); align-items: center; }
+  }
+  .cta-paragraph {
+    font-size: clamp(1.0625rem, 1.4vw, 1.1875rem);
+    color: var(--text-secondary);
+    line-height: 1.6;
+    max-width: 56ch;
+  }
+  html[lang="ar"] .cta-paragraph { line-height: 1.8; }
+
+  .cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+  @media (min-width: 760px) {
+    .cta-actions { justify-content: flex-end; }
+  }
+  .cta-mail {
+    font-variant-numeric: lining-nums;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+</style>

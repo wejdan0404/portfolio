@@ -1,0 +1,46 @@
+---
+import { getCollection } from "astro:content";
+import WorkCard from "./WorkCard.astro";
+import { type Locale } from "../../lib/i18n";
+
+export interface Props { locale: Locale; limit?: number; }
+const { locale, limit } = Astro.props;
+
+const order = ["mishkat", "arcadea", "rafiq", "wraf", "vui", "petcare"];
+const all = await getCollection("case-studies");
+all.sort((a, b) => order.indexOf(a.data.slug) - order.indexOf(b.data.slug));
+const entries = limit ? all.slice(0, limit) : all;
+---
+
+<div class="work-grid">
+  {entries.map((entry, i) => {
+    const v = i === 0 ? "feature" : i === 1 ? "wide" : "card";
+    return (
+      <div class={`cell cell-${v}`}>
+        <WorkCard entry={entry} locale={locale} variant={v} />
+      </div>
+    );
+  })}
+</div>
+
+<style>
+  .work-grid {
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 760px) {
+    .work-grid {
+      grid-template-columns: repeat(6, 1fr);
+      gap: 1.5rem;
+    }
+    .cell-feature { grid-column: span 6; }
+    .cell-wide { grid-column: span 6; }
+    .cell-card { grid-column: span 3; }
+  }
+  @media (min-width: 1100px) {
+    .cell-feature { grid-column: span 6; }
+    .cell-wide { grid-column: span 6; }
+    .cell-card { grid-column: span 3; }
+  }
+</style>

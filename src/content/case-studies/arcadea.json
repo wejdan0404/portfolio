@@ -1,0 +1,145 @@
+{
+  "slug": "arcadea",
+  "tier": "flagship",
+  "status": "tested",
+  "order": 2,
+  "title": {
+    "en": "Arcadea",
+    "ar": "Arcadea"
+  },
+  "sub": {
+    "en": "A personal game-backlog tracker in Flutter.",
+    "ar": "متتبّع شخصي لقائمة الألعاب بـFlutter."
+  },
+  "problem": {
+    "en": "Players track their backlog across spreadsheets and screenshots. The brief asked for one app where university students and casual gamers can sort games by status, search, open details and see simple statistics.",
+    "ar": "يتتبّع اللاعبون قائمتهم عبر جداول ولقطات متفرقة. طلب الموجز تطبيقًا واحدًا يرتّب فيه طلاب الجامعات وهواة الألعاب ألعابهم بالحالة، ويبحثون ويفتحون التفاصيل ويرون إحصاءات بسيطة.",
+    "_sources": "facts.md B01, B03"
+  },
+  "approach": {
+    "en": "Three statuses — Want to play, In progress, Completed — organize the whole app in blue, amber and green. The design system was fixed before the first screen: tokens, text styles and the core components, then Flutter theme files that mirror the Figma Design System v2 page.",
+    "ar": "ثلاث حالات تنظّم التطبيق كله: Want to play وIn progress وCompleted بالأزرق والكهرماني والأخضر. ثبّتنا نظام التصميم قبل أول شاشة: رموز الألوان، وأنماط النص، والمكوّنات الأساسية، ثم ملفات السمة في Flutter التي تحاكي صفحة «Design System v2» في Figma.",
+    "_sources": "facts.md D03, D07, D08, R02, R10"
+  },
+  "role": {
+    "en": "Two-person course project. My part: led the Figma design-system foundation; designed and prototyped 11 of 23 screens; wired authentication, search, filter and stats interactions. In Flutter: 6 screens, 5 shared widgets, the AuthProvider and the three theme files.",
+    "ar": "مشروع مقرر دراسي بين طالبتين. دوري: قيادة تأسيس نظام التصميم في Figma؛ وتصميم 11 من 23 شاشة وبناء نموذجها التفاعلي؛ وربط تفاعلات الدخول والبحث والتصفية والإحصاءات. وفي Flutter: 6 شاشات، و5 عناصر مشتركة، وAuthProvider، وملفات السمة الثلاثة.",
+    "_sources": "facts.md R01, R02, R03, R07, R12"
+  },
+  "evidence": [
+    {
+      "kind": "metric",
+      "value": "100%",
+      "label": {
+        "en": "Task completion, 10 tasks",
+        "ar": "إنجاز المهام في 10 مهام"
+      },
+      "n": 5,
+      "_sources": "facts.md E09"
+    },
+    {
+      "kind": "metric",
+      "value": "79.5",
+      "label": {
+        "en": "Mean SUS score (CI 73.5–85.5, computed)",
+        "ar": "متوسط درجة SUS (مجال الثقة 73.5–85.5، محسوب)"
+      },
+      "n": 5,
+      "_sources": "facts.md E13, E25"
+    },
+    {
+      "kind": "metric",
+      "value": "6",
+      "label": {
+        "en": "Usability issues (severity 1–2 on Nielsen's 0–4 scale; none blocking)",
+        "ar": "مشكلات قابلية استخدام (الخطورة 1–2 على مقياس نيلسن 0–4، لا شيء يمنع الإنجاز)"
+      },
+      "_sources": "facts.md E11, E12, E20"
+    },
+    {
+      "kind": "metric",
+      "value": "3 / 6",
+      "label": {
+        "en": "Issues on screens I designed and built (Sign Up, Profile, empty search)",
+        "ar": "مشكلات على شاشات صمّمتها ونفّذتها (إنشاء الحساب، الملف الشخصي، نتيجة بحث فارغة)"
+      },
+      "_sources": "facts.md E21"
+    },
+    {
+      "kind": "quote",
+      "value": {
+        "en": "The colors used for each status make it easy to tell games apart at a glance.",
+        "ar": "الألوان المخصصة لكل حالة تسهّل التمييز بين الألعاب من أول نظرة."
+      },
+      "label": {
+        "en": "Participant P5",
+        "ar": "المشاركة P5"
+      },
+      "_sources": "facts.md E16"
+    },
+    {
+      "kind": "callout",
+      "value": {
+        "en": "Informal remote/home setting",
+        "ar": "بيئة منزلية غير رسمية عن بُعد"
+      },
+      "label": {
+        "en": "Debug build on an Android emulator; participants completed tasks from their homes while the team collected results and observed errors \"when possible\".",
+        "ar": "نسخة تطوير على محاكي Android؛ أنجز المشاركون المهام من منازلهم بينما جمع الفريق النتائج ورصد الأخطاء «متى أمكن»."
+      },
+      "_sources": "facts.md E04"
+    }
+  ],
+  "closing": {
+    "en": "The screens shown here are Figma frames, not captures of the running Flutter build. The report lists six proposed fixes and implements none of them — a clear next iteration if the project continues.",
+    "ar": "الشاشات المعروضة هنا إطارات Figma، لا لقطات لتطبيق Flutter أثناء التشغيل. ويقترح التقرير ستة إصلاحات لم يُنفَّذ منها شيء — وهذه نقطة واضحة للتكرار التالي إذا استمر المشروع.",
+    "_sources": "facts.md S01, S05, E19, E20"
+  },
+  "images": [
+    {
+      "src": "/img/projects/arcadea/auth-flow.webp",
+      "alt": {
+        "en": "Sign-in and sign-up screens in the Flutter build",
+        "ar": "شاشات تسجيل الدخول والتسجيل في بناء Flutter"
+      },
+      "role": "cover"
+    },
+    {
+      "src": "/img/projects/arcadea/library-states.webp",
+      "alt": {
+        "en": "Library screen across its three statuses",
+        "ar": "شاشة المكتبة في حالاتها الثلاث"
+      },
+      "role": "detail"
+    },
+    {
+      "src": "/img/projects/arcadea/statistics.webp",
+      "alt": {
+        "en": "Statistics view with brand-coloured chart",
+        "ar": "شاشة الإحصاءات مع تلوين مطابق للهوية"
+      },
+      "role": "detail"
+    },
+    {
+      "src": "/img/projects/arcadea/components.webp",
+      "alt": {
+        "en": "Reusable widgets from the design-system foundation",
+        "ar": "مكوّنات قابلة لإعادة الاستخدام من أساس نظام التصميم"
+      },
+      "role": "detail"
+    }
+  ],
+  "flags": {
+    "contentRequired": [
+      "reflection",
+      "running_flutter_screens",
+      "figma_design_system_board_export",
+      "supervisor_or_instructor_name"
+    ],
+    "ownerDecisions": [
+      "Figma link printed in the report (figma.com/design/VKjezUKAiLfsbT0jBgmesK/) — confirm it still works and may be public before linking",
+      "Sign Up and Log in frames show a footer-padding glitch — re-export after fix before any wider share",
+      "Statistics hero uses Brand Primary rather than Brand Dark as the design system states — minor spec mismatch to resolve"
+    ]
+  }
+}

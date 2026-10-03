@@ -1,0 +1,117 @@
+---
+import { type Locale } from "../../lib/i18n";
+
+type Bi = { en: string; ar: string };
+
+export interface Props {
+  locale: Locale;
+  stages: { title: Bi; body: Bi }[];
+  note: Bi;
+  eyebrow: Bi;
+  heading: Bi;
+}
+
+const { locale, stages, note, eyebrow, heading } = Astro.props;
+const pick = (b: Bi) => b[locale];
+---
+
+<section class="process" aria-labelledby="process-h">
+  <div class="container-wide">
+    <div class="process-head">
+      <span class="type-eyebrow">{pick(eyebrow)}</span>
+      <h2 id="process-h" class="type-display-m">{pick(heading)}</h2>
+    </div>
+
+    <ol class="process-grid" role="list">
+      {stages.map((p, i) => (
+        <li class="pcol">
+          <span class="pcol-rule" aria-hidden="true"></span>
+          <span class="pcol-num numeric" aria-hidden="true">{i + 1}</span>
+          <h3 class="pcol-title">{pick(p.title)}</h3>
+          <p class="pcol-body">{pick(p.body)}</p>
+        </li>
+      ))}
+    </ol>
+
+    <p class="process-note">{pick(note)}</p>
+  </div>
+</section>
+
+<style>
+  .process {
+    padding-block: clamp(72px, 10vw, 128px);
+    border-block-start: 1px solid var(--border-subtle);
+  }
+  .process-head {
+    display: grid;
+    gap: 0.75rem;
+    margin-block-end: clamp(2rem, 4vw, 3rem);
+    max-width: 48ch;
+  }
+
+  .process-grid {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: clamp(1.5rem, 3vw, 2rem) 0;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 760px) {
+    .process-grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+  }
+  .pcol {
+    position: relative;
+    padding-block-start: 1.25rem;
+    padding-inline-end: clamp(1rem, 2vw, 1.5rem);
+    display: grid;
+    gap: 0.75rem;
+    align-content: start;
+  }
+  .pcol-rule {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    inset-inline-end: 0;
+    height: 1px;
+    background: var(--border-strong);
+  }
+  .pcol-num {
+    font-size: 0.9375rem;
+    color: var(--text-accent);
+    font-weight: 600;
+    font-variant-numeric: lining-nums tabular-nums;
+    direction: ltr;
+    letter-spacing: 0.02em;
+  }
+  html[lang="ar"] .pcol-num { font-size: 1rem; letter-spacing: 0; }
+  .pcol-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: -0.012em;
+    color: var(--text-primary);
+    line-height: 1.2;
+  }
+  html[lang="ar"] .pcol-title { letter-spacing: 0; line-height: 1.4; font-size: 1.3125rem; }
+  .pcol-body {
+    font-size: 0.9375rem;
+    color: var(--text-secondary);
+    line-height: 1.55;
+    max-width: 32ch;
+  }
+  html[lang="ar"] .pcol-body { font-size: 1rem; line-height: 1.8; }
+
+  .process-note {
+    margin-block-start: clamp(2rem, 4vw, 3rem);
+    padding-block-start: 1.5rem;
+    border-block-start: 1px solid var(--border-subtle);
+    font-size: 0.9375rem;
+    color: var(--text-muted);
+    max-width: 68ch;
+    line-height: 1.6;
+  }
+  html[lang="ar"] .process-note { font-size: 1rem; line-height: 1.8; }
+</style>

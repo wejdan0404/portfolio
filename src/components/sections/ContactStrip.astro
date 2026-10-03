@@ -1,0 +1,83 @@
+---
+import { type Locale, localePath } from "../../lib/i18n";
+import { strings, pick } from "../../lib/strings";
+
+export interface Props { locale: Locale; }
+const { locale } = Astro.props;
+---
+
+<section class="contact-strip">
+  <div class="container-wide">
+    <div class="cs-inner">
+      <div class="cs-copy">
+        <span class="type-eyebrow">{pick(strings.home.contactEyebrow, locale)}</span>
+        <h2 class="type-display-m">{pick(strings.home.contactHeading, locale)}</h2>
+        <p class="type-body">{pick(strings.home.contactBody, locale)}</p>
+      </div>
+      <div class="cs-actions">
+        <a href="mailto:wejdan4458@gmail.com" class="btn btn-primary" dir="ltr">wejdan4458@gmail.com</a>
+        <a href={localePath(locale, "contact")} class="btn btn-ghost">
+          {locale === "ar" ? "تفاصيل التواصل" : "Contact details"}
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact-strip {
+    padding-block: clamp(4rem, 8vw, 6rem);
+    position: relative;
+    isolation: isolate;
+  }
+  .cs-inner {
+    background: var(--surface-inverse);
+    color: var(--text-inverse);
+    border-radius: 24px;
+    padding: clamp(2rem, 5vw, 3.5rem);
+    display: grid;
+    gap: 2rem;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+  @media (min-width: 760px) {
+    .cs-inner { grid-template-columns: 1.4fr 1fr; gap: 2.5rem; }
+  }
+  .cs-copy > * + * { margin-top: 1rem; }
+  .cs-copy .type-eyebrow { color: var(--brand-secondary); }
+  .cs-copy h2 { color: var(--text-inverse); max-width: 20ch; }
+  .cs-copy p { color: color-mix(in oklab, var(--text-inverse) 80%, transparent); max-width: 56ch; }
+
+  .cs-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: flex-start;
+  }
+  @media (min-width: 760px) { .cs-actions { justify-content: flex-end; } }
+  html[dir="rtl"] .cs-actions { direction: rtl; }
+  .cs-actions .btn-primary {
+    background: var(--text-inverse);
+    color: var(--text-primary);
+  }
+  .cs-actions .btn-primary:hover { background: var(--brand-secondary); color: var(--text-on-light-accent); }
+  .cs-actions .btn-ghost {
+    color: var(--text-inverse);
+    border-color: color-mix(in oklab, var(--text-inverse) 35%, transparent);
+  }
+  .cs-actions .btn-ghost:hover { background: var(--text-inverse); color: var(--text-primary); }
+
+  .cs-inner::after {
+    content: "";
+    position: absolute;
+    inset-block-start: -50%;
+    inset-inline-end: -20%;
+    width: 60%;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    background: radial-gradient(circle at center, color-mix(in oklab, var(--brand-primary) 50%, transparent) 0%, transparent 60%);
+    z-index: -1;
+    pointer-events: none;
+  }
+</style>

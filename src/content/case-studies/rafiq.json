@@ -1,0 +1,146 @@
+{
+  "slug": "rafiq",
+  "tier": "flagship",
+  "status": "planned",
+  "order": 3,
+  "title": {
+    "en": "Rafiq",
+    "ar": "رفيق"
+  },
+  "sub": {
+    "en": "A safety concept for pilgrims who drift from their group during Tawaf.",
+    "ar": "مفهوم للسلامة حين يبتعد الحاج عن مجموعته أثناء الطواف."
+  },
+  "problem": {
+    "en": "During Tawaf, a pilgrim who pauses can lose the group: men in ihram look alike, flags fail indoors, calls drown in crowd noise, and the one-way flow blocks turning back.",
+    "ar": "أثناء الطواف قد يفقد الحاج مجموعته: فالرجال في الإحرام يتشابهون، والرايات لا تُرى داخل المسجد، والنداء يضيع في الضجيج، والحركة في اتجاه واحد تمنع الرجوع.",
+    "_sources": "facts.md PR-1, PR-3, CX-5"
+  },
+  "approach": {
+    "en": "A smart bracelet paired with a leader app. Four states — Normal, Warning, Danger, Emergency — ask less of the pilgrim as risk rises: move closer, then stop and wait, then stay still. A separate recovery path leads back to Normal and tightens with severity.",
+    "ar": "سوار ذكي يتصل بتطبيق للقائد. أربع حالات — طبيعي، تحذير، خطر، طوارئ — يقلّ فيها ما يُطلب من الحاج كلما ارتفع الخطر: الاقتراب، ثم التوقف والانتظار، ثم البقاء في المكان. ومسار عودة مستقل يُرجع الحال إلى «طبيعي» وتشتد شروطه مع الخطورة.",
+    "_sources": "facts.md ST-1, ST-2, ST-3, ST-4, ST-5, ST-7, RC-1, RC-2, RC-3"
+  },
+  "role": {
+    "en": "Team of 3. Individual roles are not documented in the submission, so this work is credited to the team as a whole.",
+    "ar": "ضمن فريق من 3. لا توثّق الوثيقة أدوارًا فردية، لذلك يُنسب العمل هنا إلى الفريق كله.",
+    "_sources": "facts.md TM-3"
+  },
+  "evidence": [
+    {
+      "kind": "callout",
+      "value": {
+        "en": "Evaluation planned — no completed test results claimed",
+        "ar": "التقييم مخطط له — لا توجد نتائج اختبار مكتملة"
+      },
+      "label": {
+        "en": "The plan sets 5–7 proxy participants, 7 tasks and 6 stress conditions. No participants were recruited and no sessions were run.",
+        "ar": "تحدد الخطة 5 إلى 7 مشاركين، و7 مهام، و6 ظروف ضغط. لم يُجنَّد أي مشارك ولم تُنفَّذ أي جلسة."
+      },
+      "_sources": "facts.md EV-2, EV-3, EV-5, EV-8"
+    },
+    {
+      "kind": "metric",
+      "value": "4",
+      "label": {
+        "en": "States, each with two independent sensing signals before a safety-critical transition",
+        "ar": "حالات، لكل انتقال يمس السلامة إشارتان مستقلتان"
+      },
+      "_sources": "facts.md ST-1, SE-1"
+    },
+    {
+      "kind": "metric",
+      "value": "6",
+      "label": {
+        "en": "Coordinating actors (pilgrim, leader, peers, authorities, medical staff, opt-in family)",
+        "ar": "أطراف متعاونة (الحاج، والقائد، وأفراد المجموعة، والجهات المختصة، والفرق الطبية، والأسرة الاختيارية)"
+      },
+      "_sources": "facts.md CO-1"
+    },
+    {
+      "kind": "metric",
+      "value": "11",
+      "label": {
+        "en": "Risks, each with a mitigation and a trust mechanism",
+        "ar": "خطرًا، لكل منها وسيلة تحدّ منه وآلية للثقة"
+      },
+      "_sources": "facts.md TR-2"
+    },
+    {
+      "kind": "callout",
+      "value": {
+        "en": "In dense crowds the leader walks back",
+        "ar": "في الزحام الكثيف يعود القائد"
+      },
+      "label": {
+        "en": "An informal scenario review surfaced four failures: arrows fail above 5 persons/m², so Danger shows 'Stop and wait' and the leader goes to the pilgrim.",
+        "ar": "كشفت مراجعة غير رسمية للسيناريو 4 إخفاقات: الأسهم لا تنفع فوق 5 أشخاص/م²، فتُظهر حالة الخطر «توقّف وانتظر» ويتجه القائد إلى الحاج."
+      },
+      "_sources": "facts.md SC-2, SC-3, IX-8"
+    },
+    {
+      "kind": "callout",
+      "value": {
+        "en": "Framed as hifz al-nafs, not tracking",
+        "ar": "يُقدَّم أداةً لحفظ النفس لا للتتبّع"
+      },
+      "label": {
+        "en": "Raw vitals and location stay on the device; no real-time location to family; data auto-deleted 30 days after the season.",
+        "ar": "تبقى القياسات الحيوية والموقع على الجهاز؛ ولا يصل الموقع لحظة بلحظة إلى الأسرة؛ وتُحذف البيانات بعد 30 يومًا من انتهاء الموسم."
+      },
+      "_sources": "facts.md TR-4, TR-5, SE-3"
+    }
+  ],
+  "closing": {
+    "en": "A 53-page team submission: problem, context, persona, sensing, state model, 16 screens plus a phone and bracelet view per state, coordination, 11 risks, scenarios and a formative evaluation plan. No build, no pilot, no safety claim beyond the design itself.",
+    "ar": "مستند جماعي من 53 صفحة: المشكلة، والسياق، والشخصية، والاستشعار، ونموذج الحالات، و16 شاشة وشاشتَي الجوال والسوار لكل حالة، والتنسيق، و11 خطرًا، وسيناريوهات، وخطة تقييم تكوينية. لا بناء ولا تجربة ميدانية ولا ادعاء سلامة خارج التصميم نفسه.",
+    "_sources": "facts.md OU-1, OU-2"
+  },
+  "images": [
+    {
+      "src": "/img/projects/rafiq/four-states.webp",
+      "alt": {
+        "en": "The four safety states across phone and bracelet",
+        "ar": "حالات السلامة الأربع في التطبيق والسوار"
+      },
+      "role": "cover"
+    },
+    {
+      "src": "/img/projects/rafiq/state-model-journey-map.webp",
+      "alt": {
+        "en": "The state model mapped to the pilgrim journey",
+        "ar": "نموذج الحالات مربوطًا برحلة الحاج"
+      },
+      "role": "detail"
+    },
+    {
+      "src": "/img/projects/rafiq/leader-dashboard.webp",
+      "alt": {
+        "en": "Group-leader dashboard",
+        "ar": "لوحة قائد المجموعة"
+      },
+      "role": "detail"
+    },
+    {
+      "src": "/img/projects/rafiq/leader-pilgrim-detail.webp",
+      "alt": {
+        "en": "Group-leader pilgrim detail view",
+        "ar": "عرض تفاصيل الحاج لقائد المجموعة"
+      },
+      "role": "detail"
+    }
+  ],
+  "flags": {
+    "contentRequired": [
+      "reflection",
+      "supervisor_or_instructor_name",
+      "term_semester_and_duration",
+      "informal_scenario_review_who_how_many_method"
+    ],
+    "ownerDecisions": [
+      "Persona spelling 'Fatimah' in the body text differs from 'Fatima' on the screens — pick one before any wider share",
+      "The sources' leader dashboard sample uses 'Al-Fajr Group', 'Fatima A.', 'Ibrahim K.', 'Aisha M.' — kept as fictional sample data; confirm this reads clearly as sample content",
+      "The uncited '200 m for 2 min is an empirical threshold' claim is not published here — confirm whether a source for it exists"
+    ]
+  }
+}

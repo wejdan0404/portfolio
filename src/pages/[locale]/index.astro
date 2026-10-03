@@ -1,0 +1,36 @@
+---
+import Base from "../../layouts/Base.astro";
+import Hero from "../../components/sections/Hero.astro";
+import Chain from "../../components/sections/Chain.astro";
+import SelectedWork from "../../components/sections/SelectedWork.astro";
+import About from "../../components/sections/About.astro";
+import Capabilities from "../../components/sections/Capabilities.astro";
+import Contact from "../../components/sections/Contact.astro";
+import { type Locale } from "../../lib/i18n";
+
+export function getStaticPaths() {
+  return [
+    { params: { locale: "ar" } },
+    { params: { locale: "en" } },
+  ];
+}
+
+const locale = Astro.params.locale as Locale;
+
+const title = locale === "ar"
+  ? "وجدان — تصميم وأبحاث تجربة المستخدم"
+  : "Wejdan — UX, HCI, product design";
+
+const description = locale === "ar"
+  ? "وجدان مصمّمة في تجربة المستخدم والتفاعل بين الإنسان والحاسب، تُترجم الأثر الإنساني إلى أنظمة رقمية هادئة ودقيقة."
+  : "Wejdan is a UX / HCI designer translating human insight into calm, precise digital systems.";
+---
+
+<Base locale={locale} title={title} description={description} path="">
+  <Hero locale={locale} />
+  <Chain locale={locale} />
+  <SelectedWork locale={locale} />
+  <About locale={locale} />
+  <Capabilities locale={locale} />
+  <Contact locale={locale} />
+</Base>

@@ -1,0 +1,110 @@
+{
+  "mishkat": [
+    {
+      "src": "/img/projects/mishkat/journey-map.webp",
+      "thumb": "/img/projects/mishkat/journey-map-thumb.webp",
+      "w": 1600,
+      "h": 727,
+      "role": "cover"
+    },
+    {
+      "src": "/img/projects/mishkat/persona-sarah.webp",
+      "thumb": "/img/projects/mishkat/persona-sarah-thumb.webp",
+      "w": 1494,
+      "h": 986,
+      "role": "support"
+    },
+    {
+      "src": "/img/projects/mishkat/storyboard-3-engagement.webp",
+      "thumb": "/img/projects/mishkat/storyboard-3-engagement-thumb.webp",
+      "w": 603,
+      "h": 681,
+      "role": "support"
+    }
+  ],
+  "arcadea": [
+    {
+      "src": "/img/projects/arcadea/auth-flow.webp",
+      "thumb": "/img/projects/arcadea/auth-flow-thumb.webp",
+      "w": 1152,
+      "h": 800,
+      "role": "cover"
+    },
+    {
+      "src": "/img/projects/arcadea/library-states.webp",
+      "thumb": "/img/projects/arcadea/library-states-thumb.webp",
+      "w": 828,
+      "h": 874,
+      "role": "support"
+    },
+    {
+      "src": "/img/projects/arcadea/statistics.webp",
+      "thumb": "/img/projects/arcadea/statistics-thumb.webp",
+      "w": 402,
+      "h": 874,
+      "role": "support"
+    },
+    {
+      "src": "/img/projects/arcadea/components.webp",
+      "thumb": "/img/projects/arcadea/components-thumb.webp",
+      "w": 908,
+      "h": 668,
+      "role": "support"
+    }
+  ],
+  "rafiq": [
+    {
+      "src": "/img/projects/rafiq/four-states.webp",
+      "thumb": "/img/projects/rafiq/four-states-thumb.webp",
+      "w": 1600,
+      "h": 506,
+      "role": "cover"
+    },
+    {
+      "src": "/img/projects/rafiq/state-model-journey-map.webp",
+      "thumb": "/img/projects/rafiq/state-model-journey-map-thumb.webp",
+      "w": 899,
+      "h": 1600,
+      "role": "support"
+    },
+    {
+      "src": "/img/projects/rafiq/leader-dashboard.webp",
+      "thumb": "/img/projects/rafiq/leader-dashboard-thumb.webp",
+      "w": 503,
+      "h": 956,
+      "role": "support"
+    },
+    {
+      "src": "/img/projects/rafiq/leader-pilgrim-detail.webp",
+      "thumb": "/img/projects/rafiq/leader-pilgrim-detail-thumb.webp",
+      "w": 503,
+      "h": 956,
+      "role": "support"
+    }
+  ],
+  "vui": [
+    {
+      "src": "/img/projects/vui/flow-full.webp",
+      "thumb": "/img/projects/vui/flow-full-thumb.webp",
+      "w": 1390,
+      "h": 930,
+      "role": "cover"
+    },
+    {
+      "src": "/img/projects/vui/recovery-unclear.webp",
+      "thumb": "/img/projects/vui/recovery-unclear-thumb.webp",
+      "w": 1322,
+      "h": 1292,
+      "role": "support"
+    },
+    {
+      "src": "/img/projects/vui/asr-timeouts.webp",
+      "thumb": "/img/projects/vui/asr-timeouts-thumb.webp",
+      "w": 1378,
+      "h": 734,
+      "role": "support"
+    }
+  ],
+  "wraf": [],
+  "petcare": []
+}

@@ -1,0 +1,92 @@
+---
+/**
+ * ReviewFlag — renders yellow-outlined [CONTENT REQUIRED] labels for the
+ * fields listed in `required`. Hidden by default; shown only when review
+ * mode is active (body gets `data-review="1"` from the inline toggle in
+ * ProjectView, triggered by `?review=1` or `#review`).
+ *
+ * Never visible to normal portfolio visitors.
+ */
+
+import type { Locale } from "../../lib/i18n";
+
+export interface Props {
+  required: string[];
+  locale: Locale;
+  /** Visual density — "inline" for a bar, "stacked" for a block. */
+  variant?: "inline" | "stacked";
+}
+const { required, locale, variant = "inline" } = Astro.props;
+const items = (required ?? []).filter(Boolean);
+---
+
+{items.length > 0 && (
+  <div class={`rflag rflag-${variant}`} data-review-flag role="status" aria-live="polite">
+    <span class="rflag-badge" dir="ltr">[CONTENT&nbsp;REQUIRED]</span>
+    <ul class="rflag-items">
+      {items.map((k) => <li class="rflag-item">{k}</li>)}
+    </ul>
+    <span class="rflag-note">
+      {locale === "ar"
+        ? "تظهر هذه الإشارة في وضع المراجعة فقط."
+        : "Shown only in review mode."}
+    </span>
+  </div>
+)}
+
+<style>
+  /* Default: completely hidden. The ProjectView page toggles review mode
+     by setting data-review="1" on <body>, which flips this to visible. */
+  .rflag { display: none; }
+  :global(body[data-review="1"]) .rflag { display: flex; }
+
+  .rflag {
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 0.75rem;
+    margin-block: 0.75rem;
+    padding: 0.6rem 0.85rem;
+    border: 1px dashed var(--status-warning);
+    background: var(--status-surface-warning);
+    border-radius: 10px;
+    font-size: 0.8125rem;
+    color: var(--text-primary);
+  }
+  .rflag-stacked { flex-direction: column; align-items: start; }
+
+  .rflag-badge {
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--status-warning);
+    font-size: 0.75rem;
+    white-space: nowrap;
+  }
+  html[lang="ar"] .rflag-badge { letter-spacing: 0.02em; }
+
+  .rflag-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+  .rflag-item {
+    padding: 0.1rem 0.5rem;
+    border: 1px solid var(--status-warning);
+    border-radius: 999px;
+    font-size: 0.75rem;
+    color: var(--status-warning);
+    background: var(--surface-default);
+    letter-spacing: 0.02em;
+  }
+  html[lang="ar"] .rflag-item { font-size: 0.85rem; letter-spacing: 0; }
+
+  .rflag-note {
+    margin-inline-start: auto;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    font-style: italic;
+  }
+  html[lang="ar"] .rflag-note { font-size: 0.85rem; }
+</style>

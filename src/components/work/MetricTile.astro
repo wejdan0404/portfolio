@@ -1,0 +1,87 @@
+---
+import type { Locale } from "../../lib/i18n";
+import { pick } from "../../lib/strings";
+
+export interface Props {
+  value: string;
+  label: { en: string; ar: string };
+  n?: number;
+  source?: string;
+  locale: Locale;
+  size?: "sm" | "md" | "lg";
+}
+const { value, label, n, source, locale, size = "md" } = Astro.props;
+const labelText = pick(label, locale);
+---
+
+<figure class={`mtile mtile-${size}`}>
+  <div class="mtile-head">
+    <span class="mtile-value">{value}</span>
+    {typeof n === "number" ? (
+      <span class="mtile-n" dir="ltr" aria-label={`n = ${n}`}>n&nbsp;=&nbsp;{n}</span>
+    ) : null}
+  </div>
+  <figcaption class="mtile-label">{labelText}</figcaption>
+  {source ? <span class="mtile-src" dir="ltr">{source}</span> : null}
+</figure>
+
+<style>
+  .mtile {
+    margin: 0;
+    padding: 1.25rem 1.25rem 1.1rem;
+    border-radius: 14px;
+    background: var(--surface-subtle);
+    border: 1px solid var(--border-subtle);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-height: 128px;
+    position: relative;
+    isolation: isolate;
+  }
+  .mtile-sm { padding: 1rem; min-height: 108px; }
+  .mtile-lg { padding: 1.5rem; min-height: 148px; }
+
+  .mtile-head {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+  }
+  .mtile-value {
+    font-size: clamp(1.75rem, 3.4vw, 2.25rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+    font-variant-numeric: lining-nums tabular-nums;
+    line-height: 1;
+  }
+  html[lang="ar"] .mtile-value { letter-spacing: 0; }
+  .mtile-lg .mtile-value { font-size: clamp(2rem, 4vw, 2.75rem); }
+  .mtile-sm .mtile-value { font-size: clamp(1.5rem, 2.8vw, 1.875rem); }
+
+  .mtile-n {
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+
+  .mtile-label {
+    font-size: 0.9375rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    max-width: 36ch;
+  }
+  html[lang="ar"] .mtile-label { font-size: 1rem; line-height: 1.75; }
+
+  .mtile-src {
+    margin-top: auto;
+    padding-top: 0.5rem;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    letter-spacing: 0.02em;
+    opacity: 0.8;
+  }
+</style>

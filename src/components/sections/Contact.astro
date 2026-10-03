@@ -1,0 +1,237 @@
+---
+import { type Locale } from "../../lib/i18n";
+import { strings, pick } from "../../lib/strings";
+
+export interface Props { locale: Locale; }
+const { locale } = Astro.props;
+
+/* Source: /home/claude/brand/source-copy.md — Page 27.
+   Email as prominent typographic line with copy affordance.
+   No prices, no response time (CLAUDE.md § 11, § 12). */
+
+const email = "wejdan4458@gmail.com";
+const linkedinUrl = "https://linkedin.com/in/wejdan-uiux";
+const linkedinHandle = "linkedin.com/in/wejdan-uiux";
+const siteHandle = "wejdan.info";
+
+const labels = {
+  copy: { en: "Copy", ar: "نسخ" },
+  copied: { en: "Copied", ar: "تم النسخ" },
+  linkedin: { en: "LinkedIn", ar: "لينكدإن" },
+  thisSite: { en: "This site", ar: "هذا الموقع" },
+  openEmail: { en: "Open email client", ar: "فتح البريد" },
+};
+---
+
+<section class="contact" aria-labelledby="contact-title">
+  <div class="container-wide">
+    <header class="contact-head">
+      <span class="type-eyebrow">{pick(strings.home.contactEyebrow, locale)}</span>
+      <h2 id="contact-title" class="contact-heading">
+        {pick(strings.home.contactHeading, locale)}
+      </h2>
+      <p class="contact-body">{pick(strings.home.contactBody, locale)}</p>
+    </header>
+
+    <div class="email-row">
+      <a
+        href={`mailto:${email}`}
+        class="email-link"
+        dir="ltr"
+        aria-label={pick(labels.openEmail, locale)}
+      >{email}</a>
+
+      <button
+        type="button"
+        class="copy-btn"
+        data-copy-target={email}
+        aria-label={pick(labels.copy, locale)}
+      >
+        <span class="copy-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="11" height="11" rx="2"/>
+            <path d="M5 15V5a2 2 0 0 1 2-2h10"/>
+          </svg>
+        </span>
+        <span class="copy-label" data-copy-label={pick(labels.copy, locale)} data-copied-label={pick(labels.copied, locale)}>
+          {pick(labels.copy, locale)}
+        </span>
+      </button>
+    </div>
+
+    <ul class="secondary" role="list">
+      <li>
+        <span class="sec-key">{pick(labels.linkedin, locale)}</span>
+        <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" dir="ltr" class="sec-link">
+          {linkedinHandle}
+        </a>
+      </li>
+      <li>
+        <span class="sec-key">{pick(labels.thisSite, locale)}</span>
+        <span dir="ltr" class="sec-text">{siteHandle}</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<script>
+  (function () {
+    const buttons = document.querySelectorAll<HTMLButtonElement>(".copy-btn");
+    buttons.forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        const target = btn.getAttribute("data-copy-target") || "";
+        const label = btn.querySelector<HTMLElement>(".copy-label");
+        const defaultText = label?.getAttribute("data-copy-label") || "Copy";
+        const copiedText = label?.getAttribute("data-copied-label") || "Copied";
+        let ok = false;
+        try {
+          if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(target);
+            ok = true;
+          } else {
+            // Fallback: temporary textarea + selection
+            const ta = document.createElement("textarea");
+            ta.value = target;
+            ta.setAttribute("readonly", "");
+            ta.style.position = "absolute";
+            ta.style.insetBlockStart = "-9999px";
+            document.body.appendChild(ta);
+            ta.select();
+            ok = document.execCommand("copy");
+            document.body.removeChild(ta);
+          }
+        } catch (_) { ok = false; }
+        if (ok && label) {
+          label.textContent = copiedText;
+          btn.classList.add("is-copied");
+          setTimeout(() => {
+            label.textContent = defaultText;
+            btn.classList.remove("is-copied");
+          }, 1800);
+        }
+      });
+    });
+  })();
+</script>
+
+<style>
+  .contact {
+    padding-block: clamp(56px, 8vw, 112px);
+  }
+
+  .contact-head {
+    display: grid;
+    gap: 0.75rem;
+    max-width: 56ch;
+    margin-block-end: clamp(2rem, 4vw, 3rem);
+  }
+  .contact-heading {
+    font-size: clamp(1.75rem, 1.1rem + 2.4vw, 2.75rem);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    line-height: 1.14;
+    color: var(--text-primary);
+    text-wrap: pretty;
+    max-width: 20ch;
+  }
+  html[lang="ar"] .contact-heading { letter-spacing: 0; line-height: 1.35; }
+  .contact-body {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    max-width: 56ch;
+    margin: 0;
+  }
+  html[lang="ar"] .contact-body { font-size: 1.0625rem; line-height: 1.8; }
+
+  .email-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem 1.25rem;
+    padding-block: clamp(1rem, 2vw, 1.5rem);
+    border-block: 1px solid var(--border-strong);
+  }
+
+  .email-link {
+    font-size: clamp(1.5rem, 1rem + 2.8vw, 3rem);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    color: var(--text-primary);
+    text-decoration: none;
+    line-height: 1.1;
+    word-break: break-all;
+    flex: 1 1 auto;
+    min-width: 0;
+    unicode-bidi: isolate;
+  }
+  .email-link:hover { color: var(--text-accent); }
+  html[lang="ar"] .email-link { letter-spacing: -0.015em; } /* email is Latin even in Arabic prose */
+
+  .copy-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1rem;
+    min-height: 44px;
+    border-radius: 999px;
+    border: 1px solid var(--border-strong);
+    background: transparent;
+    color: var(--text-primary);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 160ms ease, color 160ms ease, border-color 160ms ease;
+    flex: 0 0 auto;
+  }
+  .copy-btn:hover {
+    background: var(--text-primary);
+    color: var(--text-inverse);
+  }
+  .copy-btn.is-copied {
+    background: var(--status-surface-success);
+    color: var(--status-success);
+    border-color: var(--status-success);
+  }
+  .copy-btn.is-copied .copy-icon { opacity: 0.75; }
+
+  .secondary {
+    list-style: none;
+    padding: 0;
+    margin: clamp(1.5rem, 3vw, 2rem) 0 0;
+    display: grid;
+    gap: 0.75rem;
+  }
+  @media (min-width: 560px) {
+    .secondary { grid-template-columns: 1fr 1fr; gap: 1rem 2.5rem; }
+  }
+  .secondary li {
+    display: grid;
+    gap: 0.2rem;
+  }
+  .sec-key {
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  html[lang="ar"] .sec-key {
+    letter-spacing: 0;
+    text-transform: none;
+    font-size: 0.875rem;
+  }
+  .sec-link,
+  .sec-text {
+    font-size: 1rem;
+    color: var(--text-primary);
+    text-decoration: none;
+    unicode-bidi: isolate;
+  }
+  .sec-link {
+    border-block-end: 1px solid currentColor;
+    padding-block-end: 2px;
+    width: fit-content;
+    line-height: 1.4;
+  }
+  .sec-link:hover { color: var(--text-accent); }
+</style>
