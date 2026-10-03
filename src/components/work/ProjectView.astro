@@ -20,6 +20,7 @@ import { strings, pick } from "../../lib/strings";
 import EvidenceDot from "./EvidenceDot.astro";
 import MetricTile from "./MetricTile.astro";
 import ReviewFlag from "./ReviewFlag.astro";
+import DeviceFrame from "./DeviceFrame.astro";
 
 export interface Props {
   entry: CollectionEntry<"case-studies">;
@@ -52,8 +53,24 @@ const images: Array<{
   height?: number;
 }> = Array.isArray(d.images) ? d.images : [];
 
-const heroKind: "image" | "composition" | "brand" =
-  d.hero?.kind === "image"
+/* Poster screens for the hero — phone-ratio captures curated by the content agent. */
+const posterScreens: Array<{
+  src: string;
+  alt?: { en: string; ar: string };
+  w?: number;
+  h?: number;
+}> = Array.isArray(d.posterScreens) ? d.posterScreens : [];
+const heroScreens = posterScreens.slice(0, 5);
+
+/* Per-project tint for the hero poster background. */
+const tintLight: string = d.tint?.light ?? "#E7EFFB";
+const tintDark: string = d.tint?.dark ?? "#1A2240";
+const heroTintStyle = `--pt-light:${tintLight};--pt-dark:${tintDark};`;
+
+const heroKind: "poster" | "image" | "composition" | "brand" =
+  heroScreens.length >= 2 && d.coverTreatment !== "brand"
+    ? "poster"
+    : d.hero?.kind === "image"
     ? "image"
     : d.coverTreatment === "brand" || d.hero?.kind === "composition"
     ? "composition"
@@ -212,8 +229,30 @@ const flaggedForReflection =
           <ReviewFlag required={["role"]} locale={locale} />
         )}
       </div>
-      <figure class="pv-hero-media">
-        {heroKind === "image" && heroImage ? (
+      <figure class="pv-hero-media" style={heroKind === "poster" ? heroTintStyle : undefined}>
+        {heroKind === "poster" ? (
+          <div class={`pv-poster pv-poster-${heroScreens.length}`} role="img" aria-label={title}>
+            <span class="pv-poster-bg" aria-hidden="true"></span>
+            <span class="pv-poster-grain" aria-hidden="true"></span>
+            <span class="pv-poster-star pv-poster-star-a" aria-hidden="true"></span>
+            <span class="pv-poster-star pv-poster-star-b" aria-hidden="true"></span>
+            <span class="pv-poster-star pv-poster-star-c" aria-hidden="true"></span>
+            <div class="pv-poster-stack">
+              {heroScreens.map((s, i) => (
+                <div class={`pv-poster-slot pv-poster-slot-${i}`}>
+                  <DeviceFrame
+                    src={s.src}
+                    alt={s.alt ? pick(s.alt, locale) : title}
+                    width={s.w}
+                    height={s.h}
+                    size="lg"
+                    eager={i === 0}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : heroKind === "image" && heroImage ? (
           <img
             src={heroImage.src}
             alt={heroImage.alt ? pick(heroImage.alt, locale) : title}
@@ -224,7 +263,7 @@ const flaggedForReflection =
           />
         ) : (
           /* Brand composition panel: W + three stars + title */
-          <div class="pv-brand-panel" role="img" aria-label={title}>
+          <div class="pv-brand-panel" style={heroTintStyle} role="img" aria-label={title}>
             <div class="pv-brand-stars" aria-hidden="true">
               <span class="pv-brand-star"></span>
               <span class="pv-brand-star"></span>
@@ -236,7 +275,7 @@ const flaggedForReflection =
             <span class="pv-brand-caption">{title}</span>
           </div>
         )}
-        {heroImage?.caption ? (
+        {heroImage?.caption && heroKind === "image" ? (
           <figcaption class="pv-fig-cap">{pick(heroImage.caption, locale)}</figcaption>
         ) : null}
       </figure>
@@ -639,21 +678,149 @@ const flaggedForReflection =
   /* Hero media */
   .pv-hero-media {
     margin: 0;
-    padding: 1rem;
+    padding: 0;
     background: var(--surface-subtle);
     border: 1px solid var(--border-subtle);
-    border-radius: 20px;
+    border-radius: 24px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
+    isolation: isolate;
   }
-  .pv-hero-media img {
+  .pv-hero-media > img {
     width: 100%;
     height: auto;
     border-radius: 12px;
     display: block;
     background: var(--surface-elevated);
+    margin: 1rem;
+    width: calc(100% - 2rem);
+  }
+
+  /* Poster hero */
+  .pv-poster {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 5 / 4;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .pv-poster-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(140% 110% at 50% 0%,
+        color-mix(in oklab, var(--pt-light, var(--brand-secondary)) 92%, white) 0%,
+        color-mix(in oklab, var(--pt-light, var(--brand-secondary)) 55%, white) 42%,
+        color-mix(in oklab, var(--pt-light, var(--brand-secondary)) 22%, var(--surface-subtle)) 100%);
+  }
+  :global(:root[data-theme="dark"]) .pv-poster-bg,
+  :global(:root:not([data-theme="light"])) .pv-poster-bg {
+    background:
+      radial-gradient(140% 120% at 50% 0%,
+        color-mix(in oklab, var(--pt-dark, var(--brand-primary)) 85%, black) 0%,
+        color-mix(in oklab, var(--pt-dark, var(--brand-primary)) 55%, black) 48%,
+        color-mix(in oklab, var(--pt-dark, var(--brand-primary)) 25%, var(--surface-default)) 100%);
+  }
+  .pv-poster-grain {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+    background-image:
+      radial-gradient(1px 1px at 20% 10%, #000 50%, transparent 51%),
+      radial-gradient(1px 1px at 60% 30%, #000 50%, transparent 51%),
+      radial-gradient(1px 1px at 80% 70%, #000 50%, transparent 51%),
+      radial-gradient(1px 1px at 35% 85%, #000 50%, transparent 51%);
+    background-size: 220px 220px;
+  }
+  :global(:root[data-theme="dark"]) .pv-poster-grain,
+  :global(:root:not([data-theme="light"])) .pv-poster-grain {
+    opacity: 0.08;
+    background-image:
+      radial-gradient(1px 1px at 20% 10%, #fff 50%, transparent 51%),
+      radial-gradient(1px 1px at 60% 30%, #fff 50%, transparent 51%),
+      radial-gradient(1px 1px at 80% 70%, #fff 50%, transparent 51%),
+      radial-gradient(1px 1px at 35% 85%, #fff 50%, transparent 51%);
+  }
+  .pv-poster-star {
+    position: absolute;
+    z-index: 2;
+    pointer-events: none;
+    background: var(--brand-primary);
+    clip-path: polygon(50% 0%, 55% 45%, 100% 50%, 55% 55%, 50% 100%, 45% 55%, 0% 50%, 45% 45%);
+  }
+  :global(:root[data-theme="dark"]) .pv-poster-star,
+  :global(:root:not([data-theme="light"])) .pv-poster-star { background: var(--brand-secondary); }
+  .pv-poster-star-a { width: 20px; height: 20px; inset-block-start: 8%; inset-inline-end: 6%; opacity: 0.55; }
+  .pv-poster-star-b { width: 11px; height: 11px; inset-block-end: 10%; inset-inline-start: 8%; opacity: 0.4; }
+  .pv-poster-star-c { width: 7px; height: 7px; inset-block-start: 24%; inset-inline-start: 6%; opacity: 0.5; }
+
+  .pv-poster-stack {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+  }
+  .pv-poster-slot {
+    position: absolute;
+    inset-block-start: 50%;
+    inset-inline-start: 50%;
+    transform-origin: center;
+  }
+  .pv-poster-slot :global(.dframe) { width: 100%; height: 100%; }
+
+  /* 5-screen fan — slot-0 center/front, slots 1,2 flanking, slots 3,4 behind */
+  .pv-poster-slot-0 {
+    width: 30%; aspect-ratio: 9/19.5;
+    transform: translate(-50%, -50%) rotate(-2deg);
+    z-index: 7;
+  }
+  .pv-poster-slot-1 {
+    width: 27%; aspect-ratio: 9/19.5;
+    transform: translate(-120%, -46%) rotate(-10deg);
+    z-index: 6;
+  }
+  .pv-poster-slot-2 {
+    width: 27%; aspect-ratio: 9/19.5;
+    transform: translate(20%, -46%) rotate(10deg);
+    z-index: 6;
+  }
+  .pv-poster-slot-3 {
+    width: 22%; aspect-ratio: 9/19.5;
+    transform: translate(-200%, -40%) rotate(-18deg);
+    z-index: 5;
+    opacity: 0.92;
+  }
+  .pv-poster-slot-4 {
+    width: 22%; aspect-ratio: 9/19.5;
+    transform: translate(100%, -40%) rotate(18deg);
+    z-index: 5;
+    opacity: 0.92;
+  }
+  html[dir="rtl"] .pv-poster-slot-1 { transform: translate(20%, -46%) rotate(10deg); }
+  html[dir="rtl"] .pv-poster-slot-2 { transform: translate(-120%, -46%) rotate(-10deg); }
+  html[dir="rtl"] .pv-poster-slot-3 { transform: translate(100%, -40%) rotate(18deg); }
+  html[dir="rtl"] .pv-poster-slot-4 { transform: translate(-200%, -40%) rotate(-18deg); }
+
+  @media (max-width: 760px) {
+    .pv-poster-slot-0 {
+      width: 40%;
+      transform: translate(-82%, -50%) rotate(-4deg);
+    }
+    .pv-poster-slot-1 {
+      width: 40%;
+      transform: translate(-18%, -50%) rotate(4deg);
+    }
+    .pv-poster-slot-2,
+    .pv-poster-slot-3,
+    .pv-poster-slot-4 { display: none; }
+    html[dir="rtl"] .pv-poster-slot-0 { transform: translate(-18%, -50%) rotate(4deg); }
+    html[dir="rtl"] .pv-poster-slot-1 { transform: translate(-82%, -50%) rotate(-4deg); }
   }
   .pv-fig-cap {
     font-size: 0.8125rem;
@@ -665,13 +832,25 @@ const flaggedForReflection =
   /* Brand composition panel */
   .pv-brand-panel {
     position: relative;
-    aspect-ratio: 4 / 3;
-    border-radius: 14px;
-    background: linear-gradient(140deg, var(--surface-inverse) 0%, #2b3358 55%, var(--brand-primary) 100%);
-    color: #fff;
+    aspect-ratio: 5 / 4;
+    background:
+      radial-gradient(120% 100% at 50% 0%,
+        color-mix(in oklab, var(--pt-light, var(--brand-secondary)) 90%, white) 0%,
+        color-mix(in oklab, var(--pt-light, var(--brand-secondary)) 55%, white) 50%,
+        color-mix(in oklab, var(--pt-light, var(--brand-secondary)) 25%, var(--surface-elevated)) 100%);
+    color: var(--text-primary);
     display: grid;
     place-items: center;
     overflow: hidden;
+  }
+  :global(:root[data-theme="dark"]) .pv-brand-panel,
+  :global(:root:not([data-theme="light"])) .pv-brand-panel {
+    background:
+      radial-gradient(120% 100% at 50% 0%,
+        color-mix(in oklab, var(--pt-dark, var(--brand-primary)) 85%, var(--brand-primary)) 0%,
+        color-mix(in oklab, var(--pt-dark, var(--brand-primary)) 55%, black) 50%,
+        var(--surface-dark) 100%);
+    color: #fff;
   }
   .pv-brand-stars {
     position: absolute;
@@ -690,22 +869,28 @@ const flaggedForReflection =
   .pv-brand-star:nth-child(2) { inset-block-end: 20%; inset-inline-end: 18%; opacity: 0.6; }
   .pv-brand-star:nth-child(3) { inset-block-start: 42%; inset-inline-end: 10%; width: 10px; height: 10px; opacity: 0.75; }
   .pv-brand-w {
-    font-size: clamp(5rem, 14vw, 9rem);
+    font-size: clamp(6rem, 16vw, 11rem);
     font-weight: 600;
     letter-spacing: -0.03em;
-    text-shadow: 0 10px 40px rgba(0,0,0,0.35);
     line-height: 1;
+    color: var(--logo-primary);
   }
   html[lang="ar"] .pv-brand-w { letter-spacing: 0; }
   .pv-brand-caption {
     position: absolute;
     inset-block-end: 1rem;
-    inset-inline-start: 1rem;
+    inset-inline-start: 50%;
+    transform: translateX(-50%);
     font-size: 0.875rem;
-    color: rgba(255, 255, 255, 0.9);
-    letter-spacing: 0.08em;
+    color: var(--text-primary);
+    letter-spacing: 0.1em;
     text-transform: uppercase;
+    opacity: 0.78;
+    white-space: nowrap;
   }
+  html[dir="rtl"] .pv-brand-caption { transform: translateX(50%); }
+  :global(:root[data-theme="dark"]) .pv-brand-caption,
+  :global(:root:not([data-theme="light"])) .pv-brand-caption { color: #fff; opacity: 0.88; }
   html[lang="ar"] .pv-brand-caption { letter-spacing: 0; text-transform: none; font-size: 0.95rem; }
 
   /* Context strip */

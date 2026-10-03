@@ -4,6 +4,13 @@
   "status": "tested",
   "order": 4,
   "coverTreatment": "brand",
+  "tint": { "light": "#F0ECE2", "dark": "#1E1812" },
+  "posterScreens": [
+    { "src": "/img/projects/wraf/recipe-butterfly-pea.webp", "alt": { "en": "Recipe · Iced Butterfly Pea Flower Tea Latte", "ar": "وصفة · شاي زهرة البازلاء المثلّج" }, "w": 428, "h": 926 },
+    { "src": "/img/projects/wraf/tea-store.webp", "alt": { "en": "Tea store · All types", "ar": "متجر الشاي · كل الأنواع" }, "w": 428, "h": 958 },
+    { "src": "/img/projects/wraf/product-blackcurrant.webp", "alt": { "en": "Product · Blackcurrant Infusion", "ar": "منتج · شاي الكشمش" }, "w": 428, "h": 926 },
+    { "src": "/img/projects/wraf/recipes-grid.webp", "alt": { "en": "Recipes · Grid", "ar": "الوصفات · شبكة" }, "w": 428, "h": 958 }
+  ],
   "title": {
     "en": "WRAF",
     "ar": "وراف"

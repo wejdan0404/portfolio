@@ -20,6 +20,46 @@
       "w": 603,
       "h": 681,
       "role": "support"
+    },
+    {
+      "src": "/img/projects/mishkat/breathe-inspire.webp",
+      "thumb": "/img/projects/mishkat/breathe-inspire-thumb.webp",
+      "w": 393,
+      "h": 852,
+      "role": "screen",
+      "name_en": "Breathe · inspiration",
+      "name_ar": "تنفّس · إلهام",
+      "figma_node": "733:1220"
+    },
+    {
+      "src": "/img/projects/mishkat/mood-match-color.webp",
+      "thumb": "/img/projects/mishkat/mood-match-color-thumb.webp",
+      "w": 393,
+      "h": 852,
+      "role": "screen",
+      "name_en": "Match each feeling to a colour",
+      "name_ar": "طابق كل شعور بلونه",
+      "figma_node": "733:4561"
+    },
+    {
+      "src": "/img/projects/mishkat/mood-find-smile.webp",
+      "thumb": "/img/projects/mishkat/mood-find-smile-thumb.webp",
+      "w": 393,
+      "h": 852,
+      "role": "screen",
+      "name_en": "Find the smiling face",
+      "name_ar": "اعثر على الوجه المبتسم",
+      "figma_node": "733:4637"
+    },
+    {
+      "src": "/img/projects/mishkat/activities.webp",
+      "thumb": "/img/projects/mishkat/activities-thumb.webp",
+      "w": 393,
+      "h": 852,
+      "role": "screen",
+      "name_en": "Activities · fineness",
+      "name_ar": "الأنشطة · اللطف",
+      "figma_node": "733:5049"
     }
   ],
   "arcadea": [
@@ -50,6 +90,66 @@
       "w": 908,
       "h": 668,
       "role": "support"
+    },
+    {
+      "src": "/img/projects/arcadea/welcome.webp",
+      "thumb": "/img/projects/arcadea/welcome-thumb.webp",
+      "w": 402,
+      "h": 874,
+      "role": "screen",
+      "name_en": "Welcome",
+      "name_ar": "ترحيب",
+      "figma_node": "733:7683"
+    },
+    {
+      "src": "/img/projects/arcadea/library-all.webp",
+      "thumb": "/img/projects/arcadea/library-all-thumb.webp",
+      "w": 402,
+      "h": 874,
+      "role": "screen",
+      "name_en": "Library · All games",
+      "name_ar": "المكتبة · الكل",
+      "figma_node": "733:6654"
+    },
+    {
+      "src": "/img/projects/arcadea/detail-ff7.webp",
+      "thumb": "/img/projects/arcadea/detail-ff7-thumb.webp",
+      "w": 402,
+      "h": 874,
+      "role": "screen",
+      "name_en": "Game detail · Final Fantasy VII Remake",
+      "name_ar": "تفاصيل اللعبة · Final Fantasy VII Remake",
+      "figma_node": "733:6998"
+    },
+    {
+      "src": "/img/projects/arcadea/detail-silent-hill.webp",
+      "thumb": "/img/projects/arcadea/detail-silent-hill-thumb.webp",
+      "w": 402,
+      "h": 874,
+      "role": "screen",
+      "name_en": "Game detail · Silent Hill 2 Remake",
+      "name_ar": "تفاصيل اللعبة · Silent Hill 2 Remake",
+      "figma_node": "733:7166"
+    },
+    {
+      "src": "/img/projects/arcadea/stats.webp",
+      "thumb": "/img/projects/arcadea/stats-thumb.webp",
+      "w": 402,
+      "h": 874,
+      "role": "screen",
+      "name_en": "Stats",
+      "name_ar": "الإحصاءات",
+      "figma_node": "733:7576"
+    },
+    {
+      "src": "/img/projects/arcadea/profile.webp",
+      "thumb": "/img/projects/arcadea/profile-thumb.webp",
+      "w": 402,
+      "h": 874,
+      "role": "screen",
+      "name_en": "Profile",
+      "name_ar": "الملف الشخصي",
+      "figma_node": "733:7635"
     }
   ],
   "rafiq": [
@@ -80,6 +180,66 @@
       "w": 503,
       "h": 956,
       "role": "support"
+    },
+    {
+      "src": "/img/projects/rafiq/welcome.webp",
+      "thumb": "/img/projects/rafiq/welcome-thumb.webp",
+      "w": 402,
+      "h": 874,
+      "role": "screen",
+      "name_en": "Welcome",
+      "name_ar": "ترحيب",
+      "figma_node": "733:5692"
+    },
+    {
+      "src": "/img/projects/rafiq/choose-role.webp",
+      "thumb": "/img/projects/rafiq/choose-role-thumb.webp",
+      "w": 402,
+      "h": 874,
+      "role": "screen",
+      "name_en": "Choose your role",
+      "name_ar": "اختر دورك",
+      "figma_node": "733:5758"
+    },
+    {
+      "src": "/img/projects/rafiq/pilgrim-today.webp",
+      "thumb": "/img/projects/rafiq/pilgrim-today-thumb.webp",
+      "w": 402,
+      "h": 874,
+      "role": "screen",
+      "name_en": "Pilgrim today · Safe",
+      "name_ar": "الحاج اليوم · آمن",
+      "figma_node": "733:5959"
+    },
+    {
+      "src": "/img/projects/rafiq/leader-dashboard.webp",
+      "thumb": "/img/projects/rafiq/leader-dashboard-thumb.webp",
+      "w": 402,
+      "h": 874,
+      "role": "screen",
+      "name_en": "Leader group dashboard",
+      "name_ar": "لوحة قائد المجموعة",
+      "figma_node": "733:6014"
+    },
+    {
+      "src": "/img/projects/rafiq/emergency.webp",
+      "thumb": "/img/projects/rafiq/emergency-thumb.webp",
+      "w": 402,
+      "h": 874,
+      "role": "screen",
+      "name_en": "Emergency",
+      "name_ar": "حالة طارئة",
+      "figma_node": "733:6217"
+    },
+    {
+      "src": "/img/projects/rafiq/map.webp",
+      "thumb": "/img/projects/rafiq/map-thumb.webp",
+      "w": 402,
+      "h": 874,
+      "role": "screen",
+      "name_en": "Map",
+      "name_ar": "الخريطة",
+      "figma_node": "733:6387"
     }
   ],
   "vui": [
@@ -105,6 +265,47 @@
       "role": "support"
     }
   ],
-  "wraf": [],
+  "wraf": [
+    {
+      "src": "/img/projects/wraf/recipe-butterfly-pea.webp",
+      "thumb": "/img/projects/wraf/recipe-butterfly-pea-thumb.webp",
+      "w": 428,
+      "h": 926,
+      "role": "screen",
+      "name_en": "Recipe · Iced Butterfly Pea Flower Tea Latte",
+      "name_ar": "وصفة · شاي زهرة البازلاء المثلّج",
+      "figma_node": "733:5164"
+    },
+    {
+      "src": "/img/projects/wraf/product-blackcurrant.webp",
+      "thumb": "/img/projects/wraf/product-blackcurrant-thumb.webp",
+      "w": 428,
+      "h": 926,
+      "role": "screen",
+      "name_en": "Product · Blackcurrant Infusion",
+      "name_ar": "منتج · شاي الكشمش",
+      "figma_node": "733:5228"
+    },
+    {
+      "src": "/img/projects/wraf/tea-store.webp",
+      "thumb": "/img/projects/wraf/tea-store-thumb.webp",
+      "w": 428,
+      "h": 958,
+      "role": "screen",
+      "name_en": "Tea store · All types",
+      "name_ar": "متجر الشاي · كل الأنواع",
+      "figma_node": "733:5380"
+    },
+    {
+      "src": "/img/projects/wraf/recipes-grid.webp",
+      "thumb": "/img/projects/wraf/recipes-grid-thumb.webp",
+      "w": 428,
+      "h": 958,
+      "role": "screen",
+      "name_en": "Recipes · Grid",
+      "name_ar": "الوصفات · شبكة",
+      "figma_node": "733:5529"
+    }
+  ],
   "petcare": []
 }

@@ -3,6 +3,7 @@
   "tier": "flagship",
   "status": "planned",
   "order": 5,
+  "tint": { "light": "#E6F0FA", "dark": "#0E1A2B" },
   "title": {
     "en": "Drive-thru voice assistant",
     "ar": "مساعد صوتي لخدمة السيارات"

@@ -4,6 +4,7 @@
   "status": "early",
   "order": 6,
   "coverTreatment": "brand",
+  "tint": { "light": "#F5E8D6", "dark": "#1F160C" },
   "title": {
     "en": "Pet Care",
     "ar": "Pet Care"

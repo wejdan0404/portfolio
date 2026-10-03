@@ -3,6 +3,13 @@
   "tier": "flagship",
   "status": "tested",
   "order": 1,
+  "tint": { "light": "#FDF2E8", "dark": "#2A2017" },
+  "posterScreens": [
+    { "src": "/img/projects/mishkat/breathe-inspire.webp", "alt": { "en": "Breathe · inspiration", "ar": "تنفّس · إلهام" }, "w": 393, "h": 852 },
+    { "src": "/img/projects/mishkat/mood-match-color.webp", "alt": { "en": "Match each feeling to a colour", "ar": "طابق كل شعور بلونه" }, "w": 393, "h": 852 },
+    { "src": "/img/projects/mishkat/activities.webp", "alt": { "en": "Activities · fineness", "ar": "الأنشطة · اللطف" }, "w": 393, "h": 852 },
+    { "src": "/img/projects/mishkat/mood-find-smile.webp", "alt": { "en": "Find the smiling face", "ar": "اعثر على الوجه المبتسم" }, "w": 393, "h": 852 }
+  ],
   "title": {
     "en": "Mishkat",
     "ar": "مِشكاة"

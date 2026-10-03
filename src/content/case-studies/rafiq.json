@@ -3,6 +3,13 @@
   "tier": "flagship",
   "status": "planned",
   "order": 3,
+  "tint": { "light": "#E9F3EC", "dark": "#0F2318" },
+  "posterScreens": [
+    { "src": "/img/projects/rafiq/pilgrim-today.webp", "alt": { "en": "Pilgrim today · Safe", "ar": "الحاج اليوم · آمن" }, "w": 402, "h": 874 },
+    { "src": "/img/projects/rafiq/leader-dashboard.webp", "alt": { "en": "Leader group dashboard", "ar": "لوحة قائد المجموعة" }, "w": 402, "h": 874 },
+    { "src": "/img/projects/rafiq/map.webp", "alt": { "en": "Map", "ar": "الخريطة" }, "w": 402, "h": 874 },
+    { "src": "/img/projects/rafiq/emergency.webp", "alt": { "en": "Emergency", "ar": "حالة طارئة" }, "w": 402, "h": 874 }
+  ],
   "title": {
     "en": "Rafiq",
     "ar": "رفيق"

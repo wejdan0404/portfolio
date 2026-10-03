@@ -3,6 +3,7 @@ import type { CollectionEntry } from "astro:content";
 import { type Locale, localePath } from "../../lib/i18n";
 import { strings, pick } from "../../lib/strings";
 import EvidenceDot from "./EvidenceDot.astro";
+import DeviceFrame from "./DeviceFrame.astro";
 
 export interface Props {
   entry: CollectionEntry<"case-studies">;
@@ -18,18 +19,25 @@ const href = localePath(locale, `work/${d.slug}`);
 const title = pick(d.title, locale);
 const sub = pick(d.sub, locale);
 
-const hero = d.hero ?? { kind: "composition" };
+/* Poster screens: a curated set of phone-ratio captures for the card. */
+const posterScreens: Array<{
+  src: string;
+  alt?: { en: string; ar: string };
+  w?: number;
+  h?: number;
+}> = Array.isArray(d.posterScreens) ? d.posterScreens : [];
+
+const isBrand = d.coverTreatment === "brand";
+const canPoster = !isBrand && posterScreens.length >= 2;
+
+/* Legacy single-image fallback (no poster screens, not brand). */
 const firstImage = Array.isArray(d.images) && d.images.length > 0 ? d.images[0] : null;
-const heroSrc: string | undefined =
-  (hero.kind === "image" && hero.image) ||
-  firstImage?.src ||
-  undefined;
-const hasImage = !!heroSrc;
-const altText = hero.alt
-  ? pick(hero.alt, locale)
-  : firstImage?.alt
-    ? pick(firstImage.alt, locale)
-    : title;
+const singleHero = !canPoster && !isBrand && firstImage ? firstImage : null;
+
+/* Per-project tint. Fall back to the brand sky/violet. */
+const tintLight: string = d.tint?.light ?? "#E7EFFB";
+const tintDark: string = d.tint?.dark ?? "#1A2240";
+const tintStyle = `--pt-light:${tintLight};--pt-dark:${tintDark};`;
 
 /* Shorten the role line to its first clause for the chip. */
 const roleFirst = d.role ? pick(d.role, locale).split(/[.·]/)[0].trim() : "";
@@ -44,27 +52,71 @@ const statusLabel = pick(strings.statusLabel[d.status as "tested" | "planned" | 
 const year = typeof d.year === "string" ? d.year : "";
 const teamSize = typeof d.teamSize === "number" ? d.teamSize : 0;
 
-/* Case-insensitive glyph for the composition — in Arabic we use its own first char. */
+/* Case-insensitive glyph for the brand composition — in Arabic we use the Arabic first char. */
 const glyph = ((locale === "ar" ? d.title.ar : d.title.en) || "").trim().slice(0, 1);
+
+/* Pick how many screens to render in the composition for this variant. */
+const screenCount = variant === "lead" ? Math.min(posterScreens.length, 4) : Math.min(posterScreens.length, 3);
+const screens = posterScreens.slice(0, screenCount);
 ---
 
-<a class={`wcard wcard-${variant} status-${d.status}`} href={href} aria-label={`${title} — ${sub}`}>
+<a
+  class={`wcard wcard-${variant} status-${d.status} ${canPoster ? "wcard-has-poster" : ""} ${isBrand ? "wcard-is-brand" : ""}`}
+  href={href}
+  aria-label={`${title} — ${sub}`}
+  style={tintStyle}
+>
   <div class="wcard-media">
-    <div class="wcard-frame" aria-hidden={hasImage ? undefined : "true"}>
-      {hasImage ? (
-        <img src={heroSrc} alt={altText} loading="lazy" decoding="async" />
+    <div class="wcard-frame" aria-hidden={canPoster || singleHero ? undefined : "true"}>
+      {canPoster ? (
+        <div class={`poster poster-${variant} poster-count-${screens.length}`} aria-hidden="true">
+          {/* Soft gradient background per project */}
+          <span class="poster-bg"></span>
+          <span class="poster-grain"></span>
+          {/* Decorative accents */}
+          <span class="poster-star poster-star-a" aria-hidden="true"></span>
+          <span class="poster-star poster-star-b" aria-hidden="true"></span>
+          {/* Device-framed screens, stacked back to front */}
+          <div class="poster-stack">
+            {screens.map((s, i) => (
+              <div class={`poster-slot poster-slot-${i}`}>
+                <DeviceFrame
+                  src={s.src}
+                  alt={s.alt ? pick(s.alt, locale) : title}
+                  width={s.w}
+                  height={s.h}
+                  size={variant === "lead" ? "md" : "sm"}
+                  eager={variant === "lead" && i === 0}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : singleHero ? (
+        <div class="poster poster-single" aria-hidden="true">
+          <span class="poster-bg"></span>
+          <span class="poster-grain"></span>
+          <div class="poster-single-wrap">
+            <img
+              src={singleHero.src}
+              alt={singleHero.alt ? pick(singleHero.alt, locale) : title}
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+        </div>
       ) : (
         <div class="brand-comp">
           <span class="bc-grad" aria-hidden="true"></span>
-          <svg class="bc-w" viewBox="0 0 48 48" width="34%" height="34%" aria-hidden="true">
+          <span class="bc-grain" aria-hidden="true"></span>
+          <svg class="bc-w" viewBox="0 0 48 48" width="54%" height="54%" aria-hidden="true">
             <path d="M4.8 10.5 L11.9 36.5 L17.8 36.5 L24 18.1 L30.2 36.5 L36.1 36.5 L43.2 10.5 L37.4 10.5 L32.6 29.9 L26.5 11 L21.5 11 L15.4 29.9 L10.6 10.5 Z"
                   fill="var(--logo-primary)"/>
           </svg>
           <span class="bc-stars" aria-hidden="true">
             <span></span><span></span><span></span>
           </span>
-          <span class="bc-title">{glyph}</span>
-          <span class="bc-sub">{title}</span>
+          <span class="bc-displaytitle">{glyph === d.title.en.slice(0,1) ? d.title.en : d.title.ar}</span>
         </div>
       )}
       <span class={`wcard-status s-${d.status}`}>
@@ -121,10 +173,11 @@ const glyph = ((locale === "ar" ? d.title.ar : d.title.en) || "").trim().slice(0
     border-radius: 20px;
     isolation: isolate;
     position: relative;
-    transition: transform 200ms ease;
+    transition: transform 240ms cubic-bezier(.2,.7,.2,1);
   }
-  .wcard:hover { transform: translateY(-2px); }
+  .wcard:hover { transform: translateY(-3px); }
   .wcard:hover .wcard-cta span { color: var(--text-accent); }
+  .wcard:hover .poster-stack { transform: translateY(-2px); }
 
   /* ---------- Media frame (shared) ---------- */
   .wcard-media {
@@ -133,35 +186,222 @@ const glyph = ((locale === "ar" ? d.title.ar : d.title.en) || "").trim().slice(0
   }
   .wcard-frame {
     position: relative;
-    border-radius: 14px;
+    border-radius: 18px;
     border: 1px solid var(--border-subtle);
-    background: var(--surface-subtle); /* the mat */
-    padding: 20px;
+    background: var(--surface-subtle);
     overflow: hidden;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 5 / 4;
     display: grid;
     place-items: center;
+    isolation: isolate;
   }
-  .wcard-lead .wcard-frame { aspect-ratio: 7 / 5; }
-  .wcard-small .wcard-frame { aspect-ratio: 4 / 3; padding: 16px; }
+  .wcard-lead .wcard-frame { aspect-ratio: 7 / 5; border-radius: 22px; }
+  .wcard-small .wcard-frame { aspect-ratio: 4 / 3; border-radius: 16px; }
 
-  .wcard-frame img {
+  /* ---------- Poster composition ---------- */
+  .poster {
+    position: relative;
     width: 100%;
     height: 100%;
-    object-fit: contain;
-    object-position: center;
-    display: block;
-    background: var(--surface-default);
-    border-radius: 8px;
+    overflow: hidden;
+    isolation: isolate;
   }
 
-  /* Brand composition when there's no image */
+  .poster-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(140% 100% at 50% 0%,
+        color-mix(in oklab, var(--pt-light, var(--brand-secondary)) 92%, white 0%) 0%,
+        color-mix(in oklab, var(--pt-light, var(--brand-secondary)) 55%, white 0%) 42%,
+        color-mix(in oklab, var(--pt-light, var(--brand-secondary)) 20%, var(--surface-subtle)) 100%);
+  }
+  :global(:root[data-theme="dark"]) .poster-bg,
+  :global(:root:not([data-theme="light"])) .poster-bg {
+    background:
+      radial-gradient(140% 110% at 50% 0%,
+        color-mix(in oklab, var(--pt-dark, var(--brand-primary)) 85%, black 0%) 0%,
+        color-mix(in oklab, var(--pt-dark, var(--brand-primary)) 55%, black 0%) 48%,
+        color-mix(in oklab, var(--pt-dark, var(--brand-primary)) 25%, var(--surface-default)) 100%);
+  }
+
+  /* Fine grain — very subtle, kept small so SSR is cheap */
+  .poster-grain {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.045;
+    mix-blend-mode: overlay;
+    background-image:
+      radial-gradient(1px 1px at 20% 10%, #000 50%, transparent 51%),
+      radial-gradient(1px 1px at 60% 30%, #000 50%, transparent 51%),
+      radial-gradient(1px 1px at 80% 70%, #000 50%, transparent 51%),
+      radial-gradient(1px 1px at 35% 85%, #000 50%, transparent 51%),
+      radial-gradient(1px 1px at 10% 60%, #000 50%, transparent 51%),
+      radial-gradient(1px 1px at 50% 50%, #000 50%, transparent 51%);
+    background-size: 180px 180px;
+  }
+  :global(:root[data-theme="dark"]) .poster-grain,
+  :global(:root:not([data-theme="light"])) .poster-grain {
+    opacity: 0.07;
+    background-image:
+      radial-gradient(1px 1px at 20% 10%, #fff 50%, transparent 51%),
+      radial-gradient(1px 1px at 60% 30%, #fff 50%, transparent 51%),
+      radial-gradient(1px 1px at 80% 70%, #fff 50%, transparent 51%),
+      radial-gradient(1px 1px at 35% 85%, #fff 50%, transparent 51%),
+      radial-gradient(1px 1px at 10% 60%, #fff 50%, transparent 51%),
+      radial-gradient(1px 1px at 50% 50%, #fff 50%, transparent 51%);
+  }
+
+  /* Decorative star accents */
+  .poster-star {
+    position: absolute;
+    z-index: 2;
+    pointer-events: none;
+    background: var(--brand-primary);
+    clip-path: polygon(50% 0%, 55% 45%, 100% 50%, 55% 55%, 50% 100%, 45% 55%, 0% 50%, 45% 45%);
+    opacity: 0.5;
+  }
+  :global(:root[data-theme="dark"]) .poster-star,
+  :global(:root:not([data-theme="light"])) .poster-star { background: var(--brand-secondary); opacity: 0.4; }
+  .poster-star-a { width: 14px; height: 14px; inset-block-start: 10%; inset-inline-end: 8%; }
+  .poster-star-b { width: 7px; height: 7px; inset-block-end: 12%; inset-inline-start: 10%; opacity: 0.4; }
+  .wcard-lead .poster-star-a { width: 20px; height: 20px; }
+
+  /* Device-frame stack */
+  .poster-stack {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    display: block;
+    transition: transform 320ms cubic-bezier(.2,.7,.2,1);
+  }
+  .poster-slot {
+    position: absolute;
+    inset-block-start: 50%;
+    inset-inline-start: 50%;
+    transform-origin: center;
+    will-change: transform;
+  }
+  .poster-slot :global(.dframe) { width: 100%; height: 100%; }
+
+  /* ---- Lead variant: up to 4 phones in a fan ---- */
+  /* The center phone is the hero (slot-0). Slots behind are smaller and tilted. */
+  .poster-lead .poster-slot-0 {
+    width: 27%; aspect-ratio: 9/19.5;
+    transform: translate(-50%, -50%) rotate(-2deg);
+    z-index: 7;
+  }
+  .poster-lead .poster-slot-1 {
+    width: 25%; aspect-ratio: 9/19.5;
+    transform: translate(-150%, -46%) rotate(-11deg);
+    z-index: 6;
+  }
+  .poster-lead .poster-slot-2 {
+    width: 25%; aspect-ratio: 9/19.5;
+    transform: translate(50%, -46%) rotate(11deg);
+    z-index: 6;
+  }
+  .poster-lead .poster-slot-3 {
+    width: 22%; aspect-ratio: 9/19.5;
+    transform: translate(-230%, -38%) rotate(-20deg);
+    z-index: 5;
+    opacity: 0.95;
+  }
+  html[dir="rtl"] .poster-lead .poster-slot-1 { transform: translate(50%, -46%) rotate(11deg); z-index: 6; }
+  html[dir="rtl"] .poster-lead .poster-slot-2 { transform: translate(-150%, -46%) rotate(-11deg); z-index: 6; }
+  html[dir="rtl"] .poster-lead .poster-slot-3 { transform: translate(130%, -38%) rotate(20deg); z-index: 5; }
+
+  /* ---- Row variant: 2 phones leaning together, a 3rd peeking in back ---- */
+  .poster-row .poster-slot-0 {
+    width: 32%; aspect-ratio: 9/19.5;
+    transform: translate(-72%, -50%) rotate(-6deg);
+    z-index: 7;
+  }
+  .poster-row .poster-slot-1 {
+    width: 32%; aspect-ratio: 9/19.5;
+    transform: translate(-28%, -48%) rotate(6deg);
+    z-index: 6;
+  }
+  .poster-row .poster-slot-2 {
+    width: 26%; aspect-ratio: 9/19.5;
+    transform: translate(-158%, -42%) rotate(-16deg);
+    z-index: 5;
+    opacity: 0.92;
+  }
+  html[dir="rtl"] .poster-row .poster-slot-0 { transform: translate(-28%, -50%) rotate(6deg); }
+  html[dir="rtl"] .poster-row .poster-slot-1 { transform: translate(-72%, -48%) rotate(-6deg); }
+  html[dir="rtl"] .poster-row .poster-slot-2 { transform: translate(58%, -42%) rotate(16deg); }
+
+  /* ---- Small variant: compact 2-phone composition ---- */
+  .poster-small .poster-slot-0 {
+    width: 32%; aspect-ratio: 9/19.5;
+    transform: translate(-72%, -48%) rotate(-6deg);
+    z-index: 5;
+  }
+  .poster-small .poster-slot-1 {
+    width: 32%; aspect-ratio: 9/19.5;
+    transform: translate(-28%, -48%) rotate(6deg);
+    z-index: 4;
+  }
+  html[dir="rtl"] .poster-small .poster-slot-0 { transform: translate(-28%, -48%) rotate(6deg); }
+  html[dir="rtl"] .poster-small .poster-slot-1 { transform: translate(-72%, -48%) rotate(-6deg); }
+
+  /* Single-image poster fallback */
+  .poster-single-wrap {
+    position: absolute;
+    inset: 10% 10%;
+    z-index: 3;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--border-subtle);
+    box-shadow: 0 18px 40px -22px rgba(14,18,28,0.3);
+    background: var(--surface-elevated);
+  }
+  .poster-single-wrap img {
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: center;
+    display: block;
+  }
+
+  /* ---- Mobile: collapse overlap so screens stay legible ---- */
+  @media (max-width: 760px) {
+    .poster-slot { transform-origin: center; }
+    .poster-lead .poster-slot-0,
+    .poster-row .poster-slot-0,
+    .poster-small .poster-slot-0 {
+      width: 42%;
+      transform: translate(-82%, -50%) rotate(-4deg);
+    }
+    .poster-lead .poster-slot-1,
+    .poster-row .poster-slot-1,
+    .poster-small .poster-slot-1 {
+      width: 42%;
+      transform: translate(-18%, -50%) rotate(4deg);
+    }
+    .poster-lead .poster-slot-2,
+    .poster-row .poster-slot-2 { display: none; }
+    .poster-lead .poster-slot-3 { display: none; }
+    html[dir="rtl"] .poster-lead .poster-slot-0,
+    html[dir="rtl"] .poster-row .poster-slot-0,
+    html[dir="rtl"] .poster-small .poster-slot-0 {
+      transform: translate(-18%, -50%) rotate(4deg);
+    }
+    html[dir="rtl"] .poster-lead .poster-slot-1,
+    html[dir="rtl"] .poster-row .poster-slot-1,
+    html[dir="rtl"] .poster-small .poster-slot-1 {
+      transform: translate(-82%, -50%) rotate(-4deg);
+    }
+  }
+
+  /* ---- Brand composition (WRAF, Pet Care) — upgraded ---- */
   .brand-comp {
     position: relative;
     width: 100%;
     height: 100%;
-    border-radius: 10px;
-    background: var(--surface-elevated);
     display: grid;
     place-items: center;
     overflow: hidden;
@@ -170,54 +410,47 @@ const glyph = ((locale === "ar" ? d.title.ar : d.title.en) || "").trim().slice(0
   .bc-grad {
     position: absolute;
     inset: 0;
-    background:
-      radial-gradient(110% 90% at 50% 0%,
-        color-mix(in oklab, var(--brand-secondary) 55%, transparent) 0%,
-        color-mix(in oklab, var(--brand-secondary) 18%, transparent) 35%,
-        transparent 68%),
-      linear-gradient(180deg,
-        color-mix(in oklab, var(--brand-secondary) 18%, var(--surface-elevated)) 0%,
-        var(--surface-elevated) 100%);
     z-index: 0;
     pointer-events: none;
+    background:
+      radial-gradient(120% 100% at 50% 0%,
+        color-mix(in oklab, var(--pt-light, var(--brand-secondary)) 90%, white) 0%,
+        color-mix(in oklab, var(--pt-light, var(--brand-secondary)) 60%, white) 50%,
+        color-mix(in oklab, var(--pt-light, var(--brand-secondary)) 25%, var(--surface-elevated)) 100%);
+  }
+  :global(:root[data-theme="dark"]) .bc-grad,
+  :global(:root:not([data-theme="light"])) .bc-grad {
+    background:
+      radial-gradient(120% 100% at 50% 0%,
+        color-mix(in oklab, var(--pt-dark, var(--brand-primary)) 70%, var(--brand-primary)) 0%,
+        color-mix(in oklab, var(--pt-dark, var(--brand-primary)) 70%, black) 50%,
+        var(--surface-dark) 100%);
+  }
+  .bc-grain {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+    background-image: radial-gradient(1px 1px at 25% 20%, #000 50%, transparent 51%),
+                      radial-gradient(1px 1px at 70% 60%, #000 50%, transparent 51%),
+                      radial-gradient(1px 1px at 45% 80%, #000 50%, transparent 51%);
+    background-size: 160px 160px;
   }
   .bc-w {
     position: absolute;
     inset-block-start: 50%;
     inset-inline-start: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1;
-    opacity: 0.95;
-  }
-  html[dir="rtl"] .bc-w { transform: translate(50%, -50%); }
-  .bc-title {
-    position: absolute;
-    inset-block-end: 1rem;
-    inset-inline-start: 1rem;
+    transform: translate(-50%, -58%);
     z-index: 2;
-    font-size: clamp(1rem, 2vw, 1.5rem);
-    font-weight: 600;
-    letter-spacing: -0.01em;
-    color: var(--text-primary);
-    opacity: 0.9;
-    /* reuse — hidden visually, shown on small variant */
-    display: none;
+    opacity: 0.96;
   }
-  .bc-sub {
-    position: absolute;
-    inset-block-end: 1rem;
-    inset-inline-end: 1rem;
-    z-index: 2;
-    font-size: 0.75rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-  }
-  html[lang="ar"] .bc-sub { letter-spacing: 0; text-transform: none; font-size: 0.875rem; }
+  html[dir="rtl"] .bc-w { transform: translate(50%, -58%); }
   .bc-stars {
     position: absolute;
     inset: 0;
-    z-index: 1;
+    z-index: 3;
     pointer-events: none;
   }
   .bc-stars span {
@@ -225,28 +458,48 @@ const glyph = ((locale === "ar" ? d.title.ar : d.title.en) || "").trim().slice(0
     background: var(--brand-primary);
     clip-path: polygon(50% 0%, 55% 45%, 100% 50%, 55% 55%, 50% 100%, 45% 55%, 0% 50%, 45% 45%);
   }
+  :global(:root[data-theme="dark"]) .bc-stars span,
+  :global(:root:not([data-theme="light"])) .bc-stars span { background: var(--brand-secondary); }
   .bc-stars span:nth-child(1) {
-    width: 10px; height: 10px;
+    width: 14px; height: 14px;
     inset-block-start: 14%; inset-inline-end: 16%;
     opacity: 0.9;
   }
   .bc-stars span:nth-child(2) {
-    width: 7px; height: 7px;
-    inset-block-end: 28%; inset-inline-start: 14%;
+    width: 9px; height: 9px;
+    inset-block-end: 20%; inset-inline-start: 14%;
     opacity: 0.6;
   }
   .bc-stars span:nth-child(3) {
-    width: 5px; height: 5px;
+    width: 6px; height: 6px;
     inset-block-start: 28%; inset-inline-start: 22%;
-    opacity: 0.45;
+    opacity: 0.5;
   }
+  .wcard-lead .bc-stars span:nth-child(1) { width: 22px; height: 22px; }
+  .bc-displaytitle {
+    position: absolute;
+    inset-block-end: 1.1rem;
+    inset-inline-start: 50%;
+    transform: translateX(-50%);
+    z-index: 4;
+    font-size: clamp(0.75rem, 1.1vw, 0.95rem);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--text-primary);
+    opacity: 0.78;
+    white-space: nowrap;
+  }
+  html[dir="rtl"] .bc-displaytitle { transform: translateX(50%); letter-spacing: 0; text-transform: none; }
+  :global(:root[data-theme="dark"]) .bc-displaytitle,
+  :global(:root:not([data-theme="light"])) .bc-displaytitle { color: #fff; opacity: 0.85; }
 
   /* Status badge: bottom-left */
   .wcard-status {
     position: absolute;
     inset-block-end: 10px;
     inset-inline-start: 10px;
-    z-index: 3;
+    z-index: 10;
     background: color-mix(in oklab, var(--surface-default) 92%, transparent);
     border: 1px solid var(--border-subtle);
     border-radius: 999px;
@@ -373,4 +626,13 @@ const glyph = ((locale === "ar" ? d.title.ar : d.title.en) || "").trim().slice(0
   .wcard-small { grid-template-columns: 1fr; }
   .wcard-small .wcard-cta { font-size: 0.875rem; }
   .wcard-small .role-chip { font-size: 0.75rem; padding: 0.2rem 0.5rem; }
+
+  /* Reduced-motion / focus */
+  @media (prefers-reduced-motion: reduce) {
+    .wcard, .poster-stack { transition: none; }
+  }
+  .wcard:focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 4px;
+  }
 </style>

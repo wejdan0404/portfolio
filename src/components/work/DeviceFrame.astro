@@ -1,0 +1,108 @@
+---
+/**
+ * DeviceFrame — a simple, device-feeling card for a single app screen.
+ *
+ * Not strictly a phone bezel: a thin themed border + soft outer shadow
+ * around the image. Rounds hard enough to read as a device at any size.
+ * Uses `object-fit: cover` so the image always fills the frame cleanly.
+ *
+ * Pass the image's intrinsic width/height when known so the frame picks
+ * its aspect ratio from the image itself (no stretching, no mis-crop).
+ */
+export interface Props {
+  src: string;
+  alt: string;
+  width?: number;
+  height?: number;
+  /** Aspect ratio override, e.g. "9/19.5" for a phone. */
+  aspectRatio?: string;
+  /** Visual size hint: xs | sm | md | lg (affects corner radius only). */
+  size?: "xs" | "sm" | "md" | "lg";
+  /** Add `loading="eager"` for above-the-fold images. */
+  eager?: boolean;
+  /** Extra class on the outer frame. */
+  class?: string;
+}
+
+const {
+  src,
+  alt,
+  width,
+  height,
+  aspectRatio,
+  size = "md",
+  eager = false,
+  class: extraClass = "",
+} = Astro.props;
+
+const ratio =
+  aspectRatio ||
+  (width && height ? `${width} / ${height}` : "9 / 19.5");
+
+const radiusMap = {
+  xs: "14px",
+  sm: "18px",
+  md: "24px",
+  lg: "30px",
+};
+const radius = radiusMap[size];
+---
+
+<div
+  class={`dframe dframe-${size} ${extraClass}`}
+  style={`--dframe-radius: ${radius}; aspect-ratio: ${ratio};`}
+>
+  <img
+    src={src}
+    alt={alt}
+    width={width}
+    height={height}
+    loading={eager ? "eager" : "lazy"}
+    decoding="async"
+  />
+</div>
+
+<style>
+  .dframe {
+    position: relative;
+    display: block;
+    border-radius: var(--dframe-radius);
+    overflow: hidden;
+    background: var(--surface-elevated);
+    border: 1px solid var(--border-subtle);
+    box-shadow:
+      0 1px 2px rgba(14, 18, 28, 0.04),
+      0 18px 36px -22px rgba(14, 18, 28, 0.32),
+      0 32px 60px -32px rgba(14, 18, 28, 0.22);
+  }
+  :global(:root[data-theme="dark"]) .dframe,
+  :global(:root:not([data-theme="light"])) .dframe {
+    box-shadow:
+      0 1px 2px rgba(0, 0, 0, 0.3),
+      0 18px 36px -18px rgba(0, 0, 0, 0.55),
+      0 36px 72px -28px rgba(0, 0, 0, 0.45);
+    border-color: rgba(255, 255, 255, 0.16);
+  }
+  .dframe::after {
+    /* subtle inner highlight so the frame has a bit of depth */
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  }
+  .dframe img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    /* Use `contain` so no app content ever gets cropped from the real screen.
+       The frame fills in around it with the surface color, and the phone shape
+       still reads clearly because the frame itself is sized to a phone ratio. */
+    object-fit: contain;
+    object-position: center;
+    display: block;
+    background: var(--surface-elevated);
+  }
+</style>

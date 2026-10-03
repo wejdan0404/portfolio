@@ -3,6 +3,13 @@
   "tier": "flagship",
   "status": "tested",
   "order": 2,
+  "tint": { "light": "#EDE7F6", "dark": "#1A1033" },
+  "posterScreens": [
+    { "src": "/img/projects/arcadea/library-all.webp", "alt": { "en": "Library · All games", "ar": "المكتبة · الكل" }, "w": 402, "h": 874 },
+    { "src": "/img/projects/arcadea/detail-silent-hill.webp", "alt": { "en": "Game detail · Silent Hill 2", "ar": "تفاصيل اللعبة · Silent Hill 2" }, "w": 402, "h": 874 },
+    { "src": "/img/projects/arcadea/stats.webp", "alt": { "en": "Stats", "ar": "الإحصاءات" }, "w": 402, "h": 874 },
+    { "src": "/img/projects/arcadea/welcome.webp", "alt": { "en": "Welcome", "ar": "ترحيب" }, "w": 402, "h": 874 }
+  ],
   "title": {
     "en": "Arcadea",
     "ar": "Arcadea"

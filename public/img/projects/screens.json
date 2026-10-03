@@ -1,0 +1,170 @@
+{
+  "mishkat": [
+    {
+      "filename": "breathe-inspire.webp",
+      "name_en": "Breathe · inspiration",
+      "name_ar": "تنفّس · إلهام",
+      "w": 393,
+      "h": 852,
+      "figma_node": "733:1220"
+    },
+    {
+      "filename": "mood-match-color.webp",
+      "name_en": "Match each feeling to a colour",
+      "name_ar": "طابق كل شعور بلونه",
+      "w": 393,
+      "h": 852,
+      "figma_node": "733:4561"
+    },
+    {
+      "filename": "mood-find-smile.webp",
+      "name_en": "Find the smiling face",
+      "name_ar": "اعثر على الوجه المبتسم",
+      "w": 393,
+      "h": 852,
+      "figma_node": "733:4637"
+    },
+    {
+      "filename": "activities.webp",
+      "name_en": "Activities · fineness",
+      "name_ar": "الأنشطة · اللطف",
+      "w": 393,
+      "h": 852,
+      "figma_node": "733:5049"
+    }
+  ],
+  "arcadea": [
+    {
+      "filename": "welcome.webp",
+      "name_en": "Welcome",
+      "name_ar": "ترحيب",
+      "w": 402,
+      "h": 874,
+      "figma_node": "733:7683"
+    },
+    {
+      "filename": "library-all.webp",
+      "name_en": "Library · All games",
+      "name_ar": "المكتبة · الكل",
+      "w": 402,
+      "h": 874,
+      "figma_node": "733:6654"
+    },
+    {
+      "filename": "detail-ff7.webp",
+      "name_en": "Game detail · Final Fantasy VII Remake",
+      "name_ar": "تفاصيل اللعبة · Final Fantasy VII Remake",
+      "w": 402,
+      "h": 874,
+      "figma_node": "733:6998"
+    },
+    {
+      "filename": "detail-silent-hill.webp",
+      "name_en": "Game detail · Silent Hill 2 Remake",
+      "name_ar": "تفاصيل اللعبة · Silent Hill 2 Remake",
+      "w": 402,
+      "h": 874,
+      "figma_node": "733:7166"
+    },
+    {
+      "filename": "stats.webp",
+      "name_en": "Stats",
+      "name_ar": "الإحصاءات",
+      "w": 402,
+      "h": 874,
+      "figma_node": "733:7576"
+    },
+    {
+      "filename": "profile.webp",
+      "name_en": "Profile",
+      "name_ar": "الملف الشخصي",
+      "w": 402,
+      "h": 874,
+      "figma_node": "733:7635"
+    }
+  ],
+  "rafiq": [
+    {
+      "filename": "welcome.webp",
+      "name_en": "Welcome",
+      "name_ar": "ترحيب",
+      "w": 402,
+      "h": 874,
+      "figma_node": "733:5692"
+    },
+    {
+      "filename": "choose-role.webp",
+      "name_en": "Choose your role",
+      "name_ar": "اختر دورك",
+      "w": 402,
+      "h": 874,
+      "figma_node": "733:5758"
+    },
+    {
+      "filename": "pilgrim-today.webp",
+      "name_en": "Pilgrim today · Safe",
+      "name_ar": "الحاج اليوم · آمن",
+      "w": 402,
+      "h": 874,
+      "figma_node": "733:5959"
+    },
+    {
+      "filename": "leader-dashboard.webp",
+      "name_en": "Leader group dashboard",
+      "name_ar": "لوحة قائد المجموعة",
+      "w": 402,
+      "h": 874,
+      "figma_node": "733:6014"
+    },
+    {
+      "filename": "emergency.webp",
+      "name_en": "Emergency",
+      "name_ar": "حالة طارئة",
+      "w": 402,
+      "h": 874,
+      "figma_node": "733:6217"
+    },
+    {
+      "filename": "map.webp",
+      "name_en": "Map",
+      "name_ar": "الخريطة",
+      "w": 402,
+      "h": 874,
+      "figma_node": "733:6387"
+    }
+  ],
+  "wraf": [
+    {
+      "filename": "recipe-butterfly-pea.webp",
+      "name_en": "Recipe · Iced Butterfly Pea Flower Tea Latte",
+      "name_ar": "وصفة · شاي زهرة البازلاء المثلّج",
+      "w": 428,
+      "h": 926,
+      "figma_node": "733:5164"
+    },
+    {
+      "filename": "product-blackcurrant.webp",
+      "name_en": "Product · Blackcurrant Infusion",
+      "name_ar": "منتج · شاي الكشمش",
+      "w": 428,
+      "h": 926,
+      "figma_node": "733:5228"
+    },
+    {
+      "filename": "tea-store.webp",
+      "name_en": "Tea store · All types",
+      "name_ar": "متجر الشاي · كل الأنواع",
+      "w": 428,
+      "h": 958,
+      "figma_node": "733:5380"
+    },
+    {
+      "filename": "recipes-grid.webp",
+      "name_en": "Recipes · Grid",
+      "name_ar": "الوصفات · شبكة",
+      "w": 428,
+      "h": 958,
+      "figma_node": "733:5529"
+    }
+  ]
+}
