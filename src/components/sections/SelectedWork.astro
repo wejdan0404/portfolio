@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import WorkCard from "../work/WorkCard.astro";
 import { type Locale, localePath } from "../../lib/i18n";
 import { strings, pick } from "../../lib/strings";
+import Pattern from "../brand/Pattern.astro";
 
 export interface Props { locale: Locale; }
 const { locale } = Astro.props;
@@ -30,7 +31,11 @@ const earlyEntry = early[0];
 ---
 
 <section class="selected" aria-labelledby="selected-title">
-  <div class="container-wide">
+  <!-- § 05 Patterns: "Halftone Field — contextual fade". One pattern for
+       this composition, faded away from the copy so nothing sits behind
+       body text, per the Keep-out-of rule. -->
+  <Pattern family="halftone-field" level={2} fade={true} class="selected-pattern" />
+  <div class="container-wide selected-inner">
     <header class="selected-head">
       <div>
         <span class="type-eyebrow">{pick(strings.home.workEyebrow, locale)}</span>
@@ -76,6 +81,9 @@ const earlyEntry = early[0];
 </section>
 
 <style>
+  .selected { position: relative; isolation: isolate; }
+  .selected-inner { position: relative; z-index: 1; }
+  .selected-pattern { --wj-pattern-opacity: 0.07; }
   .selected { padding-block: clamp(44px, 5.5vw, 80px); }
 
   .selected-head {

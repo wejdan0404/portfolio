@@ -1,6 +1,7 @@
 ---
 import { type Locale } from "../../lib/i18n";
 import { strings, pick } from "../../lib/strings";
+import Pattern from "../brand/Pattern.astro";
 
 export interface Props { locale: Locale; }
 const { locale } = Astro.props;
@@ -24,7 +25,10 @@ const labels = {
 ---
 
 <section class="contact" aria-labelledby="contact-title">
-  <div class="container-wide">
+  <!-- § 05 Patterns: "Star Dotted Line — contextual rhythm" at Subtle,
+       the density Level 1 allows for a body page. -->
+  <Pattern family="star-dotted-line" level={1} fade={true} class="contact-pattern" />
+  <div class="container-wide contact-inner">
     <header class="contact-head">
       <span class="type-eyebrow">{pick(strings.home.contactEyebrow, locale)}</span>
       <h2 id="contact-title" class="contact-heading">
@@ -115,6 +119,8 @@ const labels = {
 </script>
 
 <style>
+  .contact { position: relative; isolation: isolate; }
+  .contact-inner { position: relative; z-index: 1; }
   .contact {
     padding-block: clamp(44px, 5.5vw, 80px);
   }

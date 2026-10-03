@@ -1,0 +1,107 @@
+/* Graphic language — pattern families
+ *
+ * Source: Figma pei6kBFtNKDcYAwPBG1gTN, page "06 — GRAPHIC LANGUAGE",
+ * § 05 Patterns. Three families, rebuilt from the measured Figma geometry:
+ * the lattice pitch, the spark path and the dotted rule are the file's own
+ * numbers, not approximations by eye.
+ *
+ *   Harlequin        — "Main expressive field".  80x120 diamond lattice,
+ *                      canonical spark knocked out of each diamond.
+ *   Star Dotted Line — "Contextual rhythm".      55x55, one spark per tile
+ *                      with the dotted rule on the column edge (r 0.85, 11 pitch).
+ *   Halftone Field   — "Contextual fade".        27.3 pitch spark grid, faded
+ *                      with a mask instead of 60-odd hand-placed sizes.
+ *
+ * The spark is the canonical one from § 04 Sparks (48.06 x 54), scaled per family.
+ *
+ * RULES THIS FILE ENFORCES (from the same Figma page — read them before adding a
+ * pattern anywhere):
+ *   Use for      Section identity, quiet backgrounds, social and project covers.
+ *                One pattern per composition, at the density its level allows.
+ *   Keep out of  Body-text backgrounds, dense content and accessibility-critical
+ *                UI, at any density. Never together with a spark cluster.
+ *   Density      L0 none · L1 one pattern at Subtle, away from text · L2 one
+ *                composition OR one pattern, never both · L3 section openers and
+ *                project covers · L4 hero only, once per artefact.
+ *
+ * Patterns are masks, not images, so the ink follows the theme token and
+ * inverts correctly in dark mode.
+ */
+
+.wj-pattern {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  /* Ink is a token, never a raw hex — it has to invert with the theme. */
+  --wj-pattern-ink: var(--brand-primary);
+  --wj-pattern-opacity: 0.08;
+  --wj-pattern-scale: 1;
+}
+
+/* Density ladder — the Figma "Density" and "Scale" ladders, as tile size.
+   Subtle and Standard are the two the system ships; Dense is the tighter step. */
+.wj-pattern[data-density="subtle"]   { --wj-pattern-scale: 1.35; --wj-pattern-opacity: 0.05; }
+.wj-pattern[data-density="standard"] { --wj-pattern-scale: 1;    --wj-pattern-opacity: 0.08; }
+.wj-pattern[data-density="dense"]    { --wj-pattern-scale: 0.62; --wj-pattern-opacity: 0.10; }
+
+.wj-pattern > .wj-pattern-ink {
+  position: absolute;
+  inset: 0;
+  background-color: var(--wj-pattern-ink);
+  opacity: var(--wj-pattern-opacity);
+  -webkit-mask-repeat: repeat;
+  mask-repeat: repeat;
+  -webkit-mask-position: 0 0;
+  mask-position: 0 0;
+}
+
+/* Harlequin — 80x120 tile */
+.wj-pattern[data-family="harlequin"] > .wj-pattern-ink {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2080%20120%22%20width%3D%2280%22%20height%3D%22120%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20fill%3D%22%23000%22%20d%3D%22M40%200L80%2060L40%20120L0%2060Z%20M40.0%2046.5C40.961%2054.33%2045.046%2058.92%2052.015%2060.0C45.046%2061.08%2040.961%2065.67%2040.0%2073.5C39.039%2065.67%2034.954%2061.08%2027.985%2060.0C34.954%2058.92%2039.039%2054.33%2040.0%2046.5Z%22%2F%3E%3C%2Fsvg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2080%20120%22%20width%3D%2280%22%20height%3D%22120%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20fill%3D%22%23000%22%20d%3D%22M40%200L80%2060L40%20120L0%2060Z%20M40.0%2046.5C40.961%2054.33%2045.046%2058.92%2052.015%2060.0C45.046%2061.08%2040.961%2065.67%2040.0%2073.5C39.039%2065.67%2034.954%2061.08%2027.985%2060.0C34.954%2058.92%2039.039%2054.33%2040.0%2046.5Z%22%2F%3E%3C%2Fsvg%3E");
+  -webkit-mask-size: calc(80px * var(--wj-pattern-scale)) calc(120px * var(--wj-pattern-scale));
+  mask-size: calc(80px * var(--wj-pattern-scale)) calc(120px * var(--wj-pattern-scale));
+}
+
+/* Star Dotted Line — 55x55 tile */
+.wj-pattern[data-family="star-dotted-line"] > .wj-pattern-ink {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2055%2055%22%20width%3D%2255%22%20height%3D%2255%22%3E%3Cpath%20fill%3D%22%23000%22%20d%3D%22M27.5%2013.5C28.497%2021.62%2032.733%2026.38%2039.96%2027.5C32.733%2028.62%2028.497%2033.38%2027.5%2041.5C26.503%2033.38%2022.267%2028.62%2015.04%2027.5C22.267%2026.38%2026.503%2021.62%2027.5%2013.5Z%22%2F%3E%3Ccircle%20cx%3D%220%22%20cy%3D%225.5%22%20r%3D%220.85%22%20fill%3D%22%23000%22%2F%3E%3Ccircle%20cx%3D%220%22%20cy%3D%2216.5%22%20r%3D%220.85%22%20fill%3D%22%23000%22%2F%3E%3Ccircle%20cx%3D%220%22%20cy%3D%2227.5%22%20r%3D%220.85%22%20fill%3D%22%23000%22%2F%3E%3Ccircle%20cx%3D%220%22%20cy%3D%2238.5%22%20r%3D%220.85%22%20fill%3D%22%23000%22%2F%3E%3Ccircle%20cx%3D%220%22%20cy%3D%2249.5%22%20r%3D%220.85%22%20fill%3D%22%23000%22%2F%3E%3Ccircle%20cx%3D%2255%22%20cy%3D%225.5%22%20r%3D%220.85%22%20fill%3D%22%23000%22%2F%3E%3Ccircle%20cx%3D%2255%22%20cy%3D%2216.5%22%20r%3D%220.85%22%20fill%3D%22%23000%22%2F%3E%3Ccircle%20cx%3D%2255%22%20cy%3D%2227.5%22%20r%3D%220.85%22%20fill%3D%22%23000%22%2F%3E%3Ccircle%20cx%3D%2255%22%20cy%3D%2238.5%22%20r%3D%220.85%22%20fill%3D%22%23000%22%2F%3E%3Ccircle%20cx%3D%2255%22%20cy%3D%2249.5%22%20r%3D%220.85%22%20fill%3D%22%23000%22%2F%3E%3C%2Fsvg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2055%2055%22%20width%3D%2255%22%20height%3D%2255%22%3E%3Cpath%20fill%3D%22%23000%22%20d%3D%22M27.5%2013.5C28.497%2021.62%2032.733%2026.38%2039.96%2027.5C32.733%2028.62%2028.497%2033.38%2027.5%2041.5C26.503%2033.38%2022.267%2028.62%2015.04%2027.5C22.267%2026.38%2026.503%2021.62%2027.5%2013.5Z%22%2F%3E%3Ccircle%20cx%3D%220%22%20cy%3D%225.5%22%20r%3D%220.85%22%20fill%3D%22%23000%22%2F%3E%3Ccircle%20cx%3D%220%22%20cy%3D%2216.5%22%20r%3D%220.85%22%20fill%3D%22%23000%22%2F%3E%3Ccircle%20cx%3D%220%22%20cy%3D%2227.5%22%20r%3D%220.85%22%20fill%3D%22%23000%22%2F%3E%3Ccircle%20cx%3D%220%22%20cy%3D%2238.5%22%20r%3D%220.85%22%20fill%3D%22%23000%22%2F%3E%3Ccircle%20cx%3D%220%22%20cy%3D%2249.5%22%20r%3D%220.85%22%20fill%3D%22%23000%22%2F%3E%3Ccircle%20cx%3D%2255%22%20cy%3D%225.5%22%20r%3D%220.85%22%20fill%3D%22%23000%22%2F%3E%3Ccircle%20cx%3D%2255%22%20cy%3D%2216.5%22%20r%3D%220.85%22%20fill%3D%22%23000%22%2F%3E%3Ccircle%20cx%3D%2255%22%20cy%3D%2227.5%22%20r%3D%220.85%22%20fill%3D%22%23000%22%2F%3E%3Ccircle%20cx%3D%2255%22%20cy%3D%2238.5%22%20r%3D%220.85%22%20fill%3D%22%23000%22%2F%3E%3Ccircle%20cx%3D%2255%22%20cy%3D%2249.5%22%20r%3D%220.85%22%20fill%3D%22%23000%22%2F%3E%3C%2Fsvg%3E");
+  -webkit-mask-size: calc(55px * var(--wj-pattern-scale)) calc(55px * var(--wj-pattern-scale));
+  mask-size: calc(55px * var(--wj-pattern-scale)) calc(55px * var(--wj-pattern-scale));
+}
+
+/* Halftone Field — 27.3 pitch, plus the fade the family is named for */
+.wj-pattern[data-family="halftone-field"] > .wj-pattern-ink {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2027.3%2027.3%22%20width%3D%2227.3%22%20height%3D%2227.3%22%3E%3Cpath%20fill%3D%22%23000%22%20d%3D%22M13.65%209.717C13.93%2011.998%2015.12%2013.335%2017.15%2013.65C15.12%2013.965%2013.93%2015.302%2013.65%2017.583C13.37%2015.302%2012.18%2013.965%2010.15%2013.65C12.18%2013.335%2013.37%2011.998%2013.65%209.717Z%22%2F%3E%3C%2Fsvg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2027.3%2027.3%22%20width%3D%2227.3%22%20height%3D%2227.3%22%3E%3Cpath%20fill%3D%22%23000%22%20d%3D%22M13.65%209.717C13.93%2011.998%2015.12%2013.335%2017.15%2013.65C15.12%2013.965%2013.93%2015.302%2013.65%2017.583C13.37%2015.302%2012.18%2013.965%2010.15%2013.65C12.18%2013.335%2013.37%2011.998%2013.65%209.717Z%22%2F%3E%3C%2Fsvg%3E");
+  -webkit-mask-size: calc(27.3px * var(--wj-pattern-scale)) calc(27.3px * var(--wj-pattern-scale));
+  mask-size: calc(27.3px * var(--wj-pattern-scale)) calc(27.3px * var(--wj-pattern-scale));
+}
+
+/* The fade. Applied to the wrapper so it composes with the tile mask on the
+   child rather than fighting it.
+
+   The field is CLEAR where the copy starts and densest in the far corner —
+   "Keep out of: body-text backgrounds" is a hard rule, so the pattern has to
+   move away from the reading zone, not sit under it. That corner is the end of
+   the line, so the gradient follows the writing direction. */
+.wj-pattern[data-fade="true"] {
+  -webkit-mask-image: linear-gradient(to bottom right, transparent 30%, #000 100%);
+  mask-image: linear-gradient(to bottom right, transparent 30%, #000 100%);
+}
+[dir="rtl"] .wj-pattern[data-fade="true"] {
+  -webkit-mask-image: linear-gradient(to bottom left, transparent 30%, #000 100%);
+  mask-image: linear-gradient(to bottom left, transparent 30%, #000 100%);
+}
+
+/* Harlequin is a filled field, not a sprinkle: it needs the quiet base the
+   Figma tile sits on, otherwise the knocked-out sparks have nothing to show. */
+.wj-pattern[data-family="harlequin"] {
+  background-color: color-mix(in oklab, var(--surface-subtle) 70%, transparent);
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .wj-pattern { --wj-pattern-opacity: 0.04; }
+}

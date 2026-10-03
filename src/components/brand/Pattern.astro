@@ -1,0 +1,43 @@
+---
+/**
+ * A pattern field from the Figma graphic language (§ 05 Patterns).
+ *
+ * The density rules on that page are not decoration advice, they are limits:
+ *   - One pattern per composition. Never alongside a spark cluster.
+ *   - Never behind body text, dense content, or accessibility-critical UI.
+ *   - L1 subtle (body pages, research blocks) · L2 one composition OR one
+ *     pattern, never both (cards, social) · L3 section openers and project
+ *     covers · L4 hero only, once per artefact.
+ *
+ * `level` is declared at the call site so the choice is reviewable in the
+ * markup, and it picks the density the system allows at that level.
+ */
+export interface Props {
+  family?: "harlequin" | "star-dotted-line" | "halftone-field";
+  level?: 1 | 2 | 3;
+  density?: "subtle" | "standard" | "dense";
+  fade?: boolean;
+  class?: string;
+}
+const {
+  family = "halftone-field",
+  level = 1,
+  density,
+  fade = false,
+  class: klass = "",
+} = Astro.props;
+
+// Level decides density unless the call site overrides it.
+const byLevel = { 1: "subtle", 2: "standard", 3: "standard" } as const;
+const resolved = density ?? byLevel[level];
+---
+
+<div
+  class={`wj-pattern ${klass}`}
+  data-family={family}
+  data-density={resolved}
+  data-fade={fade ? "true" : undefined}
+  aria-hidden="true"
+>
+  <span class="wj-pattern-ink"></span>
+</div>
