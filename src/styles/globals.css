@@ -215,6 +215,9 @@
   .btn-link {
     display: inline-flex;
     align-items: center;
+    /* 44px minimum tap target; the underline stays on the text via a
+       pseudo-element so the box can grow without a long dangling rule. */
+    min-height: 44px;
     gap: 0.4rem;
     color: var(--text-primary);
     text-decoration: none;

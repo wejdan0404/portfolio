@@ -273,6 +273,10 @@ const linkedinUnverified = {
   .elsewhere-value-link {
     color: var(--text-primary);
     text-decoration-color: color-mix(in oklab, currentColor 35%, transparent);
+    /* 44px minimum tap target */
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
   }
   .elsewhere-value-link:hover { color: var(--brand-primary); }
   .elsewhere-note {

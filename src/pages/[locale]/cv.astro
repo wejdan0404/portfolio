@@ -87,6 +87,10 @@ const body = {
   html[dir="rtl"] .cv-contact { border-radius: 10px 0 0 10px; }
   html[lang="ar"] .cv-contact { font-size: 1.15rem; line-height: 1.85; }
   .cv-mail {
+    /* 44px minimum tap target */
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
     color: var(--brand-primary);
     text-decoration-color: color-mix(in oklab, currentColor 50%, transparent);
     font-weight: 500;
