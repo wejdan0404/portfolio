@@ -11,7 +11,7 @@ import "../styles/globals.css";
 
 import Header from "../components/sections/Header.astro";
 import Footer from "../components/sections/Footer.astro";
-import { type Locale, dirOf } from "../lib/i18n";
+import { type Locale, dirOf, withBase } from "../lib/i18n";
 import { strings, pick } from "../lib/strings";
 
 export interface Props {
@@ -38,7 +38,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://wejdan.info
     <meta name="color-scheme" content="light dark" />
     <title>{pageTitle}</title>
     <meta name="description" content={pageDescription} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href={withBase("/favicon.svg")} />
     <link rel="canonical" href={canonical} />
     <link rel="alternate" hreflang="ar" href={new URL(`/ar${path}`, Astro.site ?? "https://wejdan.info").toString()} />
     <link rel="alternate" hreflang="en" href={new URL(`/en${path}`, Astro.site ?? "https://wejdan.info").toString()} />

@@ -1,6 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import { type Locale, localePath } from "../../lib/i18n";
+import { type Locale, localePath, withBase } from "../../lib/i18n";
 import { strings, pick } from "../../lib/strings";
 import EvidenceDot from "./EvidenceDot.astro";
 import DeviceFrame from "./DeviceFrame.astro";
@@ -98,7 +98,7 @@ const screens = posterScreens.slice(0, screenCount);
           <span class="poster-grain"></span>
           <div class="poster-single-wrap">
             <img
-              src={singleHero.src}
+              src={singleHero.src.startsWith("http") ? singleHero.src : withBase(singleHero.src)}
               alt={singleHero.alt ? pick(singleHero.alt, locale) : title}
               loading="lazy"
               decoding="async"

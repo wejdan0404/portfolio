@@ -1,5 +1,5 @@
 ---
-import { type Locale } from "../../lib/i18n";
+import { type Locale, localePath } from "../../lib/i18n";
 export interface Props {
   locale: Locale;
   size?: number;
@@ -8,7 +8,7 @@ export interface Props {
 const { locale, size = 32, withWordmark = false } = Astro.props;
 ---
 
-<a href={`/${locale}`} class="group inline-flex items-center gap-3" aria-label={locale === "ar" ? "الذهاب إلى الصفحة الرئيسية" : "Go to home"}>
+<a href={localePath(locale)} class="group inline-flex items-center gap-3" aria-label={locale === "ar" ? "الذهاب إلى الصفحة الرئيسية" : "Go to home"}>
   <span class="relative inline-flex" style={`width:${size}px;height:${size}px;`}>
     <!-- Placeholder W monogram; replace with Figma export when available -->
     <svg viewBox="0 0 48 48" width={size} height={size} aria-hidden="true" style="display:block;">

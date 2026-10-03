@@ -15,7 +15,7 @@
  */
 
 import type { CollectionEntry } from "astro:content";
-import { type Locale, localePath } from "../../lib/i18n";
+import { type Locale, localePath, withBase } from "../../lib/i18n";
 import { strings, pick } from "../../lib/strings";
 import EvidenceDot from "./EvidenceDot.astro";
 import MetricTile from "./MetricTile.astro";
@@ -254,7 +254,7 @@ const flaggedForReflection =
           </div>
         ) : heroKind === "image" && heroImage ? (
           <img
-            src={heroImage.src}
+            src={heroImage.src.startsWith("http") ? heroImage.src : withBase(heroImage.src)}
             alt={heroImage.alt ? pick(heroImage.alt, locale) : title}
             width={heroImage.width ?? 1600}
             height={heroImage.height ?? 1200}
@@ -349,7 +349,7 @@ const flaggedForReflection =
             {approachFigures.map((img) => (
               <figure class="pv-fig">
                 <img
-                  src={img.src}
+                  src={img.src.startsWith("http") ? img.src : withBase(img.src)}
                   alt={img.alt ? pick(img.alt, locale) : title}
                   width={img.width ?? 1600}
                   height={img.height ?? 1200}

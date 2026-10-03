@@ -9,6 +9,8 @@
  * Pass the image's intrinsic width/height when known so the frame picks
  * its aspect ratio from the image itself (no stretching, no mis-crop).
  */
+import { withBase } from "../../lib/i18n";
+
 export interface Props {
   src: string;
   alt: string;
@@ -53,7 +55,7 @@ const radius = radiusMap[size];
   style={`--dframe-radius: ${radius}; aspect-ratio: ${ratio};`}
 >
   <img
-    src={src}
+    src={src.startsWith("http") ? src : withBase(src)}
     alt={alt}
     width={width}
     height={height}
