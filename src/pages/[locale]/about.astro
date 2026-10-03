@@ -13,8 +13,12 @@ const t = (en: string, ar: string): Bi => ({ en, ar });
 
 // Short bio — the "who" paragraph
 const whoPara = t(
-  "I'm Wejdan, an HCI graduate and UX/UI designer. I start by understanding the user and the problem before moving into design.",
-  "أنا وجدان، خريجة تفاعل الإنسان والحاسب ومصممة تجربة مستخدم وواجهات. أبدأ بفهم المستخدم والمشكلة قبل ما أنتقل للتصميم.",
+  "I’m Wejdan Almalki. I earned a Bachelor’s degree in Human-Computer Interaction (HCI) from Umm Al-Qura University’s College of Computing, Software Engineering Department, in 2026. I graduated with a 3.59/4.00 GPA, an Excellent rating, and Second Honors.",
+  "أنا وجدان المالكي، حاصلة على بكالوريوس تفاعل الإنسان مع الحاسب (HCI) من جامعة أم القرى، كلية الحاسبات، قسم هندسة البرمجيات. تخرجت عام 2026 بمعدل 3.59 من 4.00، بتقدير ممتاز ومرتبة الشرف الثانية.",
+);
+const interestsPara = t(
+  "My professional interests include UI/UX design, UX research, product design, human–AI interaction, and customer experience (CX). I’m interested in digital experiences that start with understanding people before designing the interface.",
+  "أهتم بتصميم واجهات وتجارب المستخدم، وأبحاث تجربة المستخدم، وتصميم المنتجات، والتفاعل بين الإنسان والذكاء الاصطناعي، وتجربة العميل (CX). وأحب أن تبدأ التجربة بفهم الإنسان قبل تصميم الواجهة.",
 );
 
 // Longer "practice" paragraph — from the brand positioning
@@ -71,10 +75,6 @@ const principles = [
   },
 ];
 
-const basedLine = t(
-  "Based in Makkah / Jeddah. Open to remote work.",
-  "مقرّي بين مكة وجدة. مستعدّة للعمل عن بُعد.",
-);
 ---
 
 <Base locale={locale} path="/about" title={pick(strings.about.pageTitle, locale)}>
@@ -84,9 +84,10 @@ const basedLine = t(
       <header class="about-hero">
         <span class="type-eyebrow">{pick(strings.about.pageTitle, locale)}</span>
         <h1 class="type-display-l about-h1">
-          {locale === "ar" ? "عن وجدان." : "Briefly, me."}
+          {locale === "ar" ? "عن وجدان المالكي." : "About Wejdan Almalki."}
         </h1>
         <p class="about-lede">{pick(whoPara, locale)}</p>
+        <p class="about-lede">{pick(interestsPara, locale)}</p>
       </header>
 
       <!-- Practice -->
@@ -143,8 +144,8 @@ const basedLine = t(
           </div>
           <p class="cta-sub">
             {locale === "ar"
-              ? "حمّلي سيرتي الذاتية بصيغة PDF."
-              : "A shareable snapshot of studies and work."}
+              ? "السيرة الذاتية بتتوفر قريبًا."
+              : "CV details will be available soon."}
           </p>
           <span class="cta-arrow mirror" aria-hidden="true">
             <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
@@ -152,8 +153,6 @@ const basedLine = t(
         </a>
       </section>
 
-      <!-- Based-in line -->
-      <p class="about-based">{pick(basedLine, locale)}</p>
     </div>
   </section>
 </Base>
@@ -302,13 +301,4 @@ const basedLine = t(
   }
   .about-cta:hover .cta-arrow { color: var(--brand-primary); }
 
-  .about-based {
-    margin-block-start: clamp(2rem, 4vw, 3rem);
-    padding-block-start: 1.5rem;
-    border-block-start: 1px solid var(--border-subtle);
-    font-size: 0.875rem;
-    color: var(--text-muted);
-    text-align: start;
-  }
-  html[lang="ar"] .about-based { font-size: 0.95rem; }
 </style>
