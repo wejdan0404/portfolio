@@ -1,0 +1,97 @@
+/* Graphic language — sparks
+ *
+ * Source: Figma pei6kBFtNKDcYAwPBG1gTN, page "06 — GRAPHIC LANGUAGE",
+ * § 04 Sparks. Paths read off the marker nodes, at their own proportions:
+ *
+ *   four-point       48.06 x 54   the core mark, the one in the logo
+ *   thin-four-point  33.82 x 38
+ *   asymmetric       27 x 39
+ *   burst            32.93 x 37
+ *   diamond          28 x 28
+ *   dot              14 x 14
+ *
+ * RULES (same page — these are limits, not suggestions):
+ *   Quantity   Low: one or two sparks per composition. Medium: three to five
+ *              around a focal image. Feature: one hero star with up to six
+ *              supporting sparks, on covers and hero artwork only.
+ *   Placement  Sparks stay outside reading zones: never behind body text,
+ *              inside every card, or as filler for empty space.
+ *   Motion     Twinkle only at Micro or Ambient size: 1200-1800ms, ease-in-out,
+ *              at most once every six seconds. Still under reduced motion.
+ *
+ * Masks, not clip-paths: the ink is a token and the mark keeps its own
+ * proportions inside whatever box it is given (mask-size: contain), instead of
+ * being stretched to a square.
+ */
+
+:root {
+  /* So component styles can mask with the canonical spark without
+     restating the data URI. */
+  --wj-spark-four-point: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2048.06%2054%22%20width%3D%2248.06%22%20height%3D%2254%22%3E%3Cpath%20fill%3D%22%23000%22%20d%3D%22M24.03%200C25.9523%2015.66%2034.1228%2024.84%2048.06%2027C34.1228%2029.16%2025.9523%2038.34%2024.03%2054C22.1078%2038.34%2013.9373%2029.16%200%2027C13.9373%2024.84%2022.1078%2015.66%2024.03%200Z%22%2F%3E%3C%2Fsvg%3E");
+}
+
+.wj-spark {
+  display: inline-block;
+  background-color: var(--wj-spark-ink, var(--brand-primary));
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  pointer-events: none;
+}
+
+.wj-spark[data-mark="four-point"] {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2048.06%2054%22%20width%3D%2248.06%22%20height%3D%2254%22%3E%3Cpath%20fill%3D%22%23000%22%20d%3D%22M24.03%200C25.9523%2015.66%2034.1228%2024.84%2048.06%2027C34.1228%2029.16%2025.9523%2038.34%2024.03%2054C22.1078%2038.34%2013.9373%2029.16%200%2027C13.9373%2024.84%2022.1078%2015.66%2024.03%200Z%22%2F%3E%3C%2Fsvg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2048.06%2054%22%20width%3D%2248.06%22%20height%3D%2254%22%3E%3Cpath%20fill%3D%22%23000%22%20d%3D%22M24.03%200C25.9523%2015.66%2034.1228%2024.84%2048.06%2027C34.1228%2029.16%2025.9523%2038.34%2024.03%2054C22.1078%2038.34%2013.9373%2029.16%200%2027C13.9373%2024.84%2022.1078%2015.66%2024.03%200Z%22%2F%3E%3C%2Fsvg%3E");
+  --wj-spark-ratio: 48.06 / 54;
+}
+
+.wj-spark[data-mark="thin-four-point"] {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2033.82%2038%22%20width%3D%2233.82%22%20height%3D%2238%22%3E%3Cpath%20fill%3D%22%23000%22%20d%3D%22M16.91%200C17.586%2015.01%2020.461%2018.24%2033.82%2019C20.461%2019.76%2017.586%2022.99%2016.91%2038C16.233%2022.99%2013.359%2019.76%200%2019C13.359%2018.24%2016.233%2015.01%2016.91%200Z%22%2F%3E%3C%2Fsvg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2033.82%2038%22%20width%3D%2233.82%22%20height%3D%2238%22%3E%3Cpath%20fill%3D%22%23000%22%20d%3D%22M16.91%200C17.586%2015.01%2020.461%2018.24%2033.82%2019C20.461%2019.76%2017.586%2022.99%2016.91%2038C16.233%2022.99%2013.359%2019.76%200%2019C13.359%2018.24%2016.233%2015.01%2016.91%200Z%22%2F%3E%3C%2Fsvg%3E");
+  --wj-spark-ratio: 33.82 / 38;
+}
+
+.wj-spark[data-mark="asymmetric"] {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2027%2039%22%20width%3D%2227%22%20height%3D%2239%22%3E%3Cpath%20fill%3D%22%23000%22%20d%3D%22M13.5%200C14.58%2011.31%2019.17%2017.94%2027%2019.5C19.17%2021.06%2014.58%2027.69%2013.5%2039C12.42%2027.69%207.83%2021.06%200%2019.5C7.83%2017.94%2012.42%2011.31%2013.5%200Z%22%2F%3E%3C%2Fsvg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2027%2039%22%20width%3D%2227%22%20height%3D%2239%22%3E%3Cpath%20fill%3D%22%23000%22%20d%3D%22M13.5%200C14.58%2011.31%2019.17%2017.94%2027%2019.5C19.17%2021.06%2014.58%2027.69%2013.5%2039C12.42%2027.69%207.83%2021.06%200%2019.5C7.83%2017.94%2012.42%2011.31%2013.5%200Z%22%2F%3E%3C%2Fsvg%3E");
+  --wj-spark-ratio: 27 / 39;
+}
+
+.wj-spark[data-mark="burst"] {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032.93%2037%22%20width%3D%2232.93%22%20height%3D%2237%22%3E%3Cpath%20fill%3D%22%23000%22%20d%3D%22M16.465%200C16.721%2014.327%2017.809%2016.249%2022.868%2011.305C18.468%2016.989%2020.179%2018.212%2032.93%2018.5C20.179%2018.788%2018.468%2020.011%2022.868%2025.695C17.809%2020.751%2016.721%2022.673%2016.465%2037C16.209%2022.673%2015.12%2020.751%2010.061%2025.695C14.461%2020.011%2012.751%2018.788%200%2018.5C12.751%2018.212%2014.461%2016.989%2010.061%2011.305C15.12%2016.249%2016.209%2014.327%2016.465%200Z%22%2F%3E%3C%2Fsvg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032.93%2037%22%20width%3D%2232.93%22%20height%3D%2237%22%3E%3Cpath%20fill%3D%22%23000%22%20d%3D%22M16.465%200C16.721%2014.327%2017.809%2016.249%2022.868%2011.305C18.468%2016.989%2020.179%2018.212%2032.93%2018.5C20.179%2018.788%2018.468%2020.011%2022.868%2025.695C17.809%2020.751%2016.721%2022.673%2016.465%2037C16.209%2022.673%2015.12%2020.751%2010.061%2025.695C14.461%2020.011%2012.751%2018.788%200%2018.5C12.751%2018.212%2014.461%2016.989%2010.061%2011.305C15.12%2016.249%2016.209%2014.327%2016.465%200Z%22%2F%3E%3C%2Fsvg%3E");
+  --wj-spark-ratio: 32.93 / 37;
+}
+
+.wj-spark[data-mark="diamond"] {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2028%2028%22%20width%3D%2228%22%20height%3D%2228%22%3E%3Cpath%20fill%3D%22%23000%22%20d%3D%22M14%200L28%2014L14%2028L0%2014Z%22%2F%3E%3C%2Fsvg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2028%2028%22%20width%3D%2228%22%20height%3D%2228%22%3E%3Cpath%20fill%3D%22%23000%22%20d%3D%22M14%200L28%2014L14%2028L0%2014Z%22%2F%3E%3C%2Fsvg%3E");
+  --wj-spark-ratio: 1 / 1;
+}
+
+.wj-spark[data-mark="dot"] {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2014%2014%22%20width%3D%2214%22%20height%3D%2214%22%3E%3Ccircle%20cx%3D%227%22%20cy%3D%227%22%20r%3D%227%22%20fill%3D%22%23000%22%2F%3E%3C%2Fsvg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2014%2014%22%20width%3D%2214%22%20height%3D%2214%22%3E%3Ccircle%20cx%3D%227%22%20cy%3D%227%22%20r%3D%227%22%20fill%3D%22%23000%22%2F%3E%3C%2Fsvg%3E");
+  --wj-spark-ratio: 1 / 1;
+}
+
+:root[data-theme="dark"] .wj-spark { --wj-spark-ink: var(--brand-secondary); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .wj-spark { --wj-spark-ink: var(--brand-secondary); }
+}
+
+/* Twinkle, to the letter of the Motion rule: 1200-1800ms, ease-in-out, and a
+   gap long enough that it fires at most once every six seconds. Opt-in. */
+@keyframes wj-spark-twinkle {
+  0%, 76%, 100% { opacity: var(--wj-spark-rest, 0.55); transform: scale(1); }
+  86%           { opacity: 1; transform: scale(1.12); }
+}
+.wj-spark[data-twinkle="true"] {
+  animation: wj-spark-twinkle 6.6s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .wj-spark[data-twinkle="true"] { animation: none; }
+}

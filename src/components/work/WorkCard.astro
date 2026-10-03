@@ -246,7 +246,13 @@ const screens = posterScreens.slice(0, screenCount);
     z-index: 2;
     pointer-events: none;
     background: var(--brand-primary);
-    clip-path: polygon(50% 0%, 55% 45%, 100% 50%, 55% 55%, 50% 100%, 45% 55%, 0% 50%, 45% 45%);
+    /* § 04 Sparks: the canonical four-point mark, masked so it keeps its
+       own 48.06:54 proportions instead of being stretched square. */
+    -webkit-mask-image: var(--wj-spark-four-point);
+    mask-image: var(--wj-spark-four-point);
+    -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+    -webkit-mask-position: center;  mask-position: center;
+    -webkit-mask-size: contain;     mask-size: contain;
     opacity: 0.5;
   }
   :global(:root[data-theme="dark"]) .poster-star { background: var(--brand-secondary); opacity: 0.4; }
