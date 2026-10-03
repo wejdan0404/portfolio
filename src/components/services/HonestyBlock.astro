@@ -17,15 +17,15 @@ const pick = (b: Bi) => b[locale];
 <section class="honesty" aria-labelledby="honesty-h">
   <div class="container-wide">
     <div class="honesty-head">
-      <span class="type-eyebrow">{pick(eyebrow)}</span>
-      <h2 id="honesty-h" class="type-display-m">{pick(heading)}</h2>
+      <span class="type-eyebrow">{pick(eyebrow, locale)}</span>
+      <h2 id="honesty-h" class="type-display-m">{pick(heading, locale)}</h2>
     </div>
 
     <ul class="honesty-list" role="list">
       {items.map((it) => (
         <li class="honesty-item">
           <span class="honesty-dash" aria-hidden="true">—</span>
-          <span class="honesty-text">{pick(it)}</span>
+          <span class="honesty-text">{pick(it, locale)}</span>
         </li>
       ))}
     </ul>

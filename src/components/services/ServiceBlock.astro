@@ -23,7 +23,7 @@ const twoDigit = String(index).padStart(2, "0");
   <header class="sb-header">
     <span class="sb-index numeric" aria-hidden="true">{twoDigit}</span>
     <span class="sb-rule" aria-hidden="true"></span>
-    <h2 id={`service-${variant}-h`} class="sb-name">{pick(name)}</h2>
+    <h2 id={`service-${variant}-h`} class="sb-name">{pick(name, locale)}</h2>
   </header>
 
   <div class="sb-body">
@@ -60,14 +60,14 @@ const twoDigit = String(index).padStart(2, "0");
           </div>
         </div>
         <div class="sb-prose">
-          <p class="sb-summary">{pick(summary)}</p>
+          <p class="sb-summary">{pick(summary, locale)}</p>
           <ul class="sb-list" role="list">
             {included.map((it) => (
-              <li><span class="sb-bullet" aria-hidden="true">·</span><span>{pick(it)}</span></li>
+              <li><span class="sb-bullet" aria-hidden="true">·</span><span>{pick(it, locale)}</span></li>
             ))}
           </ul>
-          <p class="sb-outcome">{pick(outcome)}</p>
-          <p class="sb-freelance">{pick(freelanceNote)}</p>
+          <p class="sb-outcome">{pick(outcome, locale)}</p>
+          <p class="sb-freelance">{pick(freelanceNote, locale)}</p>
         </div>
       </>
     )}
@@ -75,14 +75,14 @@ const twoDigit = String(index).padStart(2, "0");
     {variant === "research" && (
       <>
         <div class="sb-prose">
-          <p class="sb-summary">{pick(summary)}</p>
+          <p class="sb-summary">{pick(summary, locale)}</p>
           <ul class="sb-list" role="list">
             {included.map((it) => (
-              <li><span class="sb-bullet" aria-hidden="true">·</span><span>{pick(it)}</span></li>
+              <li><span class="sb-bullet" aria-hidden="true">·</span><span>{pick(it, locale)}</span></li>
             ))}
           </ul>
-          <p class="sb-outcome">{pick(outcome)}</p>
-          <p class="sb-freelance">{pick(freelanceNote)}</p>
+          <p class="sb-outcome">{pick(outcome, locale)}</p>
+          <p class="sb-freelance">{pick(freelanceNote, locale)}</p>
         </div>
         <div class="sb-art sb-art-research" aria-hidden="true">
           <div class="phase">
@@ -119,14 +119,14 @@ const twoDigit = String(index).padStart(2, "0");
     {variant === "systems" && (
       <>
         <div class="sb-prose">
-          <p class="sb-summary">{pick(summary)}</p>
+          <p class="sb-summary">{pick(summary, locale)}</p>
           <ul class="sb-list" role="list">
             {included.map((it) => (
-              <li><span class="sb-bullet" aria-hidden="true">·</span><span>{pick(it)}</span></li>
+              <li><span class="sb-bullet" aria-hidden="true">·</span><span>{pick(it, locale)}</span></li>
             ))}
           </ul>
-          <p class="sb-outcome">{pick(outcome)}</p>
-          <p class="sb-freelance">{pick(freelanceNote)}</p>
+          <p class="sb-outcome">{pick(outcome, locale)}</p>
+          <p class="sb-freelance">{pick(freelanceNote, locale)}</p>
         </div>
         <div class="sb-art sb-art-systems" aria-hidden="true">
           <ol class="schematic" role="list">

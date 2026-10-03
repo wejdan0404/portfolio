@@ -21,8 +21,8 @@ const pick = (b: Bi) => b[locale];
 <section class="why" aria-labelledby="why-h">
   <div class="container-wide">
     <div class="why-head">
-      <span class="type-eyebrow">{pick(eyebrow)}</span>
-      <h2 id="why-h" class="type-display-m">{pick(heading)}</h2>
+      <span class="type-eyebrow">{pick(eyebrow, locale)}</span>
+      <h2 id="why-h" class="type-display-m">{pick(heading, locale)}</h2>
     </div>
 
     <ul class="why-grid" role="list">
@@ -40,8 +40,8 @@ const pick = (b: Bi) => b[locale];
             {p.mark === "arc" && <span class="g-arc"></span>}
             {p.mark === "curve" && <span class="g-curve"></span>}
           </span>
-          <h3 class="pcard-title">{pick(p.title)}</h3>
-          <p class="pcard-body">{pick(p.commitment)}</p>
+          <h3 class="pcard-title">{pick(p.title, locale)}</h3>
+          <p class="pcard-body">{pick(p.commitment, locale)}</p>
         </li>
       ))}
     </ul>

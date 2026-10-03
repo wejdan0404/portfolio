@@ -18,8 +18,8 @@ const pick = (b: Bi) => b[locale];
 <section class="process" aria-labelledby="process-h">
   <div class="container-wide">
     <div class="process-head">
-      <span class="type-eyebrow">{pick(eyebrow)}</span>
-      <h2 id="process-h" class="type-display-m">{pick(heading)}</h2>
+      <span class="type-eyebrow">{pick(eyebrow, locale)}</span>
+      <h2 id="process-h" class="type-display-m">{pick(heading, locale)}</h2>
     </div>
 
     <ol class="process-grid" role="list">
@@ -27,13 +27,13 @@ const pick = (b: Bi) => b[locale];
         <li class="pcol">
           <span class="pcol-rule" aria-hidden="true"></span>
           <span class="pcol-num numeric" aria-hidden="true">{i + 1}</span>
-          <h3 class="pcol-title">{pick(p.title)}</h3>
-          <p class="pcol-body">{pick(p.body)}</p>
+          <h3 class="pcol-title">{pick(p.title, locale)}</h3>
+          <p class="pcol-body">{pick(p.body, locale)}</p>
         </li>
       ))}
     </ol>
 
-    <p class="process-note">{pick(note)}</p>
+    <p class="process-note">{pick(note, locale)}</p>
   </div>
 </section>
 

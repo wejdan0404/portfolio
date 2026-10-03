@@ -285,13 +285,13 @@ const mailto = `mailto:wejdan4458@gmail.com?subject=${encodeURIComponent(mailSub
   <section class="opening" aria-labelledby="opening-h">
     <div class="container-wide">
       <span class="type-eyebrow">{pick(strings.services.pageTitle, locale)}</span>
-      <h1 id="opening-h" class="opening-statement">{pick(opening.statement)}</h1>
-      <p class="opening-support">{pick(opening.support)}</p>
+      <h1 id="opening-h" class="opening-statement">{pick(opening.statement, locale)}</h1>
+      <p class="opening-support">{pick(opening.support, locale)}</p>
     </div>
   </section>
 
   <!-- 2. Three signature services, stacked, each with its own layout -->
-  <section class="services-stack" aria-label={pick(t("Services", "الخدمات"))}>
+  <section class="services-stack" aria-label={pick(t("Services", "الخدمات"), locale)}>
     <div class="container-wide">
       {services.map((s) => (
         <ServiceBlock
@@ -321,7 +321,7 @@ const mailto = `mailto:wejdan4458@gmail.com?subject=${encodeURIComponent(mailSub
       <div class="caps-grid">
         {capLists.map((col) => (
           <section class="caps-col">
-            <h3 class="caps-col-h">{pick(col.heading)}</h3>
+            <h3 class="caps-col-h">{pick(col.heading, locale)}</h3>
             <ul class="caps-col-list" role="list">
               {col.items.map((item) => (
                 <li>{capText(item)}</li>
