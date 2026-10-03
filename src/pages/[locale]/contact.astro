@@ -14,15 +14,15 @@ const copyLabel = { en: "Copy", ar: "نسخ" };
 const copiedLabel = { en: "Copied", ar: "تم النسخ" };
 const bestWay = {
   en: "The best way to reach me is email.",
-  ar: "أسرع طريقة للوصول إليّ هي البريد الإلكتروني.",
+  ar: "أسرع طريقة توصلني الإيميل.",
 };
 const linksHeading = {
   en: "Elsewhere",
-  ar: "في أماكن أخرى",
+  ar: "في أماكن ثانية",
 };
 const linkedinUnverified = {
   en: "LinkedIn handle — not verified at the time of writing.",
-  ar: "اسم مستخدم لينكدإن — لم يُتحقَّق منه حتى الآن.",
+  ar: "حساب لينكدإن — ما تأكّد لحد الآن.",
 };
 ---
 
@@ -32,7 +32,7 @@ const linkedinUnverified = {
       <header class="contact-head">
         <span class="type-eyebrow">{pick(strings.contact.pageTitle, locale)}</span>
         <h1 class="contact-title">
-          {locale === "ar" ? "اكتبي لي." : "Write to me."}
+          {locale === "ar" ? "اكتب لي." : "Write to me."}
         </h1>
         <p class="contact-body">{pick(strings.contact.body, locale)}</p>
       </header>

@@ -12,12 +12,12 @@ const EMAIL = "wejdan4458@gmail.com";
 
 // Honest copy: no fake download button, no fake dates.
 const headline = {
-  en: "The current CV is being updated.",
-  ar: "السيرة الذاتية قيد التحديث.",
+  en: "The CV is being updated.",
+  ar: "السيرة الذاتية بالتحديث.",
 };
 const body = {
-  en: "A fresh version is in progress. In the meantime, send a short note and I’ll share a tailored copy.",
-  ar: "النسخة الجديدة قيد الإعداد. في هذه الأثناء، راسليني بسطر قصير وسأُرسل نسخة ملائمة.",
+  en: "A fresh version is on the way. Meanwhile, drop me a short note and I'll send a tailored copy.",
+  ar: "النسخة الجديدة جاية. لحد ما تطلع، كلّمني بسطر قصير وأرسل لك نسخة مناسبة.",
 };
 ---
 
@@ -31,7 +31,7 @@ const body = {
         <!-- Mixed-direction content: isolate the email so bidi doesn't reorder it -->
         {locale === "ar" ? (
           <>
-            راسليني على <a href={`mailto:${EMAIL}?subject=CV%20Request`} dir="ltr" class="cv-mail"><bdi>{EMAIL}</bdi></a> للحصول على نسخة.
+            راسلني على <a href={`mailto:${EMAIL}?subject=CV%20Request`} dir="ltr" class="cv-mail"><bdi>{EMAIL}</bdi></a> وأرسل لك نسخة.
           </>
         ) : (
           <>

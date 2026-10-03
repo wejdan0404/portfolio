@@ -18,17 +18,17 @@ const t = (en: string, ar: string): Bi => ({ en, ar });
 // 1. Opening statement — the practice in Wejdan's own words.
 const opening = {
   statement: t(
-    "Three ways I take a Saudi product from research to shipped.",
-    "ثلاث طرق أنقل بها منتجًا سعوديًا من البحث إلى الإطلاق.",
+    "Three ways I work on your product.",
+    "ثلاث طرق أشتغل بها على منتجك.",
   ),
   support: t(
-    "A Jeddah-based HCI practitioner. I work in Arabic and English with the same rigour, test with the actual user, and document decisions so the next person on the team can pick them up.",
-    "ممارِسة تفاعل إنسان–حاسب من جدة. أعمل بالعربية والإنجليزية بالدقّة نفسها، وأختبر مع المستخدم الفعلي، وأوثّق القرارات ليستلمها من يأتي بعدي في الفريق.",
+    "HCI graduate from Jeddah. I work in Arabic and English the same way, test with the real user, and document decisions so the next person can pick up where I left off.",
+    "خريجة HCI من جدة. أشتغل بالعربي والإنجليزي بنفس الطريقة، أختبر مع المستخدم الحقيقي، وأوثّق القرارات ليستلمها من بعدي.",
   ),
 };
 
 // 2. The three signature services
-const freelanceNote = t("Available for freelance.", "متاحة للعمل الحر.");
+const freelanceNote = t("Available for freelance.", "متاحة للمشاريع الحرة.");
 
 const services = [
   {
@@ -36,18 +36,18 @@ const services = [
     index: 1,
     name: t("UX / UI design", "تصميم تجربة وواجهة المستخدم"),
     summary: t(
-      "Interface and interaction design for apps, websites and digital products — Arabic and English held to the same standard from the first wireframe.",
-      "تصميم الواجهة والتفاعل للتطبيقات والمواقع والمنتجات الرقمية — بالعربية والإنجليزية بالمعيار نفسه منذ النموذج الأوّلي.",
+      "Interface and interaction design for apps, websites, and digital products — Arabic and English on the same level from the first wireframe.",
+      "تصميم الواجهة والتفاعل للتطبيقات والمواقع والمنتجات الرقمية — العربي والإنجليزي بنفس المستوى من أول رسم.",
     ),
     included: [
-      t("End-to-end product flows for web and mobile", "تدفّقات منتج متكاملة للويب والجوّال"),
-      t("Interaction design and prototyping in Figma", "تصميم التفاعل والنمذجة الأوّلية في Figma"),
-      t("Arabic/RTL and English/LTR parity, from the first mockup", "تكافؤ الاتجاهين من أوّل نموذج"),
-      t("Accessibility pass to WCAG 2.2 AA on surfaces I own", "فحص إمكانية الوصول وفق WCAG 2.2 AA على ما أملكه من أسطح"),
+      t("End-to-end product flows for web and mobile", "تدفقات منتج متكاملة للويب والجوّال"),
+      t("Interaction design and prototyping in Figma", "تصميم التفاعل والنماذج الأولية في Figma"),
+      t("Arabic/RTL and English/LTR parity from the first mockup", "اللغتين بنفس الدقة من أول نموذج"),
+      t("Accessibility pass to WCAG 2.2 AA on surfaces I own", "فحص وصول WCAG 2.2 AA على اللي أنا مسؤولة عنه"),
     ],
     outcome: t(
-      "A screen set that holds up under the research, not just the moodboard.",
-      "مجموعة شاشات تصمد أمام البحث، لا أمام لوحة الإلهام فقط.",
+      "Screens that hold up under research, not just a moodboard.",
+      "شاشات تصمد قدام البحث، مش بس قدام الموود بورد.",
     ),
     freelanceNote,
   },
@@ -56,18 +56,18 @@ const services = [
     index: 2,
     name: t("UX research and evaluation", "بحث تجربة المستخدم وتقييمها"),
     summary: t(
-      "Usability testing, heuristic evaluation, research synthesis, and findings that teams can act on — presented with the method, the sample size, and the limits said out loud.",
-      "اختبار قابلية الاستخدام، التقييم الإرشادي، تحليل البحث، ونتائج قابلة للتنفيذ — مع ذكر الأسلوب وحجم العيّنة والحدود صراحةً.",
+      "Usability testing, heuristic evaluation, research synthesis, and findings you can act on — with the method, sample size, and limits said out loud.",
+      "اختبار قابلية الاستخدام، تقييم إرشادي، تحليل بحث، ونتائج تقدر تشتغل عليها — مع ذكر الأسلوب، حجم العيّنة، والحدود صراحة.",
     ),
     included: [
       t("Semi-structured user interviews", "مقابلات شبه منظّمة"),
-      t("Moderated usability testing with task metrics and SUS", "اختبار موجَّه مع مؤشّرات المهام ومقياس SUS"),
+      t("Moderated usability testing with task metrics and SUS", "اختبار موجّه مع مؤشرات المهام ومقياس SUS"),
       t("Heuristic evaluation (Nielsen's 10) and competitive benchmark", "تقييم إرشادي (نيلسن) ومقارنة تنافسية"),
       t("Thematic analysis that separates evidence from opinion", "تحليل موضوعي يفصل الدليل عن الرأي"),
     ],
     outcome: t(
-      "A short, cited readout — not a long report that gets ignored.",
-      "تقرير قصير موثّق بالمصادر — لا وثيقة طويلة تُهمَل.",
+      "A short, cited report — not a long document that gets ignored.",
+      "تقرير قصير فيه مصادره — مش وثيقة طويلة تتجاهل.",
     ),
     freelanceNote,
   },
@@ -76,18 +76,18 @@ const services = [
     index: 3,
     name: t("Design systems and product UX", "أنظمة التصميم وتجربة المنتج"),
     summary: t(
-      "Reusable systems, flows, documentation, and the product structure that holds them together — so decisions survive the handover.",
-      "أنظمة قابلة لإعادة الاستخدام، وتدفّقات، وتوثيق، وبنية منتج تحفظ كلّ ذلك — كي تبقى القرارات بعد التسليم.",
+      "Reusable systems, flows, docs, and the product structure that keeps them together — so decisions stay after handover.",
+      "أنظمة قابلة لإعادة الاستخدام، تدفقات، توثيق، وبنية منتج تحفظ كل هذا — عشان القرارات تبقى بعد التسليم.",
     ),
     included: [
-      t("Token architecture: colour, type, spacing, radius, elevation", "بنية الرموز: لون، طباعة، فراغ، استدارة، ارتفاع"),
-      t("Component libraries with variants and documented states", "مكتبات مكوّنات بحالات موثّقة ومتغيّرات"),
-      t("Information architecture and reusable flow patterns", "هندسة المعلومات وأنماط تدفّقات قابلة للتكرار"),
-      t("Documentation that designers and engineers actually read", "توثيق يقرأه المصمّمون والمهندسون فعلًا"),
+      t("Token architecture: colour, type, spacing, radius, elevation", "بنية التوكنز: لون، خط، فراغ، استدارة، ارتفاع"),
+      t("Component libraries with variants and documented states", "مكتبات مكونات بحالات موثّقة ومتغيّرات"),
+      t("Information architecture and reusable flow patterns", "هندسة المعلومات وأنماط تدفقات قابلة للتكرار"),
+      t("Documentation that designers and engineers actually read", "توثيق المصممين والمهندسين يقروه فعلاً"),
     ],
     outcome: t(
-      "A system that stays open — easy to extend, clear to inherit.",
-      "نظام يبقى مفتوحًا — يسهل توسيعه، ويسهل أن يُستلم.",
+      "A system that stays open — easy to extend, easy to inherit.",
+      "نظام يبقى مفتوح — سهل توسّعه، وسهل تستلمه.",
     ),
     freelanceNote,
   },
@@ -189,35 +189,35 @@ const stages: { title: Bi; body: Bi }[] = [
     title: t("Qualify", "التأهّل"),
     body: t(
       "Capture the brief and decide the fit — on both sides.",
-      "استلام الطلب وتحديد مدى الملاءمة من الطرفين.",
+      "نستلم الطلب ونشوف إذا الشغل يناسب الطرفين.",
     ),
   },
   {
     title: t("Propose", "المقترح"),
     body: t(
       "Scope, timeline, deliverables and price. Agreed in the proposal; no templated pricing.",
-      "النطاق والجدول الزمني والمخرجات والسعر. يُتَّفق عليها في المقترح، ولا توجد قوالب أسعار جاهزة.",
+      "النطاق، الجدول، المخرجات، السعر. كل شي في المقترح — ما فيه قوالب أسعار جاهزة.",
     ),
   },
   {
     title: t("Deliver", "التنفيذ"),
     body: t(
       "Onboard, review and record decisions as the work moves.",
-      "البدء بالتعاون، ومراجعة العمل، وتوثيق القرارات أثناء التنفيذ.",
+      "نبدأ الشغل، نراجع، ونوثّق القرارات لحظة بلحظة.",
     ),
   },
   {
     title: t("Close", "الإغلاق"),
     body: t(
       "Hand off, invoice and ask for honest feedback.",
-      "التسليم، وإصدار الفاتورة، وطلب تغذية راجعة صريحة.",
+      "تسليم، فاتورة، وطلب رأي صريح.",
     ),
   },
 ];
 
 const processNote = t(
   "No fixed packages. No invented timelines. Everything is set in the proposal after the brief.",
-  "لا باقات ثابتة ولا جداول زمنية مسبقة؛ يُتَّفق على كلّ شيء بعد قراءة الطلب.",
+  "ما فيه باقات ثابتة ولا جداول جاهزة. كل شي بعد ما نقرا الطلب.",
 );
 
 // 5. The four principles — from source-copy.md page 01, tied to a method commitment
@@ -227,23 +227,23 @@ const principles = [
     title: t("Starts with the user", "تبدأ من المستخدم"),
     commitment: t(
       "Every project begins with the person who will use it — a specific user, in a specific place, with a specific task.",
-      "يبدأ كلّ مشروع من المستخدم الذي سيستخدمه — مستخدم بعينه، في مكانٍ بعينه، يؤدّي مهمّةً بعينها.",
+      "كل مشروع يبدأ من اللي بيستخدمه. مستخدم محدد، في مكان محدد، يسوي شي محدد.",
     ),
   },
   {
     mark: "stars" as const,
-    title: t("Evidence, not opinion", "دليل لا رأي"),
+    title: t("Evidence, not opinion", "دليل مش رأي"),
     commitment: t(
       "Every design claim carries a source; a claim without evidence stays out.",
-      "كلّ ادّعاء في التصميم يحمل مصدره؛ وما لا دليل عليه يبقى خارجًا.",
+      "كل قرار تصميمي معه مصدره. اللي ما له دليل، يبقى برا الشغل.",
     ),
   },
   {
     mark: "arc" as const,
-    title: t("A system that stays open", "نظام يبقى مفتوحًا"),
+    title: t("A system that stays open", "نظام يبقى مفتوح"),
     commitment: t(
       "Reversible steps, visible state, clear exits — the product never closes on its user.",
-      "خطوات قابلة للتراجع، وحالة ظاهرة، ومخارج واضحة — لا ينغلق المنتج على مستخدمه.",
+      "خطوات تقدر تتراجع عنها، حالة واضحة، مخارج معروفة — المنتج ما ينغلق على مستخدمه.",
     ),
   },
   {
@@ -251,7 +251,7 @@ const principles = [
     title: t("Continuity after handover", "استمرارية بعد التسليم"),
     commitment: t(
       "Decisions are documented so the next person can build on them.",
-      "تُوثَّق القرارات ليكمل من يأتي بعدي على أساسها.",
+      "القرارات موثّقة، عشان اللي يستلم يبني عليها.",
     ),
   },
 ];
@@ -260,15 +260,15 @@ const principles = [
 const honesty = [
   t(
     "I won't publish a research finding without a source.",
-    "لن أنشر نتيجة بحثية بلا مصدر.",
+    "ما أنشر نتيجة بحث بلا مصدرها.",
   ),
   t(
     "I won't ship a design that fails WCAG 2.2 AA on surfaces I own.",
-    "لن أُسلِّم تصميمًا يخفق في WCAG 2.2 AA على ما أملكه من أسطح.",
+    "ما أسلّم تصميم يفشل في WCAG 2.2 AA على اللي أنا مسؤولة عنه.",
   ),
   t(
     "I won't quote a timeline before the scope is clear.",
-    "لن أعرض جدولًا زمنيًا قبل أن يتّضح النطاق.",
+    "ما أعطي جدول زمني قبل ما النطاق يوضح.",
   ),
 ];
 
