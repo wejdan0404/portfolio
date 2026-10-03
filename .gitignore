@@ -23,3 +23,7 @@ yarn-debug.log*
 yarn-error.log*
 _qa/
 public/case-studies/
+
+
+# One-off brand deliverable; source lives in _qa/bb/
+brand-identity.pdf
