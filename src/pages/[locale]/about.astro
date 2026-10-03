@@ -13,21 +13,21 @@ const t = (en: string, ar: string): Bi => ({ en, ar });
 
 // Short bio — the "who" paragraph
 const whoPara = t(
-  "I'm Wejdan — a Jeddah-based UI & UX designer and HCI graduate. I work in Arabic and English the same way, and the research comes before the screen.",
-  "أنا وجدان، مصممة واجهات وتجربة مستخدم، وخريجة HCI من جدة. أشتغل بالعربي والإنجليزي بنفس الطريقة، والبحث عندي قبل الشاشة.",
+  "I'm Wejdan, an HCI graduate and UX/UI designer. I start by understanding the user and the problem before moving into design.",
+  "أنا وجدان، خريجة تفاعل الإنسان والحاسب ومصممة تجربة مستخدم وواجهات. أبدأ بفهم المستخدم والمشكلة قبل ما أنتقل للتصميم.",
 );
 
 // Longer "practice" paragraph — from the brand positioning
 const practicePara = t(
-  "I treat evidence as part of the design, not a side report. Every claim traces back to a specific page. When a project was planned but never tested, the page says that out loud. I lean on real research when the question deserves it, structured critique when it's already been answered, and clear design systems so screens come out of a system, not an improvisation.",
-  "أتعامل مع الأدلة كجزء من التصميم، مش تقرير جانبي. كل قرار له صفحته. ولو مشروع كان مخطَّط ولا اتختبر، الصفحة تقول هذا بوضوح. أعتمد على بحث فعلي لمّا السؤال يستحق، نقد منظّم لمّا يكون السؤال اتجاوب عليه، وأنظمة تصميم واضحة عشان الشاشات تطلع من نظام، مش من ارتجال.",
+  "I use research and testing to guide design decisions, and I clearly label work that has not been tested. I choose methods to fit the question and document decisions so the team can build on them.",
+  "أستخدم البحث والاختبار لتوجيه قرارات التصميم، وأوضح إذا كان المشروع ما اختُبر. أختار الأسلوب المناسب للسؤال، وأوثّق القرارات عشان الفريق يقدر يكمل عليها.",
 );
 
 // Secondary paragraphs — kept concise and non-redundant
 const secondaryParas = [
   t(
-    "I design in Arabic and English with equal rigor. Right-to-left is load-bearing from the first component, not a theme switch bolted on later.",
-    "أصمّم بالعربي والإنجليزي بنفس الدقة. اتجاه RTL أساس من أول مكون، مش زرّ ثيم ينضاف بعدين.",
+    "I design in Arabic and English with equal rigor. I account for right-to-left layouts from the first component.",
+    "أصمم بالعربي والإنجليزي من البداية، وأراعي اتجاه الكتابة في كل مكوّن.",
   ),
 ];
 
@@ -36,10 +36,10 @@ const principles = [
   {
     k: "01",
     en: "Research-grounded",
-    ar: "مبنيّة على البحث",
+    ar: "البحث يوجّه التصميم",
     body: {
       en: "Every claim traces to a page. If the evidence isn't there, the page says so.",
-      ar: "كل قرار له صفحته. ولو الدليل ناقص، الصفحة تقول هذا.",
+      ar: "أربط القرارات بنتائج البحث، وأوضح إذا ما توفر دليل.",
     },
   },
   {
@@ -48,7 +48,7 @@ const principles = [
     ar: "العربي بنفس الدقة",
     body: {
       en: "RTL is load-bearing from the first component — not a theme switch, not a translation.",
-      ar: "RTL أساس من أول مكوّن — مش زرّ ثيم، ولا ترجمة.",
+      ar: "أراعي اتجاه الكتابة من البداية، مو كخطوة أضيفها في النهاية.",
     },
   },
   {
@@ -57,7 +57,7 @@ const principles = [
     ar: "الأنظمة قبل الشاشات",
     body: {
       en: "Tokens, components, and type scales come first. Screens come out of them.",
-      ar: "التوكنز، المكونات، والسلّم الطباعي أول. والشاشات تطلع منها.",
+      ar: "أرتّب الألوان والخطوط والمكوّنات أول، عشان تكون الشاشات متناسقة وسهلة التطوير.",
     },
   },
   {
@@ -66,7 +66,7 @@ const principles = [
     ar: "الزينة لخدمة الوضوح",
     body: {
       en: "When in doubt, cut the ornament before cutting the signal.",
-      ar: "لمّا تشك، احذف الزخرفة قبل ما تحذف الفكرة.",
+      ar: "كل عنصر في الواجهة لازم يساعد على وضوح الفكرة.",
     },
   },
 ];
@@ -84,7 +84,7 @@ const basedLine = t(
       <header class="about-hero">
         <span class="type-eyebrow">{pick(strings.about.pageTitle, locale)}</span>
         <h1 class="type-display-l about-h1">
-          {locale === "ar" ? "باختصار، أنا." : "Briefly, me."}
+          {locale === "ar" ? "عن وجدان." : "Briefly, me."}
         </h1>
         <p class="about-lede">{pick(whoPara, locale)}</p>
       </header>
@@ -103,7 +103,7 @@ const basedLine = t(
       <!-- Principles 2x2 -->
       <section class="about-principles" aria-label={locale === "ar" ? "المبادئ" : "Principles"}>
         <h2 class="about-h2">
-          {locale === "ar" ? "اللي أمشي عليه." : "What I work by."}
+          {locale === "ar" ? "مبادئي في العمل." : "What I work by."}
         </h2>
         <ul class="principles" role="list">
           {principles.map((p) => (
@@ -127,7 +127,7 @@ const basedLine = t(
           </div>
           <p class="cta-sub">
             {locale === "ar"
-              ? "ثلاث مسارات، ومعيار واحد — صدق المخرجات."
+              ? "ثلاث خدمات، ومعيار واحد: مخرجات واضحة وصادقة."
               : "Three lanes, one standard: honest output."}
           </p>
           <span class="cta-arrow mirror" aria-hidden="true">
@@ -143,7 +143,7 @@ const basedLine = t(
           </div>
           <p class="cta-sub">
             {locale === "ar"
-              ? "ملخّص المسار الدراسي والمهني، قابل للمشاركة."
+              ? "حمّلي سيرتي الذاتية بصيغة PDF."
               : "A shareable snapshot of studies and work."}
           </p>
           <span class="cta-arrow mirror" aria-hidden="true">

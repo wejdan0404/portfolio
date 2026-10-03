@@ -19,11 +19,11 @@ const t = (en: string, ar: string): Bi => ({ en, ar });
 const opening = {
   statement: t(
     "Three ways I work on your product.",
-    "ثلاث طرق أشتغل بها على منتجك.",
+    "ثلاث خدمات أقدر أقدمها لمنتجك.",
   ),
   support: t(
     "HCI graduate from Jeddah. I work in Arabic and English the same way, test with the real user, and document decisions so the next person can pick up where I left off.",
-    "خريجة HCI من جدة. أشتغل بالعربي والإنجليزي بنفس الطريقة، أختبر مع المستخدم الحقيقي، وأوثّق القرارات ليستلمها من بعدي.",
+    "خريجة تفاعل الإنسان والحاسب. أصمم بالعربي والإنجليزي، وأختبر التجربة مع المستخدمين، وأوثّق قرارات التصميم عشان الفريق يقدر يكمل عليها.",
   ),
 };
 
@@ -37,17 +37,17 @@ const services = [
     name: t("UX / UI design", "تصميم تجربة وواجهة المستخدم"),
     summary: t(
       "Interface and interaction design for apps, websites, and digital products — Arabic and English on the same level from the first wireframe.",
-      "تصميم الواجهة والتفاعل للتطبيقات والمواقع والمنتجات الرقمية — العربي والإنجليزي بنفس المستوى من أول رسم.",
+      "أصمم واجهات وتفاعلات للتطبيقات والمواقع بالعربي والإنجليزي، من أول مخطط.",
     ),
     included: [
       t("End-to-end product flows for web and mobile", "تدفقات منتج متكاملة للويب والجوّال"),
       t("Interaction design and prototyping in Figma", "تصميم التفاعل والنماذج الأولية في Figma"),
-      t("Arabic/RTL and English/LTR parity from the first mockup", "اللغتين بنفس الدقة من أول نموذج"),
-      t("Accessibility pass to WCAG 2.2 AA on surfaces I own", "فحص وصول WCAG 2.2 AA على اللي أنا مسؤولة عنه"),
+      t("Arabic/RTL and English/LTR parity from the first mockup", "تصميم عربي وإنجليزي من أول نموذج"),
+      t("Accessibility pass to WCAG 2.2 AA on surfaces I own", "مراجعة إمكانية الوصول وفق WCAG 2.2 AA ضمن نطاق العمل"),
     ],
     outcome: t(
       "Screens that hold up under research, not just a moodboard.",
-      "شاشات تصمد قدام البحث، مش بس قدام الموود بورد.",
+      "تصاميم مبنية على فهم المستخدم، مو على الشكل وحده.",
     ),
     freelanceNote,
   },
@@ -57,7 +57,7 @@ const services = [
     name: t("UX research and evaluation", "بحث تجربة المستخدم وتقييمها"),
     summary: t(
       "Usability testing, heuristic evaluation, research synthesis, and findings you can act on — with the method, sample size, and limits said out loud.",
-      "اختبار قابلية الاستخدام، تقييم إرشادي، تحليل بحث، ونتائج تقدر تشتغل عليها — مع ذكر الأسلوب، حجم العيّنة، والحدود صراحة.",
+      "اختبار سهولة الاستخدام، وتقييم الواجهات، وتحليل النتائج. أوضح الطريقة وحجم العينة وحدود كل نتيجة.",
     ),
     included: [
       t("Semi-structured user interviews", "مقابلات شبه منظّمة"),
@@ -67,7 +67,7 @@ const services = [
     ],
     outcome: t(
       "A short, cited report — not a long document that gets ignored.",
-      "تقرير قصير فيه مصادره — مش وثيقة طويلة تتجاهل.",
+      "ملخص واضح للنتائج ومصادرها، يسهل الرجوع له والعمل عليه.",
     ),
     freelanceNote,
   },
@@ -77,17 +77,17 @@ const services = [
     name: t("Design systems and product UX", "أنظمة التصميم وتجربة المنتج"),
     summary: t(
       "Reusable systems, flows, docs, and the product structure that keeps them together — so decisions stay after handover.",
-      "أنظمة قابلة لإعادة الاستخدام، تدفقات، توثيق، وبنية منتج تحفظ كل هذا — عشان القرارات تبقى بعد التسليم.",
+      "أنظمة ومكونات قابلة لإعادة الاستخدام، مع تدفقات وتوثيق يساعد الفريق يكمل بعد التسليم.",
     ),
     included: [
-      t("Token architecture: colour, type, spacing, radius, elevation", "بنية التوكنز: لون، خط، فراغ، استدارة، ارتفاع"),
+      t("Token architecture: colour, type, spacing, radius, elevation", "متغيرات التصميم: اللون، الخط، المسافات، الحواف والظلال"),
       t("Component libraries with variants and documented states", "مكتبات مكونات بحالات موثّقة ومتغيّرات"),
       t("Information architecture and reusable flow patterns", "هندسة المعلومات وأنماط تدفقات قابلة للتكرار"),
-      t("Documentation that designers and engineers actually read", "توثيق المصممين والمهندسين يقروه فعلاً"),
+      t("Documentation that designers and engineers actually read", "توثيق واضح للمصممين والمطورين"),
     ],
     outcome: t(
       "A system that stays open — easy to extend, easy to inherit.",
-      "نظام يبقى مفتوح — سهل توسّعه، وسهل تستلمه.",
+      "نظام تصميم مرتب يقدر الفريق يوسعه ويكمل عليه.",
     ),
     freelanceNote,
   },
@@ -186,38 +186,38 @@ function capText(item: string): string {
 // 4. The four stages (page 27)
 const stages: { title: Bi; body: Bi }[] = [
   {
-    title: t("Qualify", "التأهّل"),
+    title: t("Qualify", "فهم الاحتياج"),
     body: t(
       "Capture the brief and decide the fit — on both sides.",
-      "نستلم الطلب ونشوف إذا الشغل يناسب الطرفين.",
+      "أراجع طلبك ونشوف إذا كان المشروع مناسب للطرفين.",
     ),
   },
   {
     title: t("Propose", "المقترح"),
     body: t(
       "Scope, timeline, deliverables and price. Agreed in the proposal; no templated pricing.",
-      "النطاق، الجدول، المخرجات، السعر. كل شي في المقترح — ما فيه قوالب أسعار جاهزة.",
+      "أوضح نطاق العمل والمدة والمخرجات والتكلفة في عرض مخصص للمشروع.",
     ),
   },
   {
     title: t("Deliver", "التنفيذ"),
     body: t(
       "Onboard, review and record decisions as the work moves.",
-      "نبدأ الشغل، نراجع، ونوثّق القرارات لحظة بلحظة.",
+      "نبدأ التنفيذ، ونراجع العمل، ونوثّق القرارات أولًا بأول.",
     ),
   },
   {
     title: t("Close", "الإغلاق"),
     body: t(
       "Hand off, invoice and ask for honest feedback.",
-      "تسليم، فاتورة، وطلب رأي صريح.",
+      "أسلّم الملفات، وأرسل الفاتورة، وأطلب ملاحظاتك.",
     ),
   },
 ];
 
 const processNote = t(
   "No fixed packages. No invented timelines. Everything is set in the proposal after the brief.",
-  "ما فيه باقات ثابتة ولا جداول جاهزة. كل شي بعد ما نقرا الطلب.",
+  "ما عندي باقات أو مدد ثابتة؛ أحدد التفاصيل بعد ما أفهم احتياج المشروع.",
 );
 
 // 5. The four principles — from source-copy.md page 01, tied to a method commitment
@@ -232,10 +232,10 @@ const principles = [
   },
   {
     mark: "stars" as const,
-    title: t("Evidence, not opinion", "دليل مش رأي"),
+    title: t("Evidence, not opinion", "قرارات تستند إلى دليل"),
     commitment: t(
       "Every design claim carries a source; a claim without evidence stays out.",
-      "كل قرار تصميمي معه مصدره. اللي ما له دليل، يبقى برا الشغل.",
+      "أوضح مصدر كل قرار، وما أقدّم الاستنتاج كأنه حقيقة إذا ما كان له دليل.",
     ),
   },
   {
@@ -264,11 +264,11 @@ const honesty = [
   ),
   t(
     "I won't ship a design that fails WCAG 2.2 AA on surfaces I own.",
-    "ما أسلّم تصميم يفشل في WCAG 2.2 AA على اللي أنا مسؤولة عنه.",
+    "أراجع إمكانية الوصول وفق WCAG 2.2 AA ضمن نطاق عملي.",
   ),
   t(
     "I won't quote a timeline before the scope is clear.",
-    "ما أعطي جدول زمني قبل ما النطاق يوضح.",
+    "أحدد المدة بعد ما يتضح نطاق العمل.",
   ),
 ];
 
@@ -339,7 +339,7 @@ const mailto = `mailto:wejdan4458@gmail.com?subject=${encodeURIComponent(mailSub
     eyebrow={t("How a project moves", "كيف يمضي مشروع")}
     heading={t(
       "From first inquiry to final handoff.",
-      "من أوّل استفسار إلى التسليم النهائي.",
+      "من أول تواصل إلى تسليم الملفات.",
     )}
     stages={stages}
     note={processNote}
@@ -351,7 +351,7 @@ const mailto = `mailto:wejdan4458@gmail.com?subject=${encodeURIComponent(mailSub
     eyebrow={t("Why work with me", "لماذا العمل معي")}
     heading={t(
       "Four principles govern the work.",
-      "أربعة مبادئ تحكم العمل.",
+      "أربعة مبادئ توجّه طريقة عملي.",
     )}
     principles={principles}
   />
@@ -375,7 +375,7 @@ const mailto = `mailto:wejdan4458@gmail.com?subject=${encodeURIComponent(mailSub
       <div class="cta-body">
         <p class="cta-paragraph">
           {locale === "ar"
-            ? "تريد البدء بمشروع؟ راسليني على wejdan4458@gmail.com بما تريدين بناءه والمشكلة التي تحاولين حلّها. أردّ حين أستطيع — أنا شخص واحد، لا شركة."
+            ? "عندك مشروع أو سؤال عن تجربة منتجك؟ راسليني على wejdan4458@gmail.com واكتب لي وش تحتاج. أتواصل معك بنفسي."
             : "Want to start a project? Email me at wejdan4458@gmail.com with what you want built and what you're trying to solve. I reply as soon as I can — I'm one person, not a company."}
         </p>
 
