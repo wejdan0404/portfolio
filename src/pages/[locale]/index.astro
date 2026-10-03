@@ -18,12 +18,12 @@ export function getStaticPaths() {
 const locale = Astro.params.locale as Locale;
 
 const title = locale === "ar"
-  ? "وجدان — مصممة واجهات وتجربة مستخدم"
-  : "Wejdan — UI & UX designer";
+  ? "وجدان المالكي — HCI وUI/UX"
+  : "Wejdan Almalki — HCI & UI/UX";
 
 const description = locale === "ar"
-  ? "مصممة تجربة مستخدم وواجهات، خريجة تفاعل الإنسان والحاسب. أفهم احتياج المستخدم قبل ما أصمم له."
-  : "A Jeddah-based UI & UX designer. I study the user before I design for them.";
+  ? "وجدان المالكي حاصلة على بكالوريوس تفاعل الإنسان مع الحاسب من جامعة أم القرى، وتهتم بتصميم UI/UX وأبحاث تجربة المستخدم وتصميم المنتجات والتفاعل بين الإنسان والذكاء الاصطناعي وتجربة العميل (CX)."
+  : "Wejdan Almalki holds a Bachelor’s degree in Human-Computer Interaction (HCI) from Umm Al-Qura University. Her professional areas include UI/UX design, UX research, product design, human–AI interaction, and customer experience (CX).";
 ---
 
 <Base locale={locale} title={title} description={description} path="">
