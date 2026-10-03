@@ -1,0 +1,24 @@
+---
+import { type Locale } from "../../lib/i18n";
+export interface Props {
+  locale: Locale;
+  size?: number;
+  withWordmark?: boolean;
+}
+const { locale, size = 32, withWordmark = false } = Astro.props;
+---
+
+<a href={`/${locale}`} class="group inline-flex items-center gap-3" aria-label={locale === "ar" ? "الذهاب إلى الصفحة الرئيسية" : "Go to home"}>
+  <span class="relative inline-flex" style={`width:${size}px;height:${size}px;`}>
+    <!-- Placeholder W monogram; replace with Figma export when available -->
+    <svg viewBox="0 0 48 48" width={size} height={size} aria-hidden="true" style="display:block;">
+      <path d="M4.8 10.5 L11.9 36.5 L17.8 36.5 L24 18.1 L30.2 36.5 L36.1 36.5 L43.2 10.5 L37.4 10.5 L32.6 29.9 L26.5 11 L21.5 11 L15.4 29.9 L10.6 10.5 Z"
+            fill="var(--logo-primary)"/>
+    </svg>
+  </span>
+  {withWordmark && (
+    <span class="font-semibold tracking-tight" style="color: var(--text-primary); font-size: 1.0625rem;">
+      {locale === "ar" ? "وجدان" : "Wejdan"}
+    </span>
+  )}
+</a>

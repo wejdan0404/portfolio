@@ -1,0 +1,23 @@
+# build output + astro cache
+dist/
+.astro/
+
+# dependencies
+node_modules/
+
+# local env + per-user config
+*.local
+.env
+.env.*
+!.env.example
+
+# editor / OS cruft
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

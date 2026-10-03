@@ -1,0 +1,181 @@
+---
+import Logo from "../brand/Logo.astro";
+import LangToggle from "../brand/LangToggle.astro";
+import ThemeToggle from "../brand/ThemeToggle.astro";
+import { type Locale, localePath } from "../../lib/i18n";
+import { strings, pick } from "../../lib/strings";
+
+export interface Props { locale: Locale; path: string; }
+const { locale, path } = Astro.props;
+
+const nav = [
+  { href: localePath(locale, "work"), label: pick(strings.nav.work, locale) },
+  { href: localePath(locale, "about"), label: pick(strings.nav.about, locale) },
+  { href: localePath(locale, "services"), label: pick(strings.nav.services, locale) },
+  { href: localePath(locale, "contact"), label: pick(strings.nav.contact, locale) },
+];
+---
+
+<header class="site-header">
+  <div class="container-wide header-inner">
+    <Logo locale={locale} size={28} />
+    <nav aria-label={locale === "ar" ? "القائمة الرئيسية" : "Primary"} class="primary-nav">
+      {nav.map((n) => (
+        <a href={n.href} class="nav-link">{n.label}</a>
+      ))}
+      <a href={localePath(locale, "cv")} class="nav-link cv-link">
+        <span class="star" aria-hidden="true"></span>
+        {pick(strings.actions.viewCV, locale)}
+      </a>
+    </nav>
+    <div class="header-actions">
+      <LangToggle locale={locale} path={path} />
+      <ThemeToggle locale={locale} />
+    </div>
+    <button class="menu-btn" aria-label={locale === "ar" ? "القائمة" : "Menu"} aria-expanded="false" data-menu-btn>
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-menu" data-mobile-menu hidden>
+    <div class="container-page">
+      <nav aria-label={locale === "ar" ? "القائمة المتنقّلة" : "Mobile"} class="mobile-nav">
+        {nav.map((n) => (
+          <a href={n.href} class="mobile-link">{n.label}</a>
+        ))}
+        <a href={localePath(locale, "cv")} class="mobile-link mobile-link-cv">
+          {pick(strings.actions.viewCV, locale)}
+        </a>
+      </nav>
+      <div class="mobile-actions">
+        <LangToggle locale={locale} path={path} />
+        <ThemeToggle locale={locale} />
+      </div>
+    </div>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in oklab, var(--surface-default) 92%, transparent);
+    backdrop-filter: saturate(1.4) blur(14px);
+    -webkit-backdrop-filter: saturate(1.4) blur(14px);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    min-height: 68px;
+    padding-block: 0.75rem;
+  }
+  .primary-nav {
+    display: none;
+    gap: 0.25rem;
+    align-items: center;
+  }
+  @media (min-width: 900px) {
+    .primary-nav { display: flex; }
+  }
+  .nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 0.9rem;
+    border-radius: 999px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    transition: background 160ms ease, color 160ms ease;
+    white-space: nowrap;
+  }
+  html[lang="ar"] .nav-link { font-size: 1rem; }
+  .nav-link:hover { background: var(--surface-subtle); color: var(--text-primary); }
+  .nav-link[aria-current="page"] { background: var(--surface-subtle); color: var(--text-primary); }
+  .cv-link {
+    border: 1px solid var(--border-strong);
+    color: var(--text-primary);
+    margin-inline-start: 0.5rem;
+  }
+  .cv-link .star { color: var(--brand-primary); }
+  .header-actions {
+    display: none;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  @media (min-width: 900px) {
+    .header-actions { display: inline-flex; }
+  }
+  .menu-btn {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 42px;
+    height: 42px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border-subtle);
+    background: transparent;
+    border-radius: 999px;
+    cursor: pointer;
+  }
+  @media (min-width: 900px) {
+    .menu-btn { display: none; }
+  }
+  .menu-btn span {
+    display: block;
+    width: 16px;
+    height: 1.5px;
+    background: var(--text-primary);
+  }
+  .mobile-menu {
+    display: block;
+    border-top: 1px solid var(--border-subtle);
+    background: var(--surface-default);
+    padding-block: 1.25rem;
+  }
+  .mobile-menu[hidden] { display: none; }
+  .mobile-nav {
+    display: grid;
+    gap: 0.25rem;
+    margin-bottom: 1rem;
+  }
+  .mobile-link {
+    display: block;
+    padding: 0.75rem 0.5rem;
+    border-radius: 10px;
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.0625rem;
+  }
+  .mobile-link:hover { background: var(--surface-subtle); }
+  .mobile-link-cv {
+    border: 1px solid var(--border-strong);
+    margin-top: 0.5rem;
+  }
+  .mobile-actions {
+    display: flex;
+    gap: 0.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-subtle);
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    document.addEventListener("click", function (e) {
+      var btn = e.target.closest("[data-menu-btn]");
+      if (!btn) return;
+      var menu = document.querySelector("[data-mobile-menu]");
+      if (!menu) return;
+      var opened = !menu.hasAttribute("hidden");
+      if (opened) { menu.setAttribute("hidden", ""); btn.setAttribute("aria-expanded", "false"); }
+      else { menu.removeAttribute("hidden"); btn.setAttribute("aria-expanded", "true"); }
+    });
+  })();
+</script>

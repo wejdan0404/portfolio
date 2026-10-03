@@ -1,0 +1,21 @@
+---
+import Base from "../layouts/Base.astro";
+---
+
+<Base locale="ar" path="/404" title="404">
+  <section style="padding-block: clamp(5rem, 12vw, 10rem); text-align: center;">
+    <div class="container-wide">
+      <span class="type-eyebrow">404</span>
+      <h1 class="type-display-l" style="margin-top: 1rem;">صفحة غير موجودة · Page not found</h1>
+      <p class="type-body" style="margin-top:1rem; max-width:50ch; margin-inline:auto;">
+        <span lang="ar" dir="rtl">لا توجد صفحة على هذا العنوان.</span>
+        <br/>
+        <span lang="en" dir="ltr">No page lives at that address.</span>
+      </p>
+      <div style="margin-top: 2rem; display: flex; justify-content: center; gap: 0.75rem;">
+        <a href="/ar" class="btn btn-primary">الرئيسية</a>
+        <a href="/en" class="btn btn-ghost">Home</a>
+      </div>
+    </div>
+  </section>
+</Base>

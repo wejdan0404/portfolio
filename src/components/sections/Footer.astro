@@ -1,0 +1,81 @@
+---
+import { type Locale, localePath } from "../../lib/i18n";
+import { strings, pick } from "../../lib/strings";
+import Logo from "../brand/Logo.astro";
+
+export interface Props { locale: Locale; }
+const { locale } = Astro.props;
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container-wide footer-inner">
+    <div class="brand">
+      <Logo locale={locale} size={32} />
+      <p class="type-small">
+        {locale === "ar"
+          ? "خريجة تفاعل بين الإنسان والحاسب — مكّة / جدة"
+          : "HCI graduate — Makkah / Jeddah"}
+      </p>
+    </div>
+    <nav aria-label={locale === "ar" ? "تذييل" : "Footer"} class="footer-nav">
+      <a href={localePath(locale, "work")}>{pick(strings.nav.work, locale)}</a>
+      <a href={localePath(locale, "about")}>{pick(strings.nav.about, locale)}</a>
+      <a href={localePath(locale, "services")}>{pick(strings.nav.services, locale)}</a>
+      <a href={localePath(locale, "contact")}>{pick(strings.nav.contact, locale)}</a>
+      <a href={localePath(locale, "cv")}>{pick(strings.nav.cv, locale)}</a>
+    </nav>
+    <div class="contact">
+      <a href="mailto:wejdan4458@gmail.com" dir="ltr" class="type-small">wejdan4458@gmail.com</a>
+    </div>
+  </div>
+  <div class="container-wide meta">
+    <span class="type-caption">© {year} {pick(strings.footer.rights, locale)}</span>
+    <span class="type-caption">{pick(strings.footer.sourceNote, locale)}</span>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    margin-top: 6rem;
+    border-top: 1px solid var(--border-subtle);
+    background: var(--surface-subtle);
+    padding-block: 3rem 2.5rem;
+  }
+  .footer-inner {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 760px) {
+    .footer-inner {
+      grid-template-columns: 2fr 2fr 1.5fr;
+      gap: 2.5rem;
+    }
+  }
+  .brand p { margin-top: 0.75rem; max-width: 36ch; }
+  .footer-nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem 1rem;
+  }
+  .footer-nav a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.95rem;
+    padding-block: 0.25rem;
+  }
+  html[lang="ar"] .footer-nav a { font-size: 1rem; }
+  .footer-nav a:hover { color: var(--text-primary); }
+  .contact { align-self: start; }
+  .meta {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-subtle);
+    color: var(--text-muted);
+  }
+</style>
