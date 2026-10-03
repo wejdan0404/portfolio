@@ -13,12 +13,15 @@ const { locale } = Astro.props;
 const email = "wejdan4458@gmail.com";
 const linkedinUrl = "https://linkedin.com/in/wejdan-uiux";
 const linkedinHandle = "linkedin.com/in/wejdan-uiux";
+const xUrl = "https://x.com/Wejdan404ui";
+const xHandle = "@Wejdan404ui";
 const siteHandle = "wejdan.info";
 
 const labels = {
   copy: { en: "Copy", ar: "نسخ" },
   copied: { en: "Copied", ar: "تم النسخ" },
   linkedin: { en: "LinkedIn", ar: "لينكدإن" },
+  x: { en: "X", ar: "إكس" },
   thisSite: { en: "This site", ar: "هذا الموقع" },
   openEmail: { en: "Open email client", ar: "فتح البريد" },
 };
@@ -68,6 +71,12 @@ const labels = {
         <span class="sec-key">{pick(labels.linkedin, locale)}</span>
         <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" dir="ltr" class="sec-link">
           {linkedinHandle}
+        </a>
+      </li>
+      <li>
+        <span class="sec-key">{pick(labels.x, locale)}</span>
+        <a href={xUrl} target="_blank" rel="noopener noreferrer me" dir="ltr" class="sec-link">
+          {xHandle}
         </a>
       </li>
       <li>
