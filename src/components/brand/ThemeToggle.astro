@@ -49,6 +49,13 @@ const label = locale === "ar" ? "تبديل السمة" : "Toggle theme";
 
 <script is:inline>
   (function () {
+    // This component renders twice per page (header + mobile menu) and Astro
+    // emits `is:inline` scripts once per instance, so without this guard the
+    // document listener is bound twice and each click toggles twice — landing
+    // back on the theme it started from. ClientRouter re-runs the script on
+    // every navigation, so the guard has to live on `window`, not in closure.
+    if (window.__wjThemeBound) return;
+    window.__wjThemeBound = true;
     document.addEventListener("click", function (e) {
       var btn = e.target.closest("[data-theme-toggle]");
       if (!btn) return;
@@ -59,6 +66,7 @@ const label = locale === "ar" ? "تبديل السمة" : "Toggle theme";
       var next = current === "dark" ? "light" : "dark";
       document.documentElement.dataset.theme = next;
       try { localStorage.setItem("wj-theme", next); } catch (err) {}
+      if (window.__wjThemeColor) window.__wjThemeColor(next);
     });
   })();
 </script>

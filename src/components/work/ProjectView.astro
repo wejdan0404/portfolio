@@ -789,12 +789,21 @@ const flaggedForReflection =
         color-mix(in oklab, var(--pt-light, var(--brand-secondary)) 22%, var(--surface-subtle)) 100%);
   }
   :global(:root[data-theme="dark"]) .pv-poster-bg,
-  :global(:root:not([data-theme="light"])) .pv-poster-bg {
+  :global(:root[data-theme="dark"]) .pv-poster-bg {
     background:
       radial-gradient(140% 120% at 50% 0%,
         color-mix(in oklab, var(--pt-dark, var(--brand-primary)) 85%, black) 0%,
         color-mix(in oklab, var(--pt-dark, var(--brand-primary)) 55%, black) 48%,
         color-mix(in oklab, var(--pt-dark, var(--brand-primary)) 25%, var(--surface-default)) 100%);
+  }
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not([data-theme="light"])) .pv-poster-bg {
+      background:
+        radial-gradient(140% 120% at 50% 0%,
+          color-mix(in oklab, var(--pt-dark, var(--brand-primary)) 85%, black) 0%,
+          color-mix(in oklab, var(--pt-dark, var(--brand-primary)) 55%, black) 48%,
+          color-mix(in oklab, var(--pt-dark, var(--brand-primary)) 25%, var(--surface-default)) 100%);
+    }
   }
   .pv-poster-grain {
     position: absolute;
@@ -811,13 +820,23 @@ const flaggedForReflection =
     background-size: 220px 220px;
   }
   :global(:root[data-theme="dark"]) .pv-poster-grain,
-  :global(:root:not([data-theme="light"])) .pv-poster-grain {
+  :global(:root[data-theme="dark"]) .pv-poster-grain {
     opacity: 0.08;
     background-image:
       radial-gradient(1px 1px at 20% 10%, #fff 50%, transparent 51%),
       radial-gradient(1px 1px at 60% 30%, #fff 50%, transparent 51%),
       radial-gradient(1px 1px at 80% 70%, #fff 50%, transparent 51%),
       radial-gradient(1px 1px at 35% 85%, #fff 50%, transparent 51%);
+  }
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not([data-theme="light"])) .pv-poster-grain {
+      opacity: 0.08;
+      background-image:
+        radial-gradient(1px 1px at 20% 10%, #fff 50%, transparent 51%),
+        radial-gradient(1px 1px at 60% 30%, #fff 50%, transparent 51%),
+        radial-gradient(1px 1px at 80% 70%, #fff 50%, transparent 51%),
+        radial-gradient(1px 1px at 35% 85%, #fff 50%, transparent 51%);
+    }
   }
   .pv-poster-star {
     position: absolute;
@@ -827,7 +846,10 @@ const flaggedForReflection =
     clip-path: polygon(50% 0%, 55% 45%, 100% 50%, 55% 55%, 50% 100%, 45% 55%, 0% 50%, 45% 45%);
   }
   :global(:root[data-theme="dark"]) .pv-poster-star,
-  :global(:root:not([data-theme="light"])) .pv-poster-star { background: var(--brand-secondary); }
+  :global(:root[data-theme="dark"]) .pv-poster-star { background: var(--brand-secondary); }
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not([data-theme="light"])) .pv-poster-star { background: var(--brand-secondary); }
+  }
   .pv-poster-star-a { width: 20px; height: 20px; inset-block-start: 8%; inset-inline-end: 6%; opacity: 0.55; }
   .pv-poster-star-b { width: 11px; height: 11px; inset-block-end: 10%; inset-inline-start: 8%; opacity: 0.4; }
   .pv-poster-star-c { width: 7px; height: 7px; inset-block-start: 24%; inset-inline-start: 6%; opacity: 0.5; }
@@ -915,13 +937,23 @@ const flaggedForReflection =
     overflow: hidden;
   }
   :global(:root[data-theme="dark"]) .pv-brand-panel,
-  :global(:root:not([data-theme="light"])) .pv-brand-panel {
+  :global(:root[data-theme="dark"]) .pv-brand-panel {
     background:
       radial-gradient(120% 100% at 50% 0%,
         color-mix(in oklab, var(--pt-dark, var(--brand-primary)) 85%, var(--brand-primary)) 0%,
         color-mix(in oklab, var(--pt-dark, var(--brand-primary)) 55%, black) 50%,
         var(--surface-dark) 100%);
     color: #fff;
+  }
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not([data-theme="light"])) .pv-brand-panel {
+      background:
+        radial-gradient(120% 100% at 50% 0%,
+          color-mix(in oklab, var(--pt-dark, var(--brand-primary)) 85%, var(--brand-primary)) 0%,
+          color-mix(in oklab, var(--pt-dark, var(--brand-primary)) 55%, black) 50%,
+          var(--surface-dark) 100%);
+      color: #fff;
+    }
   }
   .pv-brand-stars {
     position: absolute;
@@ -961,7 +993,10 @@ const flaggedForReflection =
   }
   html[dir="rtl"] .pv-brand-caption { transform: translateX(50%); }
   :global(:root[data-theme="dark"]) .pv-brand-caption,
-  :global(:root:not([data-theme="light"])) .pv-brand-caption { color: #fff; opacity: 0.88; }
+  :global(:root[data-theme="dark"]) .pv-brand-caption { color: #fff; opacity: 0.88; }
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not([data-theme="light"])) .pv-brand-caption { color: #fff; opacity: 0.88; }
+  }
   html[lang="ar"] .pv-brand-caption { letter-spacing: 0; text-transform: none; font-size: 0.95rem; }
 
   /* Context strip */
@@ -1232,8 +1267,13 @@ const flaggedForReflection =
     overflow: hidden;
   }
   html[data-theme="dark"] .pv-walk-screen,
-  :root:not([data-theme="light"]) .pv-walk-screen {
+  :root[data-theme="dark"] .pv-walk-screen {
     background: color-mix(in oklab, var(--pt-dark, var(--surface-elevated)) 55%, var(--surface-subtle));
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .pv-walk-screen {
+      background: color-mix(in oklab, var(--pt-dark, var(--surface-elevated)) 55%, var(--surface-subtle));
+    }
   }
   .pv-walk-screen :global(.dframe) {
     width: 280px;

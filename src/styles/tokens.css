@@ -61,8 +61,7 @@
   --status-surface-info: #edf5ff;
 }
 
-:root[data-theme="dark"],
-:root:not([data-theme="light"]) {
+:root[data-theme="dark"] {
   --surface-default: #0e121c;
   --surface-subtle: #181c26;
   --surface-elevated: #222630;
@@ -104,30 +103,54 @@
   --status-surface-info: #0f1e33;
 }
 
-/* System-preference fallback when user hasn't picked explicitly */
+/* Auto mode: no explicit choice, so follow the OS.
+ *
+ * CLAUDE.md §3 put `:root:not([data-theme="light"])` in the same selector
+ * group as `[data-theme="dark"]`, outside any media query. That made dark
+ * unconditional whenever no theme was stored: the OS preference was ignored
+ * and light mode never appeared on a first visit. The brief's own comment
+ * says these belong under the media query, so that is where they are now.
+ */
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+  :root:not([data-theme="light"]) {
     --surface-default: #0e121c;
     --surface-subtle: #181c26;
     --surface-elevated: #222630;
     --surface-inverse: #ffffff;
     --surface-dark: #0e121c;
+
     --text-primary: #ffffff;
     --text-secondary: #d1d2d5;
     --text-muted: #a2a4a9;
     --text-accent: #bedaf7;
     --text-inverse: #0e121c;
+    --text-on-light-accent: #0e121c;
+
     --brand-primary: #7587cf;
     --brand-secondary: #bedaf7;
     --logo-primary: #ffffff;
+
     --border-default: #6e7179;
     --border-subtle: #40444d;
     --border-strong: #86898f;
+
     --action-default: #9bc4ee;
     --action-hover: #bedaf7;
     --action-pressed: #7faae3;
     --action-focus: #bedaf7;
+    --action-disabled: #40444d;
     --focus-ring: #bedaf7;
     --glow-accent: #bedaf7;
+
+    --overlay-scrim: rgb(14 18 28 / 0.56);
+
+    --status-success: #78e8af;
+    --status-warning: #ffcd53;
+    --status-error: #f78383;
+    --status-info: #78b7ff;
+    --status-surface-success: #10291d;
+    --status-surface-warning: #2b230d;
+    --status-surface-error: #2b1515;
+    --status-surface-info: #0f1e33;
   }
 }

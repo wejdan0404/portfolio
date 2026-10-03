@@ -111,6 +111,8 @@ const linkedinUnverified = {
 
 <script is:inline>
   (function () {
+    if (window.__wjCopyBound) return;
+    window.__wjCopyBound = true;
     document.addEventListener("click", async function (e) {
       var btn = e.target && e.target.closest ? e.target.closest("[data-copy-email]") : null;
       if (!btn) return;

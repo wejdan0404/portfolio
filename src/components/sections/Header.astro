@@ -168,6 +168,9 @@ const nav = [
 
 <script is:inline>
   (function () {
+    // ClientRouter re-runs inline scripts on each navigation, so bind once.
+    if (window.__wjMenuBound) return;
+    window.__wjMenuBound = true;
     document.addEventListener("click", function (e) {
       var btn = e.target.closest("[data-menu-btn]");
       if (!btn) return;

@@ -221,12 +221,21 @@ const screens = posterScreens.slice(0, screenCount);
         color-mix(in oklab, var(--pt-light, var(--brand-secondary)) 20%, var(--surface-subtle)) 100%);
   }
   :global(:root[data-theme="dark"]) .poster-bg,
-  :global(:root:not([data-theme="light"])) .poster-bg {
+  :global(:root[data-theme="dark"]) .poster-bg {
     background:
       radial-gradient(140% 110% at 50% 0%,
         color-mix(in oklab, var(--pt-dark, var(--brand-primary)) 85%, black 0%) 0%,
         color-mix(in oklab, var(--pt-dark, var(--brand-primary)) 55%, black 0%) 48%,
         color-mix(in oklab, var(--pt-dark, var(--brand-primary)) 25%, var(--surface-default)) 100%);
+  }
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not([data-theme="light"])) .poster-bg {
+      background:
+        radial-gradient(140% 110% at 50% 0%,
+          color-mix(in oklab, var(--pt-dark, var(--brand-primary)) 85%, black 0%) 0%,
+          color-mix(in oklab, var(--pt-dark, var(--brand-primary)) 55%, black 0%) 48%,
+          color-mix(in oklab, var(--pt-dark, var(--brand-primary)) 25%, var(--surface-default)) 100%);
+    }
   }
 
   /* Fine grain — very subtle, kept small so SSR is cheap */
@@ -247,7 +256,7 @@ const screens = posterScreens.slice(0, screenCount);
     background-size: 180px 180px;
   }
   :global(:root[data-theme="dark"]) .poster-grain,
-  :global(:root:not([data-theme="light"])) .poster-grain {
+  :global(:root[data-theme="dark"]) .poster-grain {
     opacity: 0.07;
     background-image:
       radial-gradient(1px 1px at 20% 10%, #fff 50%, transparent 51%),
@@ -256,6 +265,18 @@ const screens = posterScreens.slice(0, screenCount);
       radial-gradient(1px 1px at 35% 85%, #fff 50%, transparent 51%),
       radial-gradient(1px 1px at 10% 60%, #fff 50%, transparent 51%),
       radial-gradient(1px 1px at 50% 50%, #fff 50%, transparent 51%);
+  }
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not([data-theme="light"])) .poster-grain {
+      opacity: 0.07;
+      background-image:
+        radial-gradient(1px 1px at 20% 10%, #fff 50%, transparent 51%),
+        radial-gradient(1px 1px at 60% 30%, #fff 50%, transparent 51%),
+        radial-gradient(1px 1px at 80% 70%, #fff 50%, transparent 51%),
+        radial-gradient(1px 1px at 35% 85%, #fff 50%, transparent 51%),
+        radial-gradient(1px 1px at 10% 60%, #fff 50%, transparent 51%),
+        radial-gradient(1px 1px at 50% 50%, #fff 50%, transparent 51%);
+    }
   }
 
   /* Decorative star accents */
@@ -268,7 +289,10 @@ const screens = posterScreens.slice(0, screenCount);
     opacity: 0.5;
   }
   :global(:root[data-theme="dark"]) .poster-star,
-  :global(:root:not([data-theme="light"])) .poster-star { background: var(--brand-secondary); opacity: 0.4; }
+  :global(:root[data-theme="dark"]) .poster-star { background: var(--brand-secondary); opacity: 0.4; }
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not([data-theme="light"])) .poster-star { background: var(--brand-secondary); opacity: 0.4; }
+  }
   .poster-star-a { width: 14px; height: 14px; inset-block-start: 10%; inset-inline-end: 8%; }
   .poster-star-b { width: 7px; height: 7px; inset-block-end: 12%; inset-inline-start: 10%; opacity: 0.4; }
   .wcard-lead .poster-star-a { width: 20px; height: 20px; }
@@ -421,12 +445,21 @@ const screens = posterScreens.slice(0, screenCount);
         color-mix(in oklab, var(--pt-light, var(--brand-secondary)) 25%, var(--surface-elevated)) 100%);
   }
   :global(:root[data-theme="dark"]) .bc-grad,
-  :global(:root:not([data-theme="light"])) .bc-grad {
+  :global(:root[data-theme="dark"]) .bc-grad {
     background:
       radial-gradient(120% 100% at 50% 0%,
         color-mix(in oklab, var(--pt-dark, var(--brand-primary)) 70%, var(--brand-primary)) 0%,
         color-mix(in oklab, var(--pt-dark, var(--brand-primary)) 70%, black) 50%,
         var(--surface-dark) 100%);
+  }
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not([data-theme="light"])) .bc-grad {
+      background:
+        radial-gradient(120% 100% at 50% 0%,
+          color-mix(in oklab, var(--pt-dark, var(--brand-primary)) 70%, var(--brand-primary)) 0%,
+          color-mix(in oklab, var(--pt-dark, var(--brand-primary)) 70%, black) 50%,
+          var(--surface-dark) 100%);
+    }
   }
   .bc-grain {
     position: absolute;
@@ -465,7 +498,10 @@ const screens = posterScreens.slice(0, screenCount);
   }
   html[dir="rtl"] .bc-displaytitle { transform: translateX(50%); letter-spacing: 0; text-transform: none; }
   :global(:root[data-theme="dark"]) .bc-displaytitle,
-  :global(:root:not([data-theme="light"])) .bc-displaytitle { color: #fff; opacity: 0.85; }
+  :global(:root[data-theme="dark"]) .bc-displaytitle { color: #fff; opacity: 0.85; }
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not([data-theme="light"])) .bc-displaytitle { color: #fff; opacity: 0.85; }
+  }
 
   /* Status badge: bottom-left */
   .wcard-status {
