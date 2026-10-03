@@ -102,6 +102,8 @@ const screens = posterScreens.slice(0, screenCount);
             <img
               src={singleHero.src.startsWith("http") ? singleHero.src : withBase(singleHero.src)}
               alt={singleHero.alt ? pick(singleHero.alt, locale) : title}
+              width={singleHero.w ?? 1600}
+              height={singleHero.h ?? 1200}
               loading="lazy"
               decoding="async"
             />

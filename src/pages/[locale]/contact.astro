@@ -54,7 +54,7 @@ const linkedinUnverified = {
           data-copy-value={EMAIL}
           data-copy-label={pick(copyLabel, locale)}
           data-copied-label={pick(copiedLabel, locale)}
-          aria-live="polite"
+          aria-label={locale === "ar" ? `نسخ ${EMAIL}` : `Copy ${EMAIL}`}
         >
           <svg class="copy-ico" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="9" y="9" width="12" height="12" rx="2"/>
@@ -62,6 +62,9 @@ const linkedinUnverified = {
           </svg>
           <span class="copy-label">{pick(copyLabel, locale)}</span>
         </button>
+        <!-- Status lives in its own region; aria-live on the button itself
+             would re-announce the whole control on every label swap. -->
+        <span class="sr-only" role="status" aria-live="polite" data-copy-status></span>
       </div>
       <p class="contact-note">{pick(bestWay, locale)}</p>
 
@@ -132,9 +135,12 @@ const linkedinUnverified = {
         }
         btn.setAttribute("data-copied", "1");
         if (label) label.textContent = copiedLabel;
+        var status = document.querySelector("[data-copy-status]");
+        if (status) status.textContent = copiedLabel;
         setTimeout(function () {
           btn.removeAttribute("data-copied");
           if (label) label.textContent = defaultLabel;
+          if (status) status.textContent = "";
         }, 1800);
       } catch (err) { /* ignore */ }
     });
@@ -149,7 +155,7 @@ const linkedinUnverified = {
   .contact-title {
     font-size: clamp(1.75rem, 3vw, 2.5rem);
     font-weight: 600;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.02em; /* rtl-check: ignore — email, dir="ltr", Latin only */
     line-height: 1.08;
     margin-block-start: 0.5rem;
   }

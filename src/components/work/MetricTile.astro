@@ -64,7 +64,7 @@ const labelText = pick(label, locale);
     font-size: 0.8125rem;
     color: var(--text-muted);
     font-variant-numeric: tabular-nums;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.02em; /* rtl-check: ignore — "n = 5", dir="ltr", Latin only */
     white-space: nowrap;
   }
 
@@ -81,7 +81,7 @@ const labelText = pick(label, locale);
     padding-top: 0.5rem;
     font-size: 0.75rem;
     color: var(--text-muted);
-    letter-spacing: 0.02em;
+    letter-spacing: 0.02em; /* rtl-check: ignore — citation, dir="ltr", Latin only */
     opacity: 0.8;
   }
 </style>
