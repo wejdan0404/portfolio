@@ -1235,12 +1235,12 @@ const flaggedForReflection =
   :root:not([data-theme="light"]) .pv-walk-screen {
     background: color-mix(in oklab, var(--pt-dark, var(--surface-elevated)) 55%, var(--surface-subtle));
   }
-  .pv-walk-screen > :global(.dframe) {
-    max-width: 280px;
-    width: 100%;
+  .pv-walk-screen :global(.dframe) {
+    width: min(280px, 70%);
   }
   .pv-walk-screen .pv-walk-artifact {
     width: 100%;
+    max-width: 540px;
     margin: 0;
   }
   .pv-walk-screen .pv-walk-artifact img {
