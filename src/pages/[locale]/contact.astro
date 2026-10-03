@@ -14,7 +14,7 @@ const copyLabel = { en: "Copy", ar: "نسخ" };
 const copiedLabel = { en: "Copied", ar: "تم النسخ" };
 const bestWay = {
   en: "The best way to reach me is email.",
-  ar: "أسرع طريقة توصلني الإيميل.",
+  ar: "أسهل طريقة للتواصل معي هي البريد.",
 };
 const linksHeading = {
   en: "Elsewhere",
@@ -22,7 +22,7 @@ const linksHeading = {
 };
 const linkedinUnverified = {
   en: "LinkedIn handle — not verified at the time of writing.",
-  ar: "حساب لينكدإن — ما تأكّد لحد الآن.",
+  ar: "رابط الحساب غير مؤكد حاليًا.",
 };
 ---
 
@@ -32,7 +32,7 @@ const linkedinUnverified = {
       <header class="contact-head">
         <span class="type-eyebrow">{pick(strings.contact.pageTitle, locale)}</span>
         <h1 class="contact-title">
-          {locale === "ar" ? "اكتب لي." : "Write to me."}
+          {locale === "ar" ? "تواصلي معي." : "Get in touch."}
         </h1>
         <p class="contact-body">{pick(strings.contact.body, locale)}</p>
       </header>
@@ -85,7 +85,7 @@ const linkedinUnverified = {
               <bdi>wejdan.info</bdi>
             </span>
             <span class="elsewhere-note">
-              {locale === "ar" ? "هذا الموقع." : "This site."}
+              {locale === "ar" ? "ملفي وأعمالي." : "My portfolio."}
             </span>
           </li>
           <li class="elsewhere-item">
@@ -100,7 +100,7 @@ const linkedinUnverified = {
               <bdi>github.com/wejdan0404</bdi>
             </a>
             <span class="elsewhere-note">
-              {locale === "ar" ? "تجارب كود عرضية." : "Occasional code experiments."}
+              {locale === "ar" ? "مشاريعي البرمجية." : "My code projects."}
             </span>
           </li>
         </ul>

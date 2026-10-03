@@ -120,7 +120,7 @@ const walkthrough: WalkItem[] = [
 const hasWalkthrough = walkthrough.length >= 2;
 
 const evidence: Array<{
-  value: string;
+  value: string | { en: string; ar: string };
   label: { en: string; ar: string };
   n?: number;
   source?: string;
@@ -143,8 +143,8 @@ const L = {
   prev: locale === "ar" ? "السابق" : "Previous",
   next: locale === "ar" ? "التالي" : "Next",
   back: locale === "ar" ? "الأعمال" : "Back to work",
-  walkthrough: locale === "ar" ? "واجهة واجهة" : "Screen by screen",
-  walkthroughHeading: locale === "ar" ? "ما يشوفه المستخدم." : "What the user sees.",
+  walkthrough: locale === "ar" ? "استعراض الشاشات" : "Screen by screen",
+  walkthroughHeading: locale === "ar" ? "كيف تظهر التجربة للمستخدم؟" : "What the user sees.",
   problem: pick(strings.caseStudyLabels.problem, locale),
   approach: pick(strings.caseStudyLabels.approach, locale),
   role: pick(strings.caseStudyLabels.role_, locale),
@@ -459,7 +459,7 @@ const flaggedForReflection =
           <div class="pv-metrics">
             {evidence.map((e) => (
               <MetricTile
-                value={e.value}
+                value={typeof e.value === "string" ? e.value : pick(e.value, locale)}
                 label={e.label}
                 n={e.n}
                 source={e.source}

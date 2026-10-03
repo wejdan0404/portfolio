@@ -7,20 +7,20 @@ export const strings = {
   siteTitle: t("Wejdan — UI & UX designer", "وجدان — مصممة واجهات وتجربة مستخدم"),
   siteDescription: t(
     "A Jeddah-based UI & UX designer. I study the user before I design for them.",
-    "مصممة واجهات وتجربة مستخدم من جدة. أدرس المستخدم قبل ما أصمم له.",
+    "مصممة تجربة مستخدم وواجهات، خريجة تفاعل الإنسان والحاسب. أفهم احتياج المستخدم قبل ما أصمم له.",
   ),
   nav: {
     work: t("Work", "الأعمال"),
-    about: t("About", "عنها"),
+    about: t("About", "نبذة عني"),
     services: t("Services", "الخدمات"),
     contact: t("Contact", "التواصل"),
     cv: t("CV", "السيرة الذاتية"),
   },
   actions: {
     viewCV: t("View CV", "السيرة الذاتية"),
-    viewWork: t("See the work", "شوف الأعمال"),
+    viewWork: t("See the work", "استعرض مشاريعي"),
     emailMe: t("Email me", "راسلني بالإيميل"),
-    openCase: t("Open case study", "افتح الدراسة"),
+    openCase: t("Open case study", "اقرأ دراسة الحالة"),
     switchLang: t("العربية", "English"),
     switchTheme: t("Theme", "السمة"),
     themeLight: t("Light", "فاتح"),
@@ -31,8 +31,8 @@ export const strings = {
   evidence: {
     legendTitle: t("How evidence is marked", "تصنيف الأدلة"),
     tested: t("Tested with users", "اختُبر مع مستخدمين"),
-    planned: t("Planned, not tested", "مُخطَّط، دون اختبار"),
-    early: t("Early exploration", "استكشاف مبكر"),
+    planned: t("Planned, not tested", "قيد التخطيط، ولم يُختبر بعد"),
+    early: t("Early exploration", "استكشاف أولي"),
   },
   statusLabel: {
     tested: t("Tested", "مُختبَر"),
@@ -61,17 +61,17 @@ export const strings = {
   home: {
     eyebrow: t("UX · UI · HCI", "تجربة · واجهة · تفاعل إنسان-حاسب"),
     heroLineA: t("UI & UX designer.", "مصممة واجهات وتجربة مستخدم."),
-    heroLineB: t("I study the user", "أدرس المستخدم"),
+    heroLineB: t("I study the user", "أفهم المستخدم"),
     heroLineC: t("before I design for them.", "قبل ما أصمم له."),
     heroLede: t(
       "HCI graduate from Jeddah. I work on apps and websites, and test them with the user before they ship.",
-      "خريجة HCI من جدة. أشتغل على تطبيقات ومواقع، وأختبرها مع المستخدم قبل ما تطلع.",
+      "خريجة تفاعل الإنسان والحاسب. أصمم التطبيقات والمواقع، وأختبرها مع المستخدمين قبل إطلاقها.",
     ),
     workEyebrow: t("Selected work", "أعمال مختارة"),
     workHeading: t("My work.", "مشاريعي."),
     workLede: t(
       "Between research and design.",
-      "ما بين البحث والتصميم.",
+      "من فهم المستخدم إلى تصميم التجربة.",
     ),
     aboutEyebrow: t("About", "عنها"),
     aboutHeading: t(
@@ -80,15 +80,15 @@ export const strings = {
     ),
     aboutBody: t(
       "HCI graduate from Jeddah. I lean on real research, honest critique, and clear design systems. Arabic and English get the same work — not translation.",
-      "خريجة HCI من جدة. أعتمد على بحث فعلي، نقد صريح، وأنظمة تصميم واضحة. العربي والإنجليزي شغل واحد عندي — مش ترجمة.",
+      "أعتمد على البحث والملاحظات الواضحة وأنظمة التصميم. وأصمم بالعربي والإنجليزي من البداية، مو كأن أحد ترجم الشاشة بعدين.",
     ),
     capabilitiesEyebrow: t("Capabilities", "القدرات"),
-    capabilitiesHeading: t("What I bring to a product team.", "وش أقدمه لفريق المنتج."),
+    capabilitiesHeading: t("What I bring to a product team.", "كيف أضيف لفريق المنتج."),
     contactEyebrow: t("Say hello", "تواصل"),
     contactHeading: t("Have a product to build or research?", "عندك منتج تبي تصممه أو تبحث فيه؟"),
     contactBody: t(
       "The fastest way to reach me is email. Tell me about the product, the user, and the question you're trying to answer.",
-      "أسرع طريقة توصلني الإيميل. كلّمني عن المنتج، والمستخدم، والسؤال اللي تحاول تجاوبه.",
+      "أسهل طريقة للتواصل معي هي البريد. اكتب لي عن المنتج والمستخدم والسؤال اللي تحاول تجاوب عنه.",
     ),
   },
   about: {
@@ -152,17 +152,17 @@ export const strings = {
   },
   footer: {
     rights: t("Wejdan's portfolio — HCI graduate.", "موقع وجدان الشخصي — خريجة HCI."),
-    sourceNote: t("Built with care; no fabricated claims.", "مبني بعناية، بلا ادّعاءات ملفّقة."),
+    sourceNote: t("Built with care; no fabricated claims.", "تصميم وتجربة مستخدم — وجدان."),
   },
   work: {
     pageTitle: t("Work", "الأعمال"),
     pageLede: t(
       "Six projects, academic and personal, each with its own evidence.",
-      "ست مشاريع، بين أكاديمية وشخصية، كل وحدة بأدلّتها.",
+      "ستة مشاريع أكاديمية وشخصية، مع توضيح دوري وما يتوفر لكل مشروع من نتائج.",
     ),
     openCase: t("Read the case", "اقرأ الدراسة"),
     allCases: t("All case studies", "جميع دراسات الحالة"),
-    noScreens: t("No live screens exist for this project — nothing is fabricated here.", "لا تتوفر شاشات حيّة لهذا المشروع، ولا شيء مُلفَّق هنا."),
+    noScreens: t("No live screens exist for this project — nothing is fabricated here.", "ما تتوفر شاشات فعلية لهذا المشروع حاليًا."),
   },
   bidi: {
     lrm: "‎",

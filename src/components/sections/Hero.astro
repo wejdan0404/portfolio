@@ -11,15 +11,15 @@ const { locale } = Astro.props;
    explicit font-size clamp that works down to 320px. */
 const copy = {
   kicker: locale === "ar"
-    ? "وجدان · من جدة"
+    ? "وجدان · خريجة HCI"
     : "Wejdan · Jeddah",
-  lineA: locale === "ar" ? "مصممة واجهات وتجربة مستخدم." : "UI & UX designer.",
-  lineB: locale === "ar" ? "أدرس المستخدم قبل ما أصمم له." : "I study the user before I design for them.",
+  lineA: locale === "ar" ? "مصممة تجربة مستخدم وواجهات." : "UI & UX designer.",
+  lineB: locale === "ar" ? "أفهم احتياج المستخدم قبل ما أصمم له." : "I study the user before I design for them.",
   lede: locale === "ar"
-    ? "خريجة HCI من جدة. أشتغل على تطبيقات ومواقع، وأختبرها مع المستخدم قبل ما تطلع."
+    ? "خريجة تفاعل الإنسان والحاسب. أصمم التطبيقات والمواقع، وأختبرها مع المستخدمين قبل إطلاقها."
     : "HCI graduate from Jeddah. I work on apps and websites, and test them with the user before they ship.",
   ctaPrimary: locale === "ar" ? "عرض المشاريع" : "View case studies",
-  ctaSecondary: locale === "ar" ? "السيرة الذاتية" : "View CV",
+  ctaSecondary: locale === "ar" ? "حمّلي سيرتي الذاتية (PDF بالإنجليزية)" : "Download CV (English PDF)",
   ctaTertiary: locale === "ar" ? "الخدمات" : "Services",
   visualLabel: locale === "ar" ? "علامة وجدان" : "Wejdan monogram",
 };
@@ -41,7 +41,7 @@ const copy = {
             <path d="M5 12h14M13 5l7 7-7 7"/>
           </svg>
         </a>
-        <a href={localePath(locale, "cv")} class="btn btn-ghost">
+        <a href="/cv.pdf" class="btn btn-ghost" download="Wejdan-CV.pdf">
           {copy.ctaSecondary}
         </a>
         <a href={localePath(locale, "services")} class="hero-link">
