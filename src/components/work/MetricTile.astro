@@ -14,7 +14,7 @@ const { value, label, n, source, locale, size = "md" } = Astro.props;
 const labelText = pick(label, locale);
 ---
 
-<figure class={`mtile mtile-${size}`}>
+<figure class={`mtile mtile-${size}`} data-reveal>
   <div class="mtile-head">
     <span class="mtile-value">{value}</span>
     {typeof n === "number" ? (

@@ -38,7 +38,7 @@ const steps = [
     </h2>
     <ol class="chain-list" role="list">
       {steps.map((step, i) => (
-        <li class="chain-step">
+        <li class="chain-step" data-reveal data-reveal-delay={i + 1}>
           <div class="chain-top" aria-hidden="true">
             <span class="chain-rule"></span>
             <span class="chain-num numeric">{String(i + 1).padStart(2, "0")}</span>

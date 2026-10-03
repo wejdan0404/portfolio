@@ -11,6 +11,7 @@ import "../styles/globals.css";
 
 import Header from "../components/sections/Header.astro";
 import Footer from "../components/sections/Footer.astro";
+import { ClientRouter } from "astro:transitions";
 import { type Locale, dirOf, withBase } from "../lib/i18n";
 import { strings, pick } from "../lib/strings";
 
@@ -48,17 +49,30 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://wejdan.info
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonical} />
     <meta name="twitter:card" content="summary" />
-    <!-- Pre-paint theme application -->
+    <!-- Pre-paint theme application. Runs on initial load AND before every
+         view-transition page swap so the theme never flashes during navigation. -->
     <script is:inline>
       (function () {
-        try {
-          var stored = localStorage.getItem("wj-theme");
-          if (stored === "light" || stored === "dark") {
-            document.documentElement.dataset.theme = stored;
-          }
-        } catch (e) { /* ignore */ }
+        function applyTheme() {
+          try {
+            var stored = localStorage.getItem("wj-theme");
+            if (stored === "light" || stored === "dark") {
+              document.documentElement.dataset.theme = stored;
+            }
+          } catch (e) { /* ignore */ }
+        }
+        applyTheme();
+        document.addEventListener("astro:before-swap", function (ev) {
+          try {
+            var stored = localStorage.getItem("wj-theme");
+            if (stored === "light" || stored === "dark") {
+              ev.newDocument.documentElement.dataset.theme = stored;
+            }
+          } catch (e) { /* ignore */ }
+        });
       })();
     </script>
+    <ClientRouter />
   </head>
   <body>
     <a href="#main" class="skip-link">
@@ -69,5 +83,8 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://wejdan.info
       <slot />
     </main>
     <Footer locale={locale} />
+    <script>
+      import "../scripts/reveal.ts";
+    </script>
   </body>
 </html>

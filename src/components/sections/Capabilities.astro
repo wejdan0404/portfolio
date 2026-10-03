@@ -63,8 +63,8 @@ const moreAr = "شوف كل الخدمات";
     </header>
 
     <div class="caps-grid">
-      {categories.map((c) => (
-        <section class="cap">
+      {categories.map((c, i) => (
+        <section class="cap" data-reveal data-reveal-delay={i + 1}>
           <h3 class="cap-title">{pick(c.title, locale)}</h3>
           <ul class="cap-list" role="list">
             {c.items.map((it) => (

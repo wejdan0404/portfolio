@@ -318,3 +318,72 @@ html[lang="ar"] .numeric {
   border-radius: 0 0 8px 0;
 }
 .skip-link:focus { top: 0; }
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Reveal on scroll
+   An element with [data-reveal] starts translated down + faded, then eases
+   into place when it enters the viewport. Driven by a small IntersectionObserver
+   client script (reveal.ts) that toggles .is-revealed. Reduced-motion falls
+   through to the "revealed" state immediately — no animation.
+   ───────────────────────────────────────────────────────────────────────── */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 700ms cubic-bezier(.2, .7, .2, 1),
+    transform 700ms cubic-bezier(.2, .7, .2, 1);
+  will-change: opacity, transform;
+}
+[data-reveal].is-revealed,
+[data-reveal][data-reveal-ready="false"] {
+  opacity: 1;
+  transform: none;
+}
+[data-reveal-delay="1"].is-revealed { transition-delay: 60ms; }
+[data-reveal-delay="2"].is-revealed { transition-delay: 120ms; }
+[data-reveal-delay="3"].is-revealed { transition-delay: 180ms; }
+[data-reveal-delay="4"].is-revealed { transition-delay: 240ms; }
+[data-reveal-delay="5"].is-revealed { transition-delay: 300ms; }
+[data-reveal-delay="6"].is-revealed { transition-delay: 360ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Subtle 3D tilt (data-tilt)
+   An element with [data-tilt] rotates up to ~3deg under the cursor via the
+   --mx / --my custom properties set by tilt.ts. Reduced-motion disables it.
+   Avoid on text — this is for card-like surfaces only.
+   ───────────────────────────────────────────────────────────────────────── */
+[data-tilt] {
+  transform-style: preserve-3d;
+  transform:
+    perspective(1200px)
+    rotateX(calc(var(--my, 0) * -2.5deg))
+    rotateY(calc(var(--mx, 0) * 2.5deg));
+  transition: transform 280ms cubic-bezier(.2, .7, .2, 1);
+}
+[data-tilt]:hover { transition-duration: 60ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-tilt] {
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Page-transition names
+   Used by Astro's view transitions to morph specific elements across pages.
+   The W logo and the primary hero panel stay fixed; everything else fades.
+   ───────────────────────────────────────────────────────────────────────── */
+.site-logo-mark { view-transition-name: site-logo; }
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 220ms;
+}

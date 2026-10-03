@@ -66,8 +66,8 @@ const moreAr = "تفاصيل أكثر عن الطريقة";
     </header>
 
     <ul class="princ-grid" role="list">
-      {principles.map((p) => (
-        <li class="princ">
+      {principles.map((p, i) => (
+        <li class="princ" data-reveal data-reveal-delay={i + 1}>
           <div class="princ-mark" aria-hidden="true">
             {p.mark === "letter" && (
               <svg viewBox="0 0 48 48" width="24" height="24">
