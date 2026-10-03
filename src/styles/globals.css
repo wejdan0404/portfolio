@@ -43,7 +43,7 @@
     margin: 0;
     background: var(--surface-default);
     color: var(--text-primary);
-    font-family: "IBM Plex Sans", "IBM Plex Sans Arabic", system-ui, sans-serif;
+    font-family: var(--font-body);
     font-feature-settings: "ss01", "cv11";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -54,7 +54,9 @@
   /* Latin runs — tighter tracking helpers */
   html[lang="en"] body { line-height: 1.55; }
   html[lang="ar"] body {
-    font-family: "IBM Plex Sans Arabic", "IBM Plex Sans", system-ui, sans-serif;
+    /* --font-body already resolves to --font-arabic under :root[lang="ar"];
+       restated here so the Arabic line-height block stays self-contained. */
+    font-family: var(--font-arabic);
     line-height: 1.75;
     letter-spacing: 0;
   }

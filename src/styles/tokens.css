@@ -5,10 +5,109 @@
  * Never edit raw hex values; bind semantic tokens in component code.
  */
 
+/* ── خط ثمانية — local only, never served ────────────────────────────────
+ *
+ * Thmanyah released خط ثمانية free for personal and commercial use, and its
+ * PERMITTED USES list includes websites. But its PROHIBITED ACTIONS are
+ * explicit (LICENSE.pdf, shipped with the family):
+ *
+ *   "Make the Font Software available in any manner that allows end users or
+ *    third parties to extract, download, access, reuse, or redistribute the
+ *    Font Software independently as font files, including through web
+ *    embedding, applications, or software products."
+ *
+ * A `src: url(...woff2)` is exactly that — a font file any visitor can fetch
+ * and install. Committing the files to this public repo would also breach
+ * "Redistribute, share, upload, host"; the licence says the font may only be
+ * downloaded from thmanyah.com. Governing law is Saudi, courts of Riyadh, and
+ * enforcement includes licence revocation and damages.
+ *
+ * So: `src: local(...)` only. Nothing is hosted, nothing is downloadable, and
+ * no font file is in this repository. Visitors who installed the font —
+ * common in Saudi after the free release — see it; everyone else sees IBM Plex
+ * Sans Arabic. Both are legitimate; this is the use Thmanyah's own help centre
+ * describes as permitted.
+ *
+ * The family is named "Thmanyah Local", not "Thmanyah Sans": CSS family
+ * matching is case-insensitive, so a face named after the installed family
+ * ("thmanyah sans") is bypassed entirely and the metric overrides below are
+ * silently ignored. Verified — with the colliding name the probe measured
+ * identical widths with and without the override.
+ *
+ * Metric overrides measured from the real files, so the two render in exactly
+ * the same space and nothing shifts between visitors:
+ *   Measured in the browser on a shaped Arabic string, not by summing glyph
+ *   advances — Arabic shaping joins letters into narrower contextual forms, so
+ *   the naive sum was out by 5%. Rendered: thmanyah 1814.2px vs Plex 1668.7px
+ *   at the same size -> size-adjust 92%. Its default line box is 1.25em against
+ *   Plex's 1.5em -> ascent 118% / descent 45.1% of the adjusted em, which
+ *   reproduces Plex's 1085/-415 per 1000.
+ *
+ * Only the Sans is wired. Serif Display is the face that carries ثمانية's
+ * editorial look, but serif-vs-sans is a difference size-adjust cannot absorb,
+ * and a portfolio that renders in two different typographic identities
+ * depending on the visitor is a worse outcome than one consistent face.
+ * ──────────────────────────────────────────────────────────────────────── */
+@font-face {
+  font-family: "Thmanyah Local";
+  font-style: normal;
+  font-weight: 300;
+  src: local("thmanyahsans-Light"), local("thmanyah sans Light");
+  size-adjust: 92%;
+  ascent-override: 118%;
+  descent-override: 45.1%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Thmanyah Local";
+  font-style: normal;
+  font-weight: 400;
+  src: local("thmanyahsans-Regular"), local("thmanyah sans");
+  size-adjust: 92%;
+  ascent-override: 118%;
+  descent-override: 45.1%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Thmanyah Local";
+  font-style: normal;
+  font-weight: 500;
+  src: local("thmanyahsans-Medium"), local("thmanyah sans Med");
+  size-adjust: 92%;
+  ascent-override: 118%;
+  descent-override: 45.1%;
+  line-gap-override: 0%;
+}
+/* The family has no 600; CSS weight matching resolves a requested 600 upward
+   to this 700, which is the usual substitution for a missing semibold. */
+@font-face {
+  font-family: "Thmanyah Local";
+  font-style: normal;
+  font-weight: 700;
+  src: local("thmanyahsans-Bold"), local("thmanyah sans Bold");
+  size-adjust: 92%;
+  ascent-override: 118%;
+  descent-override: 45.1%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Thmanyah Local";
+  font-style: normal;
+  font-weight: 900;
+  src: local("thmanyahsans-Black"), local("thmanyah sans Black");
+  size-adjust: 92%;
+  ascent-override: 118%;
+  descent-override: 45.1%;
+  line-gap-override: 0%;
+}
+
 :root {
   /* Font faces — IBM Plex only, no Serif (CLAUDE.md §4, §12.4) */
   --font-latin: "IBM Plex Sans", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-  --font-arabic: "IBM Plex Sans Arabic", "Geeza Pro", system-ui, sans-serif;
+  /* Thmanyah first for anyone who has it installed (local-only, see above);
+     IBM Plex Sans Arabic is what the site actually ships and what the
+     metric overrides are matched to. */
+  --font-arabic: "Thmanyah Local", "IBM Plex Sans Arabic", "Geeza Pro", system-ui, sans-serif;
   --font-body: var(--font-latin);
   --font-display: var(--font-latin);
 }

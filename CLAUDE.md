@@ -141,7 +141,11 @@ Two separate systems — do not assume the Latin hierarchy works unchanged for A
 | Body + Display | **IBM Plex Sans Arabic** | **IBM Plex Sans** (body) |
 | Display/Headings (Latin) | — | IBM Plex Sans (not Serif — see flag below) |
 
-- **Do not use IBM Plex Serif.** It was explored for Latin display ("thmanyah serif") but its licence for this use was never confirmed — see §12. Until that's resolved, headings use IBM Plex Sans in both languages' Latin runs.
+- **Do not use IBM Plex Serif**, and do not serve خط ثمانية. §12.4 is now resolved: the Thmanyah licence forbids web embedding that leaves the font extractable as a file, which is what any `@font-face url()` does. Headings use IBM Plex Sans in both languages' Latin runs.
+- **خط ثمانية is wired `local()`-only** (`src/styles/tokens.css`, family `"Thmanyah Local"`). No font file is served or committed; visitors who installed it see it, everyone else sees IBM Plex Sans Arabic. Metric overrides (`size-adjust: 92%`, `ascent 118%`, `descent 45.1%`) were measured in the browser on a shaped Arabic string so both render in identical space.
+  - Name the face anything other than the installed family — CSS family matching is case-insensitive, so a face called `"Thmanyah Sans"` is bypassed by the system font and the overrides are silently dropped.
+  - Keep headline widths in `em`, not `ch`: the `ch` unit is the advance of "0" and differs 6.7% between the two faces, which changed the Arabic hero from three lines to two.
+- **Font stacks bind to the tokens** (`var(--font-body)` / `var(--font-arabic)` / `var(--font-display)`), never hardcoded families. They were hardcoded in `globals.css` and `Hero.astro` while the tokens sat unused.
 - Arabic needs more line-height than Latin — target **1.6–1.8** for Arabic body text, or ascenders/descenders and diacritics clip.
 - **No `letter-spacing` on Arabic runs** — it breaks letter joining. Scope any tracking to `:lang(en)`.
 - Define a Display/H1/H2/H3/Body/Small/Caption/Label scale **separately** for Arabic and Latin (per the master brand spec) rather than reusing one `rem` scale for both — Arabic glyphs read differently at the same point size.
@@ -293,7 +297,33 @@ Never invent statistics, companies, sources, competitors, UX research findings, 
 1. **The "chat-style HTML design" Hamdan liked.** He referenced a previously-seen chat-style HTML design he wants recreated in the brand colours above, built directly in code (explicitly skipping Figma for this one piece, overriding the usual design-first preference). It has not been identified among existing artifacts. **Ask him directly what this is/where it is** before attempting to build it from a guess.
 2. **PetCare's fate.** Its own source documentation recommends not featuring it prominently (weakest evidence base of the six, 8 open content gaps). Decide: cut from the main work grid, demote to a minor/early-exploration slot, or keep as-is. Don't decide this silently either way.
 3. **`Gradient/Depth` token.** Flagged CLASH against the new dark-mode ramp in the colour spec itself — its own documentation says: *"keep it off Dark boards, or re-stop it later to `#090C14 → #181C26 → #222630`."* This is explicitly left to the owner's call. Pick one before using that gradient anywhere in dark mode.
-4. **IBM Plex Serif / "thmanyah serif" licence.** Never confirmed as usable. Do not use it until Hamdan/Wejdan confirm the licence; until then headings stay in IBM Plex Sans per §4.
+4. **~~IBM Plex Serif / "thmanyah serif" licence.~~ RESOLVED 2026-10-03 — the Thmanyah font cannot be used on this site.**
+   Thmanyah released خط ثمانية publicly (font.thmanyah.com): three families
+   (Serif Display, Serif Text, Sans), five weights each, free for personal and
+   commercial use. But its licence is custom and proprietary, not OFL, and it
+   forbids exactly the way a website has to load a font. Verbatim from
+   font.thmanyah.com/licenses:
+
+   > إعادة توزيع برنامج الخط أو مشاركته أو رفعه أو استضافته أو إتاحته للتنزيل
+   > على أي موقع إلكتروني أو خادم أو منصة رقمية
+
+   — redistributing, sharing, uploading, hosting, or making the font available
+   for download on any website, server or digital platform. And: ولا يجوز تنزيل
+   برنامج الخط إلا من الموقع الرسمي لثمانية (it may only be downloaded from
+   Thmanyah's own site). Thmanyah's own help centre states the font may be used
+   *on* websites only once a visitor has installed it locally — not served as
+   webfont files.
+
+   Two consequences, both hard blocks:
+   - Self-hosting `.woff2` on wejdan.info is prohibited. A `@font-face` file is
+     by definition downloadable.
+   - Committing the font files to this **public** repo is redistribution, also
+     prohibited.
+
+   No web licence or CDN is offered; exceptions go through Ask@thmanyah.com.
+   So headings and body stay IBM Plex Sans / IBM Plex Sans Arabic (OFL, free to
+   self-host) unless Wejdan obtains written web permission from Thmanyah.
+   Do not re-open this by guessing: the blocker is the licence, not taste.
 5. **W monogram SVG asset.** Lives in Figma (`pei6kBFtNKDcYAwPBG1gTN`, node `404:5855`, page 11, "Brand/Logo/W") — a GitHub-only session has no Figma access to export it. Someone with Figma access needs to export Ink-900 and White SVG variants into `public/brand/` before the real logo can render; use a plain text "W" placeholder in the correct weight/colour until then, not a fabricated substitute mark.
 
 ---

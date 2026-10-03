@@ -110,7 +110,7 @@ const copy = {
   /* Hero headline — IBM Plex Sans SemiBold, no text-wrap balance.
      Explicit clamp so it works from 320px up. */
   .hero-title {
-    font-family: "IBM Plex Sans", "IBM Plex Sans Arabic", system-ui, sans-serif;
+    font-family: var(--font-display);
     font-weight: 600;
     /* Capped at 44px: the headline is two full sentences, so a display size
        that works for 3 words turns this into a wall. */
@@ -124,10 +124,16 @@ const copy = {
     max-width: 18ch;
   }
   html[lang="ar"] .hero-title {
-    font-family: "IBM Plex Sans Arabic", "IBM Plex Sans", system-ui, sans-serif;
+    font-family: var(--font-arabic);
     letter-spacing: 0;
     line-height: 1.45;
-    max-width: 22ch;
+    /* em, not ch. The ch unit is the advance of "0", and that differs 6.7%
+       between IBM Plex Sans Arabic and thmanyah sans — enough to change the
+       headline from three lines to two for a visitor who has thmanyah
+       installed. 13.2em is what 22ch resolves to in Plex, so both wrap the
+       same. Body copy still uses ch; a few percent there only reflows a
+       paragraph, it does not change a headline's shape. */
+    max-width: 13.2em;
   }
 
   .hero-line { display: block; min-height: 1lh; }
