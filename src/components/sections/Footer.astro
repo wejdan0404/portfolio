@@ -63,11 +63,24 @@ const year = new Date().getFullYear();
     color: var(--text-secondary);
     text-decoration: none;
     font-size: 0.95rem;
+    /* 44px minimum tap target — these were 36px on mobile */
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
     padding-block: 0.25rem;
   }
   html[lang="ar"] .footer-nav a { font-size: 1rem; }
   .footer-nav a:hover { color: var(--text-primary); }
   .contact { align-self: start; }
+  /* 44px minimum tap target — the mail link was 22px tall */
+  .contact a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    text-decoration: none;
+    color: var(--text-secondary);
+  }
+  .contact a:hover { color: var(--text-primary); text-decoration: underline; }
   .meta {
     display: flex;
     justify-content: space-between;
