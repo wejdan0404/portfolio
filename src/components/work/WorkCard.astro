@@ -4,6 +4,7 @@ import { type Locale, localePath, withBase } from "../../lib/i18n";
 import { strings, pick } from "../../lib/strings";
 import EvidenceDot from "./EvidenceDot.astro";
 import DeviceFrame from "./DeviceFrame.astro";
+import { W_MONOGRAM_PATH } from "../../lib/logo";
 
 export interface Props {
   entry: CollectionEntry<"case-studies">;
@@ -114,12 +115,9 @@ const screens = posterScreens.slice(0, screenCount);
           <span class="bc-grad" aria-hidden="true"></span>
           <span class="bc-grain" aria-hidden="true"></span>
           <svg class="bc-w" viewBox="0 0 48 48" width="54%" height="54%" aria-hidden="true">
-            <path d="M4.8 10.5 L11.9 36.5 L17.8 36.5 L24 18.1 L30.2 36.5 L36.1 36.5 L43.2 10.5 L37.4 10.5 L32.6 29.9 L26.5 11 L21.5 11 L15.4 29.9 L10.6 10.5 Z"
+            <path fill-rule="evenodd" clip-rule="evenodd" d={W_MONOGRAM_PATH}
                   fill="var(--logo-primary)"/>
           </svg>
-          <span class="bc-stars" aria-hidden="true">
-            <span></span><span></span><span></span>
-          </span>
           <span class="bc-displaytitle">{glyph === d.title.en.slice(0,1) ? d.title.en : d.title.ar}</span>
         </div>
       )}
@@ -451,35 +449,6 @@ const screens = posterScreens.slice(0, screenCount);
     opacity: 0.96;
   }
   html[dir="rtl"] .bc-w { transform: translate(50%, -58%); }
-  .bc-stars {
-    position: absolute;
-    inset: 0;
-    z-index: 3;
-    pointer-events: none;
-  }
-  .bc-stars span {
-    position: absolute;
-    background: var(--brand-primary);
-    clip-path: polygon(50% 0%, 55% 45%, 100% 50%, 55% 55%, 50% 100%, 45% 55%, 0% 50%, 45% 45%);
-  }
-  :global(:root[data-theme="dark"]) .bc-stars span,
-  :global(:root:not([data-theme="light"])) .bc-stars span { background: var(--brand-secondary); }
-  .bc-stars span:nth-child(1) {
-    width: 14px; height: 14px;
-    inset-block-start: 14%; inset-inline-end: 16%;
-    opacity: 0.9;
-  }
-  .bc-stars span:nth-child(2) {
-    width: 9px; height: 9px;
-    inset-block-end: 20%; inset-inline-start: 14%;
-    opacity: 0.6;
-  }
-  .bc-stars span:nth-child(3) {
-    width: 6px; height: 6px;
-    inset-block-start: 28%; inset-inline-start: 22%;
-    opacity: 0.5;
-  }
-  .wcard-lead .bc-stars span:nth-child(1) { width: 22px; height: 22px; }
   .bc-displaytitle {
     position: absolute;
     inset-block-end: 1.1rem;

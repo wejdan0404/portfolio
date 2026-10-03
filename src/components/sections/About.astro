@@ -1,5 +1,6 @@
 ---
 import { type Locale, localePath } from "../../lib/i18n";
+import { W_MONOGRAM_PATH } from "../../lib/logo";
 
 export interface Props { locale: Locale; }
 const { locale } = Astro.props;
@@ -71,8 +72,11 @@ const moreAr = "تفاصيل أكثر عن الطريقة";
           <div class="princ-mark" aria-hidden="true">
             {p.mark === "letter" && (
               <svg viewBox="0 0 48 48" width="24" height="24">
-                <path d="M4.8 10.5 L11.9 36.5 L17.8 36.5 L24 18.1 L30.2 36.5 L36.1 36.5 L43.2 10.5 L37.4 10.5 L32.6 29.9 L26.5 11 L21.5 11 L15.4 29.9 L10.6 10.5 Z"
-                      fill="currentColor"/>
+                {/* CLAUDE.md §2: the W mark renders only in Ink 900 or White —
+                    never in an accent colour, so it does not take the chip's
+                    brand-primary currentColor like the three diagram icons do. */}
+                <path fill-rule="evenodd" clip-rule="evenodd" d={W_MONOGRAM_PATH}
+                      fill="var(--logo-primary)"/>
               </svg>
             )}
             {p.mark === "stars" && (
