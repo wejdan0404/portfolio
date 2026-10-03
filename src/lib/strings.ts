@@ -4,10 +4,10 @@ type Bi = { en: string; ar: string };
 const t = (en: string, ar: string): Bi => ({ en, ar });
 
 export const strings = {
-  siteTitle: t("Wejdan — UI & UX designer", "وجدان — مصممة واجهات وتجربة مستخدم"),
+  siteTitle: t("Wejdan Almalki — HCI & UI/UX", "وجدان المالكي — خريجة HCI ومصممة UI/UX"),
   siteDescription: t(
-    "A Jeddah-based UI & UX designer. I study the user before I design for them.",
-    "مصممة تجربة مستخدم وواجهات، خريجة تفاعل الإنسان والحاسب. أفهم احتياج المستخدم قبل ما أصمم له.",
+    "Wejdan Almalki holds a Bachelor’s degree in Human-Computer Interaction (HCI) from Umm Al-Qura University. Her professional areas include UI/UX design, UX research, product design, human–AI interaction, and customer experience (CX).",
+    "وجدان المالكي حاصلة على بكالوريوس تفاعل الإنسان مع الحاسب من جامعة أم القرى. تشمل مجالاتها المهنية تصميم UI/UX، وأبحاث تجربة المستخدم، وتصميم المنتجات، والتفاعل بين الإنسان والذكاء الاصطناعي، وتجربة العميل (CX).",
   ),
   nav: {
     work: t("Work", "الأعمال"),
@@ -59,13 +59,13 @@ export const strings = {
     status: t("Status", "الحالة"),
   },
   home: {
-    eyebrow: t("UX · UI · HCI", "تجربة · واجهة · تفاعل إنسان-حاسب"),
+    eyebrow: t("HCI · UI/UX · UX Research", "تفاعل الإنسان مع الحاسب · تصميم UI/UX · أبحاث تجربة المستخدم"),
     heroLineA: t("UI & UX designer.", "مصممة واجهات وتجربة مستخدم."),
     heroLineB: t("I study the user", "أفهم المستخدم"),
     heroLineC: t("before I design for them.", "قبل ما أصمم له."),
     heroLede: t(
-      "HCI graduate from Jeddah. I work on apps and websites, and test them with the user before they ship.",
-      "خريجة تفاعل الإنسان والحاسب. أصمم التطبيقات والمواقع، وأختبرها مع المستخدمين قبل إطلاقها.",
+      "Bachelor’s degree in HCI from Umm Al-Qura University. I design apps and websites and test them with users before launch.",
+      "حاصلة على بكالوريوس تفاعل الإنسان مع الحاسب من جامعة أم القرى. أصمم التطبيقات والمواقع، وأختبرها مع المستخدمين قبل إطلاقها.",
     ),
     workEyebrow: t("Selected work", "أعمال مختارة"),
     workHeading: t("My work.", "مشاريعي."),
@@ -79,8 +79,8 @@ export const strings = {
       "كيف أشتغل.",
     ),
     aboutBody: t(
-      "HCI graduate from Jeddah. I lean on real research, honest critique, and clear design systems. Arabic and English get the same work — not translation.",
-      "أعتمد على البحث والملاحظات الواضحة وأنظمة التصميم. وأصمم بالعربي والإنجليزي من البداية، مو كأن أحد ترجم الشاشة بعدين.",
+      "Bachelor’s degree in HCI from Umm Al-Qura University. I lean on user research, clear critique, and design systems. I give Arabic and English the same care from the start.",
+      "حاصلة على بكالوريوس تفاعل الإنسان مع الحاسب من جامعة أم القرى. أعتمد على البحث وملاحظات المستخدمين وأنظمة التصميم، وأتعامل مع العربي والإنجليزي بنفس الاهتمام من البداية.",
     ),
     capabilitiesEyebrow: t("Capabilities", "القدرات"),
     capabilitiesHeading: t("What I bring to a product team.", "كيف أضيف لفريق المنتج."),
@@ -128,8 +128,6 @@ export const strings = {
     ),
     emailLabel: t("Email", "الإيميل"),
     linkedinLabel: t("LinkedIn", "لينكدإن"),
-    locationLabel: t("Based in", "المقر"),
-    location: t("Makkah / Jeddah, Saudi Arabia", "مكة / جدة، السعودية"),
     responseNote: t(
       "I reply when I can give the message a thoughtful read, usually within a few days.",
       "أرد لمّا أقدر أقرا الرسالة بتركيز — عادةً خلال أيام قليلة.",
@@ -151,8 +149,8 @@ export const strings = {
     ),
   },
   footer: {
-    rights: t("Wejdan's portfolio — HCI graduate.", "موقع وجدان الشخصي — خريجة HCI."),
-    sourceNote: t("Built with care; no fabricated claims.", "تصميم وتجربة مستخدم — وجدان."),
+    rights: t("Wejdan Almalki’s portfolio — HCI graduate.", "موقع وجدان المالكي — خريجة تفاعل الإنسان مع الحاسب."),
+    sourceNote: t("UI/UX · Research · Product Design", "تصميم UI/UX · أبحاث المستخدمين · تصميم المنتجات"),
   },
   work: {
     pageTitle: t("Work", "الأعمال"),
