@@ -1236,7 +1236,9 @@ const flaggedForReflection =
     background: color-mix(in oklab, var(--pt-dark, var(--surface-elevated)) 55%, var(--surface-subtle));
   }
   .pv-walk-screen :global(.dframe) {
-    width: min(280px, 70%);
+    width: 280px;
+    max-width: 100%;
+    justify-self: center;
   }
   .pv-walk-screen .pv-walk-artifact {
     width: 100%;
