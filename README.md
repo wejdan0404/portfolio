@@ -1,6 +1,6 @@
 # Wejdan Portfolio
 
-Bilingual (Arabic / English) portfolio for Wejdan at **https://wejdan.info**.
+Bilingual (Arabic / English) portfolio for Wejdan Almalki (وجدان المالكي) at **https://wejdan.info**.
 Built with Astro 5, Tailwind CSS, and React islands.
 
 Full build brief lives in `CLAUDE.md` — read that before changing anything substantive. Content for the six case studies lives under `src/content/case-studies/*.json`.
