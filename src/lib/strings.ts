@@ -79,8 +79,8 @@ export const strings = {
       "أصمّم كما أتمنّى أن يصمَّم لي.",
     ),
     aboutBody: t(
-      "Trained in Human–Computer Interaction at Umm Al-Qura University, I lean on primary research, structured critique, and a strong design-systems foundation. My work holds Arabic and English to the same quality bar — because readers deserve both, not a translated afterthought.",
-      "تدرّبت على التفاعل بين الإنسان والحاسب في جامعة أم القرى. أعتمد على البحث الأولي، والنقد المنظّم، وأساسٍ متين من أنظمة التصميم. أُلزِم عملي بالعربية والإنجليزية بالمستوى نفسه، لأن القارئ يستحقّ لغتين لا ترجمةً عابرة.",
+      "Trained in Human–Computer Interaction, I lean on primary research, structured critique, and a strong design-systems foundation. My work holds Arabic and English to the same quality bar — because readers deserve both, not a translated afterthought.",
+      "تدرّبت في التفاعل بين الإنسان والحاسب. أعتمد على البحث الأولي، والنقد المنظّم، وأساسٍ متين من أنظمة التصميم. أُلزِم عملي بالعربية والإنجليزية بالمستوى نفسه، لأن القارئ يستحقّ لغتين لا ترجمةً عابرة.",
     ),
     capabilitiesEyebrow: t("Capabilities", "القدرات"),
     capabilitiesHeading: t("What I bring to a product team.", "ما أُضيفه إلى فريق المنتج."),
