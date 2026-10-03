@@ -8,7 +8,7 @@
 
 ## 1. Mission & who this is for
 
-Wejdan is an HCI graduate targeting UX/UI Design, Product Design, UX Research and related roles — primarily in **Makkah and Jeddah**, plus remote — at Saudi and international companies, through direct applications, recruiters, and freelance. This portfolio is the single most important asset in that search. It will be read by hiring managers and recruiters who see hundreds of portfolios; it has to read as **professional, honest, and systems-minded**, not as a student project showcase.
+Wejdan Almalki (وجدان المالكي) holds a Bachelor’s degree in Human-Computer Interaction (HCI) from Umm Al-Qura University, College of Computing, Software Engineering Department (2026). Her GPA is 3.59/4.00, with an Excellent rating and Second Honors. Her professional areas are HCI, UI/UX Design, UX Research, Product Design, Human–AI Interaction, and Customer Experience (CX). Do not state her residence, birthplace, or geographic location unless she confirms it. This portfolio is the single most important asset in her professional search. It will be read by hiring managers and recruiters who see hundreds of portfolios; it has to read as **professional, honest, and systems-minded**, not as a student project showcase.
 
 **The portfolio is explicitly not finished and not final.** Nothing here — including this brief — is to be treated as a fixed spec to execute mechanically. Audit, critique, and improve as you go, the same way the Figma identity file is being audited frame-by-frame. If something in this brief is weak, say so and propose better, but flag the change rather than silently drifting from it.
 
