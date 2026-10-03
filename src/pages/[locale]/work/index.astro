@@ -24,8 +24,8 @@ const all = await getCollection("case-studies");
 all.sort((a, b) => orderOf(a) - orderOf(b));
 
 const introLine = {
-  en: "Six case studies, each labelled with the evidence behind it.",
-  ar: "ست دراسات حالة، كلٌّ منها مَوسومة بالأدلّة التي تسندها.",
+  en: "Between research and design.",
+  ar: "ما بين البحث والتصميم.",
 };
 ---
 
@@ -40,9 +40,7 @@ const introLine = {
       <header class="work-head">
         <span class="type-eyebrow">{pick(strings.nav.work, locale)}</span>
         <h1 class="type-display-l work-h1">
-          {locale === "ar"
-            ? "ستة مشاريع. ستة تقييمات صادقة."
-            : "Six projects. Six honest evaluations."}
+          {locale === "ar" ? "مشاريعي." : "My work."}
         </h1>
         <p class="work-intro">{pick(introLine, locale)}</p>
         <p class="type-body work-lede">{pick(strings.work.pageLede, locale)}</p>

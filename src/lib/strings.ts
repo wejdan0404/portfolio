@@ -68,10 +68,10 @@ export const strings = {
       "أنا وجدان، خريجة تفاعل بين الإنسان والحاسب. أعمل في تصميم التجربة والواجهة وبحث المستخدم، وأصمّم للعربية والإنجليزية بالقدر نفسه من الدقة، وأعرض الأدلة التي تسند القرارات، وأبقي الزينة بعيدة عن طريق الوضوح.",
     ),
     workEyebrow: t("Selected work", "أعمال مختارة"),
-    workHeading: t("Six projects. Six honest evaluations.", "ستة مشاريع. ستة تقييمات صادقة."),
+    workHeading: t("My work.", "مشاريعي."),
     workLede: t(
-      "Each study links back to its real evidence. If something was planned but never tested, it says so.",
-      "ترجع كل دراسة إلى أدلتها الفعلية. وإذا كان شيء مُخطَّطًا ولم يُختبر، فذلك مذكور صراحةً.",
+      "Between research and design.",
+      "ما بين البحث والتصميم.",
     ),
     aboutEyebrow: t("About", "عنّي"),
     aboutHeading: t(
@@ -157,8 +157,8 @@ export const strings = {
   work: {
     pageTitle: t("Work", "الأعمال"),
     pageLede: t(
-      "Six HCI and product-design projects from academic and freelance work, condensed to their evidence.",
-      "ستة مشاريع في التفاعل بين الإنسان والحاسب وتصميم المنتج، من أعمال أكاديمية وحرة، مُلخَّصة إلى أدلتها.",
+      "Six projects, academic and personal, each with its own evidence.",
+      "ست مشاريع، بين أكاديمية وشخصية، كل وحدة بأدلّتها.",
     ),
     openCase: t("Read the case", "اقرأ الدراسة"),
     allCases: t("All case studies", "جميع دراسات الحالة"),

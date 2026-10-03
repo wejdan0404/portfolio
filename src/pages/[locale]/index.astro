@@ -18,12 +18,12 @@ export function getStaticPaths() {
 const locale = Astro.params.locale as Locale;
 
 const title = locale === "ar"
-  ? "وجدان — مصممة منتجات من جدة"
-  : "Wejdan — Product designer, Jeddah";
+  ? "وجدان — مصممة واجهات وتجربة مستخدم"
+  : "Wejdan — UI & UX designer";
 
 const description = locale === "ar"
-  ? "وجدان مصممة منتجات من جدة. تجربة مستخدم وأبحاث لسياق سعودي."
-  : "Wejdan is a Jeddah-based product designer. UX and research for Saudi products.";
+  ? "مصممة واجهات وتجربة مستخدم من جدة. أدرس المستخدم قبل ما أصمم له."
+  : "A Jeddah-based UI & UX designer. I study the user before I design for them.";
 ---
 
 <Base locale={locale} title={title} description={description} path="">
