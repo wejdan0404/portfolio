@@ -6,6 +6,7 @@ import ServiceBlock from "../../components/services/ServiceBlock.astro";
 import ProcessStrip from "../../components/services/ProcessStrip.astro";
 import PrincipleGrid from "../../components/services/PrincipleGrid.astro";
 import HonestyBlock from "../../components/services/HonestyBlock.astro";
+import WorkGrid from "../../components/work/WorkGrid.astro";
 
 export function getStaticPaths() {
   return LOCALES.map((l) => ({ params: { locale: l } }));
@@ -23,7 +24,7 @@ const opening = {
   ),
   support: t(
     "I hold a Bachelor’s degree in Human-Computer Interaction (HCI) from Umm Al-Qura University. I work in Arabic and English, test with users, and document decisions so teams can build on them.",
-    "حاصلة على بكالوريوس تفاعل الإنسان مع الحاسب من جامعة أم القرى. أصمم بالعربي والإنجليزي، وأختبر التجربة مع المستخدمين، وأوثّق قرارات التصميم عشان الفريق يقدر يكمل عليها.",
+    "حاصلة على بكالوريوس تفاعل الإنسان مع الحاسب من جامعة أم القرى. أصمم بالعربي والإنجليزي، وأختبر التجربة مع المستخدمين، وأوثّق قرارات التصميم عشان يكون واضح وش اللي انبنى عليه القرار.",
   ),
 };
 
@@ -308,6 +309,23 @@ const mailto = `mailto:wejdan4458@gmail.com?subject=${encodeURIComponent(mailSub
     </div>
   </section>
 
+  <section class="service-work" aria-labelledby="service-work-h">
+    <div class="container-wide">
+      <div class="service-work-head">
+        <span class="type-eyebrow">{locale === "ar" ? "أعمال تثبتها" : "Selected work"}</span>
+        <h2 id="service-work-h" class="type-display-m">
+          {locale === "ar" ? "مشاريع توضّح طريقة التفكير." : "Projects that show the method."}
+        </h2>
+        <p>
+          {locale === "ar"
+            ? "هنا المشاريع مكتوبة كقطع بورتفوليو: الفكرة، الفئة، الشي المميز، المهارات، الأدوات، ونوع التقييم إذا كان جزء مهم من المشروع."
+            : "These projects are written as portfolio pieces: idea, audience, standout value, methods, tools, and evaluation when it matters."}
+        </p>
+      </div>
+      <WorkGrid locale={locale} />
+    </div>
+  </section>
+
   <!-- 3. Capabilities — four plain columns -->
   <section class="caps" aria-labelledby="caps-h">
     <div class="container-wide">
@@ -392,7 +410,7 @@ const mailto = `mailto:wejdan4458@gmail.com?subject=${encodeURIComponent(mailSub
 <style>
   /* 1. Opening statement — editorial top */
   .opening {
-    padding-block: clamp(56px, 8vw, 96px) clamp(36px, 5vw, 60px);
+    padding-block: clamp(48px, 7vw, 84px) clamp(28px, 4vw, 48px);
   }
   .opening-statement {
     font-size: clamp(1.75rem, 3.4vw, 2.75rem);
@@ -424,6 +442,22 @@ const mailto = `mailto:wejdan4458@gmail.com?subject=${encodeURIComponent(mailSub
   .services-stack {
     padding-block: 0;
   }
+
+  .service-work {
+    padding-block: clamp(44px, 6vw, 76px);
+    border-block-start: 1px solid var(--border-subtle);
+  }
+  .service-work-head {
+    display: grid;
+    gap: 0.75rem;
+    margin-block-end: clamp(2rem, 4vw, 3rem);
+    max-width: 58ch;
+  }
+  .service-work-head p {
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+  html[lang="ar"] .service-work-head p { line-height: 1.9; }
 
   /* 3. Capabilities — plain, generous */
   .caps {

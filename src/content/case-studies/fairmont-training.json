@@ -1,0 +1,50 @@
+{
+  "slug": "fairmont-training",
+  "tier": "early",
+  "status": "tested",
+  "order": 11,
+  "year": "2025",
+  "coverTreatment": "brand",
+  "tint": { "light": "#F0ECE4", "dark": "#32291D" },
+  "title": {
+    "en": "Fairmont Cooperative Training",
+    "ar": "التدريب التعاوني في Fairmont"
+  },
+  "sub": {
+    "en": "Hospitality UX through journey mapping and website evaluation.",
+    "ar": "تجربة ضيافة عبر خريطة رحلة وتقييم موقع."
+  },
+  "context": {
+    "en": "Applied customer experience work in a hospitality setting.",
+    "ar": "عمل تطبيقي في تجربة العميل داخل سياق ضيافة."
+  },
+  "problem": {
+    "en": "Hospitality experience is shaped by many touchpoints: booking clarity, room information, offers, dining, contact, and service quality standards. The work connects these touchpoints into one journey view.",
+    "ar": "تجربة الضيافة تتشكل من نقاط كثيرة: وضوح الحجز، معلومات الغرف، العروض، المطاعم، التواصل، ومعايير جودة الخدمة. المشروع يربط هذه النقاط في خريطة رحلة واحدة."
+  },
+  "approach": {
+    "en": "The work combined guest journey mapping, TrustYou review analysis, LQA standards, Nielsen heuristic evaluation, WCAG review, and prioritized website recommendations.",
+    "ar": "العمل جمع بين خريطة رحلة الضيف، تحليل مراجعات TrustYou، معايير LQA، تقييم Nielsen، مراجعة WCAG، وتوصيات مرتبة حسب الأولوية للموقع."
+  },
+  "methods": [
+    { "en": "Customer journey mapping", "ar": "Customer Journey Mapping" },
+    { "en": "Heuristic evaluation", "ar": "Heuristic Evaluation" },
+    { "en": "WCAG review", "ar": "مراجعة WCAG" },
+    { "en": "LQA comparison", "ar": "مقارنة معايير LQA" }
+  ],
+  "evidence": [
+    {
+      "kind": "callout",
+      "value": { "en": "5 page groups", "ar": "5 مجموعات صفحات" },
+      "label": {
+        "en": "Home, Rooms, Offers, Dine, and Location & Contact were included in the evaluation scope.",
+        "ar": "شمل نطاق التقييم Home وRooms وOffers وDine وLocation & Contact."
+      }
+    }
+  ],
+  "images": [],
+  "closing": {
+    "en": "This belongs in the experience section: it connects service quality, guest journey mapping, and practical website evaluation.",
+    "ar": "مكانه الأقوى ضمن الخبرات التطبيقية: يربط جودة الخدمة، خريطة رحلة الضيف، وتقييم موقع قابل للتنفيذ."
+  }
+}

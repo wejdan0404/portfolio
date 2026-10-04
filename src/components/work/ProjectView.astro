@@ -31,7 +31,7 @@ export interface Props {
 const { entry, prev, next, locale } = Astro.props;
 
 // Treat the data as a superset so this component works whether the content
-// collection follows the richer schema (year/context/teamSize/hero/images[])
+// collection follows the richer schema (year/context/hero/images[])
 // or the lean schema (slug/tier/status/order/.../images/flags).
 const d = entry.data as any;
 
@@ -39,7 +39,6 @@ const title = pick(d.title, locale);
 const sub = pick(d.sub, locale);
 const problemText = d.problem ? pick(d.problem, locale) : "";
 const approachText = d.approach ? pick(d.approach, locale) : "";
-const roleText = d.role ? pick(d.role, locale) : "";
 const closingText = d.closing ? pick(d.closing, locale) : "";
 const contextText = d.context ? pick(d.context, locale) : "";
 const taglineText = d.tagline ? pick(d.tagline, locale) : "";
@@ -127,7 +126,6 @@ const evidence: Array<{
 }> = Array.isArray(d.evidence) ? d.evidence : [];
 
 const status: "tested" | "planned" | "early" = d.status;
-const teamSize: number | undefined = typeof d.teamSize === "number" ? d.teamSize : undefined;
 const year: string | undefined = typeof d.year === "string" ? d.year : undefined;
 
 const back = localePath(locale, "work");
@@ -147,9 +145,7 @@ const L = {
   walkthroughHeading: locale === "ar" ? "كيف تظهر التجربة للمستخدم؟" : "What the user sees.",
   problem: pick(strings.caseStudyLabels.problem, locale),
   approach: pick(strings.caseStudyLabels.approach, locale),
-  role: pick(strings.caseStudyLabels.role_, locale),
   context: pick(strings.caseStudyLabels.context, locale),
-  team: pick(strings.caseStudyLabels.teamSize, locale),
   year: pick(strings.caseStudyLabels.year, locale),
   statusL: pick(strings.caseStudyLabels.status, locale),
   closing: pick(strings.caseStudyLabels.closing, locale),
@@ -167,12 +163,10 @@ const L = {
     ? "فقرة تأمّل من وجدان — ستُضاف لاحقًا."
     : "A short reflection from Wejdan — to be written.",
   credits: locale === "ar"
-    ? "عمل جماعي؛ الإسهامات الفردية مذكورة أعلاه."
-    : "A team project; individual contributions as noted above.",
+    ? "تفاصيل المشروع معروضة من زاوية الفكرة والأساليب والنتائج فقط."
+    : "Project details are presented through idea, methods, and outcomes only.",
   sub: pick(strings.caseStudyLabels.outcome, locale),
   sources: locale === "ar" ? "المصادر" : "Sources",
-  teamFmt: (n: number) =>
-    locale === "ar" ? `فريق من ${n}` : n === 1 ? "Solo" : `Team of ${n}`,
   statusText: pick(strings.statusLabel[status], locale),
 };
 
@@ -246,14 +240,6 @@ const flaggedForReflection =
         <h1 class="pv-title">{title}</h1>
         <p class="pv-sub">{sub}</p>
         {taglineText ? <p class="pv-tagline">{taglineText}</p> : null}
-        {roleText ? (
-          <p class="pv-role">
-            <span class="pv-role-lab">{L.role}</span>
-            <span class="pv-role-text">{roleText}</span>
-          </p>
-        ) : (
-          <ReviewFlag required={["role"]} locale={locale} />
-        )}
       </div>
       <figure class="pv-hero-media" style={heroKind === "poster" ? heroTintStyle : undefined}>
         {heroKind === "poster" ? (
@@ -327,10 +313,6 @@ const flaggedForReflection =
           <dd class="pv-ctx-status">
             <EvidenceDot status={status} locale={locale} />
           </dd>
-        </div>
-        <div class="pv-ctx-cell">
-          <dt>{L.team}</dt>
-          <dd>{teamSize ? L.teamFmt(teamSize) : <ReviewFlag required={["teamSize"]} locale={locale} />}</dd>
         </div>
       </dl>
     </div>
@@ -722,29 +704,6 @@ const flaggedForReflection =
     max-width: 48ch;
   }
   html[lang="ar"] .pv-tagline { font-style: normal; }
-
-  .pv-role {
-    margin-block-start: 1.5rem;
-    padding: 1rem 1.1rem;
-    border: 1px solid var(--border-subtle);
-    background: var(--surface-subtle);
-    border-radius: 12px;
-    font-size: 0.9375rem;
-    color: var(--text-primary);
-    line-height: 1.55;
-    max-width: 56ch;
-    display: block;
-  }
-  html[lang="ar"] .pv-role { font-size: 1rem; line-height: 1.8; }
-  .pv-role-lab {
-    display: block;
-    font-size: 0.75rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin-block-end: 0.4rem;
-  }
-  html[lang="ar"] .pv-role-lab { letter-spacing: 0; text-transform: none; font-size: 0.85rem; }
 
   /* Hero media */
   .pv-hero-media {

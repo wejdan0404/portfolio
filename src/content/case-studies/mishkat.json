@@ -3,35 +3,63 @@
   "tier": "flagship",
   "status": "tested",
   "order": 1,
-  "tint": { "light": "#FDF2E8", "dark": "#2A2017" },
+  "tint": {
+    "light": "#FDF2E8",
+    "dark": "#2A2017"
+  },
   "posterScreens": [
-    { "src": "/img/projects/mishkat/breathe-inspire.webp", "alt": { "en": "Breathe · inspiration", "ar": "تنفّس · إلهام" }, "w": 393, "h": 852 },
-    { "src": "/img/projects/mishkat/mood-match-color.webp", "alt": { "en": "Match each feeling to a colour", "ar": "طابق كل شعور بلونه" }, "w": 393, "h": 852 },
-    { "src": "/img/projects/mishkat/activities.webp", "alt": { "en": "Activities · fineness", "ar": "الأنشطة · اللطف" }, "w": 393, "h": 852 },
-    { "src": "/img/projects/mishkat/mood-find-smile.webp", "alt": { "en": "Find the smiling face", "ar": "اعثر على الوجه المبتسم" }, "w": 393, "h": 852 }
+    {
+      "src": "/img/projects/mishkat/breathe-inspire.webp",
+      "alt": {
+        "en": "Breathe · inspiration",
+        "ar": "تنفّس · إلهام"
+      },
+      "w": 393,
+      "h": 852
+    },
+    {
+      "src": "/img/projects/mishkat/mood-match-color.webp",
+      "alt": {
+        "en": "Match each feeling to a colour",
+        "ar": "طابق كل شعور بلونه"
+      },
+      "w": 393,
+      "h": 852
+    },
+    {
+      "src": "/img/projects/mishkat/activities.webp",
+      "alt": {
+        "en": "Activities · fineness",
+        "ar": "الأنشطة · اللطف"
+      },
+      "w": 393,
+      "h": 852
+    },
+    {
+      "src": "/img/projects/mishkat/mood-find-smile.webp",
+      "alt": {
+        "en": "Find the smiling face",
+        "ar": "اعثر على الوجه المبتسم"
+      },
+      "w": 393,
+      "h": 852
+    }
   ],
   "title": {
     "en": "Mishkat",
     "ar": "مِشكاة"
   },
   "sub": {
-    "en": "Mental wellness for gifted Saudi students.",
-    "ar": "رفاه نفسي للطلبة الموهوبين."
+    "en": "Arabic mental wellness support for gifted students.",
+    "ar": "دعم نفسي عربي وخفيف للطلبة الموهوبين."
   },
   "problem": {
-    "en": "Gifted students in Arabic-language schools avoid wellness apps that feel clinical or exposed. Only 74 of 287 surveyed had used one; 225 of 287 said privacy was important.",
-    "ar": "يتجنّب الطلبة الموهوبون في المدارس العربية تطبيقات العافية ذات الطابع العلاجي. 74 فقط من أصل 287 جرّبوها، ورأى 225 من 287 أن الخصوصية مهمة.",
-    "_sources": "facts.md F20, F21, F26"
+    "en": "Gifted students often avoid wellness apps that feel clinical, exposed, or too demanding. Mishkat focuses on privacy, low effort, and Arabic-first support.",
+    "ar": "الطلبة الموهوبون يحتاجون دعمًا عاطفيًا لا يبدو علاجيًا أو مكشوفًا أو متطلبًا. مِشكاة يركز على الخصوصية، الجهد القليل، وتجربة عربية من البداية."
   },
   "approach": {
-    "en": "The home screen opens with a mood check-in; each of nine moods pairs an emoji with a text label and leads to one short activity, not a menu. Skipping carries no penalty. The AI companion stays inside Mishkat's own activities.",
-    "ar": "تبدأ الشاشة الرئيسية بتسجيل الشعور؛ ولكلٍّ من المشاعر التسعة رمز تعبيري واسم مكتوب يقود إلى نشاط قصير واحد لا إلى قائمة. ولا يترتب على التخطّي عقوبة، ويعمل المساعد الذكي ضمن أنشطة التطبيق فقط.",
-    "_sources": "facts.md F51, F52, F53, F54, F60"
-  },
-  "role": {
-    "en": "Team of 6. My part: storyboards and the information-architecture navigation flow (Week 7 proposal). The app was built in Flutter by the team; my build contribution is not documented.",
-    "ar": "ضمن فريق من 6. دوري: القصص المصوّرة ومخطط التنقل ضمن هندسة المعلومات (مقترح الأسبوع السابع). طُوّر التطبيق بـFlutter عن طريق الفريق، ومساهمتي البرمجية غير موثّقة.",
-    "_sources": "facts.md F10, F13, F15"
+    "en": "The experience starts with a mood check-in, then moves users into one short activity such as breathing, journaling, mindfulness, games, or focus. The AI companion stays inside the app scope and suggests activities rather than diagnosis.",
+    "ar": "تبدأ التجربة بتسجيل الشعور، ثم تقترح نشاطًا قصيرًا مثل التنفس، التدوين، الوعي الذهني، الألعاب الخفيفة، أو التركيز. المساعد الذكي يبقى داخل حدود التطبيق ويقترح أنشطة بدل ما يقدم تشخيص."
   },
   "evidence": [
     {
@@ -98,9 +126,8 @@
     }
   ],
   "closing": {
-    "en": "A Flutter PWA built on 15 interviews, 287 survey responses and two prototype rounds, then validated with six target users. It measures usability, not well-being — and does not claim what it did not test.",
-    "ar": "تطبيق Flutter على الويب يرتكز على 15 مقابلة و287 استجابة لاستبانة وجولتَي اختبار للنموذج الأولي، ثم تحقّق واحد مع ست مستخدمات من الفئة المستهدفة. يقيس قابلية الاستخدام، لا أثر العافية — ولا يدّعي ما لم يختبره.",
-    "_sources": "facts.md F20, F70, F81, F85, F101"
+    "en": "Mishkat is strongest as a full HCI case: research, Arabic UX, iterative testing, accessibility, and an implemented mobile experience.",
+    "ar": "قوة مِشكاة أنه دراسة HCI كاملة: بحث، تجربة عربية، اختبار وتكرار، إمكانية وصول، وتجربة موبايل قابلة للاستخدام."
   },
   "images": [
     {

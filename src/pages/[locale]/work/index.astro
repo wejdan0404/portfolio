@@ -14,7 +14,19 @@ const locale = Astro.params.locale as Locale;
 
 // Deterministic order shared with the home page's WorkGrid. If a case study
 // provides an explicit numeric `order`, it wins.
-const DEFAULT_ORDER = ["mishkat", "arcadea", "rafiq", "wraf", "vui", "petcare"];
+const DEFAULT_ORDER = [
+  "mishkat",
+  "nusuk-accessibility",
+  "mental-health-platforms",
+  "wraf",
+  "rafiq",
+  "vui",
+  "arcadea",
+  "petcare",
+  "smart-farm-srs",
+  "flynas-redesign",
+  "fairmont-training",
+];
 function orderOf(entry: { data: any }) {
   if (typeof entry.data.order === "number") return entry.data.order;
   const i = DEFAULT_ORDER.indexOf(entry.data.slug);

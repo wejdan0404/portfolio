@@ -4,29 +4,25 @@
   "status": "early",
   "order": 6,
   "coverTreatment": "brand",
-  "tint": { "light": "#F5E8D6", "dark": "#1F160C" },
+  "tint": {
+    "light": "#F5E8D6",
+    "dark": "#1F160C"
+  },
   "title": {
     "en": "Pet Care",
     "ar": "Pet Care"
   },
   "sub": {
-    "en": "An early concept: book a vet, buy pet supplies.",
-    "ar": "مفهوم أولي: حجز موعد بيطري وشراء المستلزمات."
+    "en": "Inclusive web design for pet care services.",
+    "ar": "تصميم ويب شامل لخدمات رعاية الحيوانات الأليفة."
   },
   "problem": {
-    "en": "The brief states needs rather than a problem: pet owners schedule vet appointments and buy supplies to care for their pets. The document names no difficulty with current tools and gives no evidence of one.",
-    "ar": "يصف الموجز احتياجات لا مشكلة: يحجز أصحاب الحيوانات الأليفة مواعيد الطبيب البيطري ويشترون المستلزمات للعناية بها. لا تذكر الوثيقة صعوبة في الأدوات الحالية ولا دليلًا عليها.",
-    "_sources": "facts.md F09, F12, F39"
+    "en": "Pet owners need a clear path to appointments, medical care, products, and cart actions without losing orientation.",
+    "ar": "أصحاب الحيوانات الأليفة يحتاجون طريق واضح للمواعيد، الرعاية الطبية، المنتجات، وسلة الشراء بدون تشتت."
   },
   "approach": {
-    "en": "Phase 1 covers framing before design: a W5H, an empathy map centred on one owner, four hand-drawn sketches that share a bottom-bar frame, and four first screens that keep the four areas but move navigation to the top of the screen.",
-    "ar": "تغطي المرحلة الأولى التأطير قبل التصميم: إجابات W5H، وخريطة تعاطف تدور حول مالكة قطة، و4 رسومات يدوية تتشارك إطارًا بشريط سفلي، و4 شاشات أولى تحتفظ بالأجزاء الأربعة وتنقل التنقل إلى أعلى الشاشة.",
-    "_sources": "facts.md F08–F13, F14, F21, F22, F28, F33"
-  },
-  "role": {
-    "en": "Team of 4. The document lists four authors on the cover and does not split the work by person, so this early entry is credited to the team.",
-    "ar": "ضمن فريق من 4. تذكر الوثيقة أربعة أسماء على الغلاف دون توزيع للمهام، لذلك يُنسب هذا العمل المبكر إلى الفريق.",
-    "_sources": "facts.md F04, F07"
+    "en": "The project documents inclusive design decisions, semantic structure, navigation landmarks, and ARIA labeling for key sections.",
+    "ar": "المشروع يوثق قرارات Inclusive Design، البنية الدلالية، مناطق التنقل، وتسميات ARIA للأقسام المهمة."
   },
   "evidence": [
     {
@@ -76,9 +72,8 @@
     }
   ],
   "closing": {
-    "en": "The honest shape of this entry is early exploration: real artefacts that hang together, no evaluation, no research basis, and the kind of gaps a reviewer should see — not a flagship case study.",
-    "ar": "الشكل الصادق لهذا العمل استكشاف مبكر: أعمال حقيقية متماسكة، لا تقييم، لا أساس بحثي، وفجوات ينبغي أن يراها المراجع — لا دراسة حالة رائدة.",
-    "_sources": "facts.md F37, F38, F39, F40"
+    "en": "The case works as an early accessibility-minded web project, especially through structure and ARIA documentation.",
+    "ar": "المشروع مناسب كحالة ويب مبكرة تهتم بإمكانية الوصول، خصوصًا من ناحية البنية وتوثيق ARIA."
   },
   "images": [],
   "flags": {

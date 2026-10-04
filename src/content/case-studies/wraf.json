@@ -4,35 +4,63 @@
   "status": "tested",
   "order": 4,
   "coverTreatment": "brand",
-  "tint": { "light": "#F0ECE2", "dark": "#1E1812" },
+  "tint": {
+    "light": "#F0ECE2",
+    "dark": "#1E1812"
+  },
   "posterScreens": [
-    { "src": "/img/projects/wraf/recipe-butterfly-pea.webp", "alt": { "en": "Recipe · Iced Butterfly Pea Flower Tea Latte", "ar": "وصفة · شاي زهرة البازلاء المثلّج" }, "w": 428, "h": 926 },
-    { "src": "/img/projects/wraf/tea-store.webp", "alt": { "en": "Tea store · All types", "ar": "متجر الشاي · كل الأنواع" }, "w": 428, "h": 958 },
-    { "src": "/img/projects/wraf/product-blackcurrant.webp", "alt": { "en": "Product · Blackcurrant Infusion", "ar": "منتج · شاي الكشمش" }, "w": 428, "h": 926 },
-    { "src": "/img/projects/wraf/recipes-grid.webp", "alt": { "en": "Recipes · Grid", "ar": "الوصفات · شبكة" }, "w": 428, "h": 958 }
+    {
+      "src": "/img/projects/wraf/recipe-butterfly-pea.webp",
+      "alt": {
+        "en": "Recipe · Iced Butterfly Pea Flower Tea Latte",
+        "ar": "وصفة · شاي زهرة البازلاء المثلّج"
+      },
+      "w": 428,
+      "h": 926
+    },
+    {
+      "src": "/img/projects/wraf/tea-store.webp",
+      "alt": {
+        "en": "Tea store · All types",
+        "ar": "متجر الشاي · كل الأنواع"
+      },
+      "w": 428,
+      "h": 958
+    },
+    {
+      "src": "/img/projects/wraf/product-blackcurrant.webp",
+      "alt": {
+        "en": "Product · Blackcurrant Infusion",
+        "ar": "منتج · شاي الكشمش"
+      },
+      "w": 428,
+      "h": 926
+    },
+    {
+      "src": "/img/projects/wraf/recipes-grid.webp",
+      "alt": {
+        "en": "Recipes · Grid",
+        "ar": "الوصفات · شبكة"
+      },
+      "w": 428,
+      "h": 958
+    }
   ],
   "title": {
     "en": "WRAF",
     "ar": "وراف"
   },
   "sub": {
-    "en": "A tea-community app concept, from brief to moderated usability test.",
-    "ar": "تصوّر لتطبيق يجمع محبي الشاي، من الفكرة إلى اختبار قابلية الاستخدام الموجَّه."
+    "en": "A bilingual tea community product explored through three design lenses.",
+    "ar": "تطبيق مجتمع لمحبي الشاي مر بثلاث زوايا تصميمية."
   },
   "problem": {
-    "en": "The brief cites research reporting that tea-sector platforms present unstructured and scattered information, and adds the user's side: many varieties and brewing techniques can overwhelm, and a new platform can itself be a barrier.",
-    "ar": "يستند الموجز إلى بحث يشير إلى أن منصات قطاع الشاي تقدّم معلومات غير منظمة ومبعثرة، ويضيف الجانب المستخدَم: كثرة الأنواع وطرق التحضير قد تربك، والمنصة الجديدة قد تكون عائقًا بذاتها.",
-    "_sources": "facts.md F-11, F-12, F-17"
+    "en": "Tea lovers need more than a store: they want recipes, learning, sharing, and a community around tea culture.",
+    "ar": "محبو الشاي ما يحتاجون متجر فقط؛ يحتاجون وصفات، معرفة، مشاركة، ومجتمع حول ثقافة الشاي."
   },
   "approach": {
-    "en": "Four destinations around a home hub — Recipes, Community, Store, Personal account — with three ways in. The team mapped persuasive techniques to 12 screens (social proof, scarcity, personalisation, incentive, control), fixed a green palette with named type tokens, then built prototypes at three fidelity levels.",
-    "ar": "أربع وجهات حول صفحة رئيسية — الوصفات والمجتمع والمتجر والحساب الشخصي — وثلاثة مداخل إليها. ربط الفريق أساليب الإقناع بـ12 شاشة (الدليل الاجتماعي، والندرة، والتخصيص، والحافز، والتحكم)، وثبّت لوحة خضراء ورموز خطوط مسمّاة، ثم بنى نماذج بثلاث درجات من الدقة.",
-    "_sources": "facts.md F-20 to F-26, F-30 to F-36, F-40 to F-43"
-  },
-  "role": {
-    "en": "Team of 4. My recorded shares: 25% of each fidelity level and 50% of the Phase 4 presentation; 100% of the Phase 5 test-report introduction, 50% of 'Presenting and Analyzing Results', 40% of document adjustment; 50% of 'Stakeholder' in Assignment 1.",
-    "ar": "ضمن فريق من 4. حصصي المسجَّلة: 25% من كل درجة دقة و50% من عرض المرحلة الرابعة؛ و100% من مقدمة تقرير اختبار المرحلة الخامسة، و50% من «عرض النتائج وتحليلها»، و40% من تعديل الوثيقة؛ و50% من «أصحاب المصلحة» في الواجب الأول.",
-    "_sources": "facts.md section 4 (task share tables)"
+    "en": "Wraf was explored through persuasive UX, prototyping methods, and a bilingual design system for mobile and web contexts.",
+    "ar": "ورف انبنى من ثلاث زوايا: تقنيات الإقناع، النماذج الأولية، ونظام تصميم ثنائي اللغة للموبايل والويب."
   },
   "evidence": [
     {
@@ -97,9 +125,8 @@
     }
   ],
   "closing": {
-    "en": "Four course deliverables, one test, zero post-test screens. The report's own 83.3% success figure does not reconcile with any whole-number share of 7 participants, so this page uses the recorded times, clicks and comments instead.",
-    "ar": "أربعة تسليمات مقررات، واختبار واحد، ولا شاشات بعد الاختبار. ورقم النجاح 83.3% في التقرير لا يستقيم مع أي نسبة صحيحة من 7 مشاركين، فتعتمد هذه الصفحة الأزمنة والنقرات والتعليقات المسجّلة بدلًا منه.",
-    "_sources": "facts.md F-72, section 9.5"
+    "en": "The case is useful because it shows how one product idea can mature across persuasion, prototyping, and system thinking.",
+    "ar": "قوة الحالة أنها تبين كيف فكرة منتج واحدة تنضج عبر الإقناع، النمذجة، والتفكير كنظام."
   },
   "images": [],
   "flags": {

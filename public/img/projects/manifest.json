@@ -217,8 +217,8 @@
       "w": 402,
       "h": 874,
       "role": "screen",
-      "name_en": "Leader group dashboard",
-      "name_ar": "لوحة قائد المجموعة",
+      "name_en": "Group monitoring dashboard",
+      "name_ar": "لوحة متابعة المجموعة",
       "figma_node": "733:6014"
     },
     {

@@ -3,29 +3,25 @@
   "tier": "flagship",
   "status": "planned",
   "order": 5,
-  "tint": { "light": "#E6F0FA", "dark": "#0E1A2B" },
+  "tint": {
+    "light": "#E6F0FA",
+    "dark": "#0E1A2B"
+  },
   "title": {
     "en": "Drive-thru voice assistant",
     "ar": "مساعد صوتي لخدمة السيارات"
   },
   "sub": {
-    "en": "A conversation design: confirmation, repair and barge-in.",
-    "ar": "تصميم محادثة: التأكيد، وإصلاح التعثر، والمقاطعة."
+    "en": "A drive-thru voice ordering scenario.",
+    "ar": "سيناريو طلب صوتي للـDrive-Thru."
   },
   "problem": {
-    "en": "The report names order-taking as the drive-thru bottleneck at peak times — stronger in Makkah during Hajj and Umrah. No data or citations back this, so it stands as a premise.",
-    "ar": "يعدّ التقرير استقبال الطلبات موضع التعثر في خدمة السيارات في أوقات الذروة، وأشد في مكة المكرمة خلال موسمي الحج والعمرة. لا بيانات ولا مراجع تدعم ذلك، فتبقى فرضية.",
-    "_sources": "facts.md F15, F19, F20"
+    "en": "Drive-thru ordering gets harder during peak times when staff load, unclear speech, customizations, and interruptions increase mistakes.",
+    "ar": "طلب الـDrive-Thru يصير أصعب وقت الزحمة بسبب ضغط الموظفين، الكلام غير الواضح، التخصيصات، والمقاطعات."
   },
   "approach": {
-    "en": "Three decisions carry the conversation. Confirmation gets stricter as the chance of error grows: implicit for routine adds, explicit before payment. Each kind of breakdown — unclear or invalid input — gets its own repair. Barge-in and three timeouts decide who holds the turn.",
-    "ar": "ثلاثة قرارات تحمل الحوار. يصير التأكيد أصرح كلما ارتفع احتمال الخطأ: ضمنيّ للإضافات المعتادة، وصريح قبل الدفع. ولكل نوع من التعثر — إدخال غير واضح أو غير صالح — إصلاحه. والمقاطعة وثلاث مهلات انتظار تحدد صاحب الدور في الحديث.",
-    "_sources": "facts.md F28, F30, F34, F35, F39, F40"
-  },
-  "role": {
-    "en": "Team of 3. My 100% sections: Introduction; Products and Specifications; Deployment Location; Selecting an ASR Engine (vocabulary, barge-in, timeouts, unclear and invalid input handling); File Formatting. Shared 50/50: Operational Challenges; Interaction Scenarios.",
-    "ar": "ضمن فريق من 3. أقسامي بنسبة 100%: المقدمة؛ المنتجات والمواصفات؛ موقع التركيب؛ اختيار محرك التعرّف على الكلام (المفردات، والمقاطعة، ومهلات الانتظار، ومعالجة الإدخال غير الواضح وغير الصالح)؛ تنسيق الملف. وبنسبة 50% مشتركة: التحديات التشغيلية؛ سيناريوهات التفاعل.",
-    "_sources": "facts.md section 2 task table (p.22)"
+    "en": "The flow defines explicit and implicit confirmations, interruption handling, unclear input recovery, ASR vocabulary, timeouts, and accessibility scenarios.",
+    "ar": "السيناريو يحدد متى نستخدم التأكيد الصريح أو الضمني، وكيف نتعامل مع المقاطعات، الإدخال غير الواضح، مفردات ASR، مهلات الانتظار، وإمكانية الوصول."
   },
   "evidence": [
     {
@@ -96,9 +92,8 @@
     }
   ],
   "closing": {
-    "en": "A 22-page specification with internal tensions the case study keeps rather than hides: touch is ruled out yet offered, Arabic support is cited yet every script is in English, and payment moves between the window and the kiosk.",
-    "ar": "مواصفة من 22 صفحة تحمل تعارضات داخلية لا تخفيها هذه الدراسة: اللمس يُستبعد ثم يُعرض، ويُستشهد بدعم العربية وكل النصوص بالإنجليزية، والدفع يتنقل بين النافذة وجهاز الطلب.",
-    "_sources": "facts.md X1, X3, X4"
+    "en": "The project is best shown without extra visuals: its strength is conversation design and the logic of a complete ordering scenario.",
+    "ar": "الأفضل عرضه بدون صور كثيرة؛ قوته في تصميم المحادثة ومنطق سيناريو طلب كامل."
   },
   "images": [
     {

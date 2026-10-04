@@ -3,35 +3,63 @@
   "tier": "flagship",
   "status": "planned",
   "order": 3,
-  "tint": { "light": "#E9F3EC", "dark": "#0F2318" },
+  "tint": {
+    "light": "#E9F3EC",
+    "dark": "#0F2318"
+  },
   "posterScreens": [
-    { "src": "/img/projects/rafiq/pilgrim-today.webp", "alt": { "en": "Pilgrim today · Safe", "ar": "الحاج اليوم · آمن" }, "w": 402, "h": 874 },
-    { "src": "/img/projects/rafiq/leader-dashboard.webp", "alt": { "en": "Leader group dashboard", "ar": "لوحة قائد المجموعة" }, "w": 402, "h": 874 },
-    { "src": "/img/projects/rafiq/map.webp", "alt": { "en": "Map", "ar": "الخريطة" }, "w": 402, "h": 874 },
-    { "src": "/img/projects/rafiq/emergency.webp", "alt": { "en": "Emergency", "ar": "حالة طارئة" }, "w": 402, "h": 874 }
+    {
+      "src": "/img/projects/rafiq/pilgrim-today.webp",
+      "alt": {
+        "en": "Pilgrim today · Safe",
+        "ar": "الحاج اليوم · آمن"
+      },
+      "w": 402,
+      "h": 874
+    },
+    {
+      "src": "/img/projects/rafiq/leader-dashboard.webp",
+      "alt": {
+        "en": "Group monitoring dashboard",
+        "ar": "لوحة متابعة المجموعة"
+      },
+      "w": 402,
+      "h": 874
+    },
+    {
+      "src": "/img/projects/rafiq/map.webp",
+      "alt": {
+        "en": "Map",
+        "ar": "الخريطة"
+      },
+      "w": 402,
+      "h": 874
+    },
+    {
+      "src": "/img/projects/rafiq/emergency.webp",
+      "alt": {
+        "en": "Emergency",
+        "ar": "حالة طارئة"
+      },
+      "w": 402,
+      "h": 874
+    }
   ],
   "title": {
     "en": "Rafiq",
     "ar": "رفيق"
   },
   "sub": {
-    "en": "A safety concept for pilgrims who drift from their group during Tawaf.",
-    "ar": "مفهوم للسلامة حين يبتعد الحاج عن مجموعته أثناء الطواف."
+    "en": "A safety interaction system for Hajj and Umrah group separation.",
+    "ar": "نظام تفاعل أمني لتقليل انفصال الحاج عن مجموعته."
   },
   "problem": {
-    "en": "During Tawaf, a pilgrim who pauses can lose the group: men in ihram look alike, flags fail indoors, calls drown in crowd noise, and the one-way flow blocks turning back.",
-    "ar": "أثناء الطواف قد يفقد الحاج مجموعته: فالرجال في الإحرام يتشابهون، والرايات لا تُرى داخل المسجد، والنداء يضيع في الضجيج، والحركة في اتجاه واحد تمنع الرجوع.",
-    "_sources": "facts.md PR-1, PR-3, CX-5"
+    "en": "During crowded rituals, a small separation can become risky because heat, weak connectivity, language barriers, and fatigue reduce the user’s ability to recover quickly.",
+    "ar": "في الزحام، الانفصال البسيط ممكن يتحول لمخاطرة بسبب الحرارة، ضعف الاتصال، اختلاف اللغة، والإرهاق."
   },
   "approach": {
-    "en": "A smart bracelet paired with a leader app. Four states — Normal, Warning, Danger, Emergency — ask less of the pilgrim as risk rises: move closer, then stop and wait, then stay still. A separate recovery path leads back to Normal and tightens with severity.",
-    "ar": "سوار ذكي يتصل بتطبيق للقائد. أربع حالات — طبيعي، تحذير، خطر، طوارئ — يقلّ فيها ما يُطلب من الحاج كلما ارتفع الخطر: الاقتراب، ثم التوقف والانتظار، ثم البقاء في المكان. ومسار عودة مستقل يُرجع الحال إلى «طبيعي» وتشتد شروطه مع الخطورة.",
-    "_sources": "facts.md ST-1, ST-2, ST-3, ST-4, ST-5, ST-7, RC-1, RC-2, RC-3"
-  },
-  "role": {
-    "en": "Team of 3. Individual roles are not documented in the submission, so this work is credited to the team as a whole.",
-    "ar": "ضمن فريق من 3. لا توثّق الوثيقة أدوارًا فردية، لذلك يُنسب العمل هنا إلى الفريق كله.",
-    "_sources": "facts.md TM-3"
+    "en": "Rafiq pairs a pilgrim bracelet with a leader interface and escalates through clear safety states: Normal, Warning, Danger, and Emergency.",
+    "ar": "رفيق يربط سوار الحاج بواجهة متابعة، ويتدرج بين حالات أمان واضحة: طبيعي، تنبيه، خطر، وطوارئ."
   },
   "evidence": [
     {
@@ -99,9 +127,8 @@
     }
   ],
   "closing": {
-    "en": "A 53-page team submission: problem, context, persona, sensing, state model, 16 screens plus a phone and bracelet view per state, coordination, 11 risks, scenarios and a formative evaluation plan. No build, no pilot, no safety claim beyond the design itself.",
-    "ar": "مستند جماعي من 53 صفحة: المشكلة، والسياق، والشخصية، والاستشعار، ونموذج الحالات، و16 شاشة وشاشتَي الجوال والسوار لكل حالة، والتنسيق، و11 خطرًا، وسيناريوهات، وخطة تقييم تكوينية. لا بناء ولا تجربة ميدانية ولا ادعاء سلامة خارج التصميم نفسه.",
-    "_sources": "facts.md OU-1, OU-2"
+    "en": "The value is in safety UX: state logic, escalation, failure handling, and designing for degraded human performance.",
+    "ar": "قيمة المشروع في Safety UX: منطق الحالات، التصعيد، التعامل مع الفشل، والتصميم لظروف يكون فيها القرار أصعب."
   },
   "images": [
     {
@@ -123,16 +150,16 @@
     {
       "src": "/img/projects/rafiq/leader-dashboard.webp",
       "alt": {
-        "en": "Group-leader dashboard",
-        "ar": "لوحة قائد المجموعة"
+        "en": "Group monitoring dashboard",
+        "ar": "لوحة متابعة المجموعة"
       },
       "role": "detail"
     },
     {
       "src": "/img/projects/rafiq/leader-pilgrim-detail.webp",
       "alt": {
-        "en": "Group-leader pilgrim detail view",
-        "ar": "عرض تفاصيل الحاج لقائد المجموعة"
+        "en": "Pilgrim detail view from the monitoring dashboard",
+        "ar": "عرض تفاصيل الحاج من لوحة المتابعة"
       },
       "role": "detail"
     }

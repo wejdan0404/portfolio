@@ -1,0 +1,49 @@
+{
+  "slug": "flynas-redesign",
+  "tier": "early",
+  "status": "tested",
+  "order": 10,
+  "year": "2024",
+  "coverTreatment": "brand",
+  "tint": { "light": "#EEF0E8", "dark": "#2C2D20" },
+  "title": {
+    "en": "Flynas Ticket Reservation Redesign",
+    "ar": "إعادة تصميم حجز تذاكر Flynas"
+  },
+  "sub": {
+    "en": "A focused redesign of a flight booking flow.",
+    "ar": "Redesign مركز لمسار حجز التذاكر."
+  },
+  "context": {
+    "en": "Flight booking website redesign.",
+    "ar": "إعادة تصميم موقع حجز رحلات."
+  },
+  "problem": {
+    "en": "Flight booking can become slow when labels, layout, and required decisions compete for attention. The case focuses on simplifying the reservation path rather than expanding the product.",
+    "ar": "حجز الرحلات يصير متعب لما تتزاحم التسميات، الترتيب، والقرارات المطلوبة. عرض هذا المشروع يركز على مهارة إعادة تصميم مسار الحجز بدل توسيع المنتج."
+  },
+  "approach": {
+    "en": "The redesign used survey input, user testing, personas, information architecture, wireframing, prototyping, and iteration to clarify navigation, reduce extra clicks, and improve visual hierarchy.",
+    "ar": "إعادة التصميم اعتمدت على استبانة، اختبار مستخدمين، شخصيات، IA، Wireframes، Prototype، وتكرار؛ بهدف توضيح التنقل، تقليل النقرات الزائدة، وتحسين التسلسل البصري."
+  },
+  "methods": [
+    { "en": "UX redesign", "ar": "UX Redesign" },
+    { "en": "Booking-flow simplification", "ar": "تبسيط مسار الحجز" },
+    { "en": "Wireframing and prototyping", "ar": "Wireframing وPrototyping" }
+  ],
+  "evidence": [
+    {
+      "kind": "metric",
+      "value": "42",
+      "label": {
+        "en": "Survey responses informing the redesign",
+        "ar": "استجابة استبانة دعمت إعادة التصميم"
+      }
+    }
+  ],
+  "images": [],
+  "closing": {
+    "en": "This case is best used to show redesign skill: reorganizing a familiar flow so the user can move through it with less friction.",
+    "ar": "الأفضل عرض هذا المشروع كدليل على مهارة الريديزاين: إعادة ترتيب مسار مألوف عشان المستخدم يتحرك فيه بوضوح واحتكاك أقل."
+  }
+}

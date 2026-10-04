@@ -3,35 +3,63 @@
   "tier": "flagship",
   "status": "tested",
   "order": 2,
-  "tint": { "light": "#EDE7F6", "dark": "#1A1033" },
+  "tint": {
+    "light": "#EDE7F6",
+    "dark": "#1A1033"
+  },
   "posterScreens": [
-    { "src": "/img/projects/arcadea/library-all.webp", "alt": { "en": "Library · All games", "ar": "المكتبة · الكل" }, "w": 402, "h": 874 },
-    { "src": "/img/projects/arcadea/detail-silent-hill.webp", "alt": { "en": "Game detail · Silent Hill 2", "ar": "تفاصيل اللعبة · Silent Hill 2" }, "w": 402, "h": 874 },
-    { "src": "/img/projects/arcadea/stats.webp", "alt": { "en": "Stats", "ar": "الإحصاءات" }, "w": 402, "h": 874 },
-    { "src": "/img/projects/arcadea/welcome.webp", "alt": { "en": "Welcome", "ar": "ترحيب" }, "w": 402, "h": 874 }
+    {
+      "src": "/img/projects/arcadea/library-all.webp",
+      "alt": {
+        "en": "Library · All games",
+        "ar": "المكتبة · الكل"
+      },
+      "w": 402,
+      "h": 874
+    },
+    {
+      "src": "/img/projects/arcadea/detail-silent-hill.webp",
+      "alt": {
+        "en": "Game detail · Silent Hill 2",
+        "ar": "تفاصيل اللعبة · Silent Hill 2"
+      },
+      "w": 402,
+      "h": 874
+    },
+    {
+      "src": "/img/projects/arcadea/stats.webp",
+      "alt": {
+        "en": "Stats",
+        "ar": "الإحصاءات"
+      },
+      "w": 402,
+      "h": 874
+    },
+    {
+      "src": "/img/projects/arcadea/welcome.webp",
+      "alt": {
+        "en": "Welcome",
+        "ar": "ترحيب"
+      },
+      "w": 402,
+      "h": 874
+    }
   ],
   "title": {
     "en": "Arcadea",
     "ar": "Arcadea"
   },
   "sub": {
-    "en": "A personal game-backlog tracker in Flutter.",
-    "ar": "متتبّع شخصي لقائمة الألعاب بـFlutter."
+    "en": "A personal game backlog and status tracker.",
+    "ar": "تطبيق ينظم قائمة الألعاب الشخصية."
   },
   "problem": {
-    "en": "Players track their backlog across spreadsheets and screenshots. The brief asked for one app where university students and casual gamers can sort games by status, search, open details and see simple statistics.",
-    "ar": "يتتبّع اللاعبون قائمتهم عبر جداول ولقطات متفرقة. طلب الموجز تطبيقًا واحدًا يرتّب فيه طلاب الجامعات وهواة الألعاب ألعابهم بالحالة، ويبحثون ويفتحون التفاصيل ويرون إحصاءات بسيطة.",
-    "_sources": "facts.md B01, B03"
+    "en": "Casual gamers often keep game lists scattered across notes, memories, and different platforms. Arcadea brings them into one trackable library.",
+    "ar": "كثير من اللاعبين يحتفظون بقوائم الألعاب بين الملاحظات والذاكرة والمنصات المختلفة. Arcadea يجمعها في مكتبة واحدة سهلة المتابعة."
   },
   "approach": {
-    "en": "Three statuses — Want to play, In progress, Completed — organize the whole app in blue, amber and green. The design system was fixed before the first screen: tokens, text styles and the core components, then Flutter theme files that mirror the Figma Design System v2 page.",
-    "ar": "ثلاث حالات تنظّم التطبيق كله: Want to play وIn progress وCompleted بالأزرق والكهرماني والأخضر. ثبّتنا نظام التصميم قبل أول شاشة: رموز الألوان، وأنماط النص، والمكوّنات الأساسية، ثم ملفات السمة في Flutter التي تحاكي صفحة «Design System v2» في Figma.",
-    "_sources": "facts.md D03, D07, D08, R02, R10"
-  },
-  "role": {
-    "en": "Two-person course project. My part: led the Figma design-system foundation; designed and prototyped 11 of 23 screens; wired authentication, search, filter and stats interactions. In Flutter: 6 screens, 5 shared widgets, the AuthProvider and the three theme files.",
-    "ar": "مشروع مقرر دراسي بين طالبتين. دوري: قيادة تأسيس نظام التصميم في Figma؛ وتصميم 11 من 23 شاشة وبناء نموذجها التفاعلي؛ وربط تفاعلات الدخول والبحث والتصفية والإحصاءات. وفي Flutter: 6 شاشات، و5 عناصر مشتركة، وAuthProvider، وملفات السمة الثلاثة.",
-    "_sources": "facts.md R01, R02, R03, R07, R12"
+    "en": "The app uses a dark gaming interface with library states, search, filters, game details, statistics, and add/edit flows.",
+    "ar": "التطبيق يستخدم واجهة داكنة مناسبة للألعاب، مع حالات للمكتبة، بحث، فلاتر، تفاصيل لكل لعبة، إحصائيات، وإضافة أو تعديل لعبة."
   },
   "evidence": [
     {
@@ -98,9 +126,8 @@
     }
   ],
   "closing": {
-    "en": "The screens shown here are Figma frames, not captures of the running Flutter build. The report lists six proposed fixes and implements none of them — a clear next iteration if the project continues.",
-    "ar": "الشاشات المعروضة هنا إطارات Figma، لا لقطات لتطبيق Flutter أثناء التشغيل. ويقترح التقرير ستة إصلاحات لم يُنفَّذ منها شيء — وهذه نقطة واضحة للتكرار التالي إذا استمر المشروع.",
-    "_sources": "facts.md S01, S05, E19, E20"
+    "en": "The case shows the move from Figma prototype to Flutter implementation while keeping one visual system across screens.",
+    "ar": "المشروع يوضح الانتقال من نموذج Figma إلى تنفيذ Flutter مع الحفاظ على نظام بصري واحد عبر الشاشات."
   },
   "images": [
     {

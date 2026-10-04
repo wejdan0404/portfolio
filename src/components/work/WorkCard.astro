@@ -40,9 +40,6 @@ const tintLight: string = d.tint?.light ?? "#E7EFFB";
 const tintDark: string = d.tint?.dark ?? "#1A2240";
 const tintStyle = `--pt-light:${tintLight};--pt-dark:${tintDark};`;
 
-/* Shorten the role line to its first clause for the chip. */
-const roleFirst = d.role ? pick(d.role, locale).split(/[.·]/)[0].trim() : "";
-
 /* First evidence row — a compact signal for the card. */
 const rawEvidence = Array.isArray(d.evidence) && d.evidence.length > 0 ? d.evidence[0] : null;
 const topEvidence = rawEvidence && typeof rawEvidence.value === "string" && rawEvidence.label
@@ -51,7 +48,6 @@ const topEvidence = rawEvidence && typeof rawEvidence.value === "string" && rawE
 
 const statusLabel = pick(strings.statusLabel[d.status as "tested" | "planned" | "early"], locale);
 const year = typeof d.year === "string" ? d.year : "";
-const teamSize = typeof d.teamSize === "number" ? d.teamSize : 0;
 
 /* Case-insensitive glyph for the brand composition — in Arabic we use the Arabic first char. */
 const glyph = ((locale === "ar" ? d.title.ar : d.title.en) || "").trim().slice(0, 1);
@@ -129,18 +125,14 @@ const screens = posterScreens.slice(0, screenCount);
   </div>
 
   <div class="wcard-body">
-    {(year || teamSize) ? (
+    {year ? (
       <p class="wcard-eyebrow">
-        {year ? <span>{year}</span> : null}
-        {year && teamSize ? <span class="dotsep" aria-hidden="true">·</span> : null}
-        {teamSize ? <span>{locale === "ar" ? `فريق من ${teamSize}` : `Team of ${teamSize}`}</span> : null}
+        <span>{year}</span>
       </p>
     ) : null}
 
     <h3 class="wcard-title">{title}</h3>
     <p class="wcard-sub">{sub}</p>
-
-    {roleFirst && <span class="role-chip">{roleFirst}</span>}
 
     {topEvidence && variant === "lead" && (
       <p class="wcard-evidence">
@@ -519,20 +511,6 @@ const screens = posterScreens.slice(0, screenCount);
   html[lang="ar"] .wcard-sub { font-size: 1rem; line-height: 1.8; }
   .wcard-lead .wcard-sub { font-size: 1.0625rem; }
 
-  .role-chip {
-    align-self: flex-start;
-    display: inline-flex;
-    padding: 0.25rem 0.6rem;
-    border-radius: 999px;
-    border: 1px solid var(--border-subtle);
-    background: var(--surface-subtle);
-    color: var(--text-muted);
-    font-size: 0.8125rem;
-    line-height: 1.3;
-    max-width: 100%;
-  }
-  html[lang="ar"] .role-chip { font-size: 0.9rem; }
-
   .wcard-evidence {
     display: inline-flex;
     align-items: baseline;
@@ -586,8 +564,6 @@ const screens = posterScreens.slice(0, screenCount);
 
   .wcard-small { grid-template-columns: 1fr; }
   .wcard-small .wcard-cta { font-size: 0.875rem; }
-  .wcard-small .role-chip { font-size: 0.75rem; padding: 0.2rem 0.5rem; }
-
   /* Reduced-motion / focus */
   @media (prefers-reduced-motion: reduce) {
     .wcard, .poster-stack { transition: none; }

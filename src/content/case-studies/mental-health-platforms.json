@@ -1,0 +1,66 @@
+{
+  "slug": "mental-health-platforms",
+  "tier": "core",
+  "status": "tested",
+  "order": 3,
+  "year": "2024",
+  "coverTreatment": "brand",
+  "tint": { "light": "#EAF2EF", "dark": "#18342D" },
+  "title": {
+    "en": "Mental Health Platforms Evaluation",
+    "ar": "تقييم منصات الصحة النفسية"
+  },
+  "sub": {
+    "en": "Usability review of appointment booking in sensitive health journeys.",
+    "ar": "تقييم قابلية استخدام لمسار حجز حساس."
+  },
+  "context": {
+    "en": "Comparative evaluation of Labayh, Tetamman, and Estenarh booking flows.",
+    "ar": "تقييم مقارن لمسارات الحجز في Labayh وTetamman وEstenarh."
+  },
+  "problem": {
+    "en": "In mental health services, booking is not a neutral task. Users may arrive stressed, unsure, or worried about privacy, so vague steps, unclear progress, generic errors, or heavy terminology can make the experience feel harder than it should.",
+    "ar": "في خدمات الصحة النفسية، الحجز مو مهمة عادية. المستخدم ممكن يدخل وهو متوتر أو قلق على الخصوصية، لذلك الخطوات الغامضة، شريط التقدم غير الواضح، رسائل الخطأ العامة، أو المصطلحات الثقيلة ممكن تزيد العبء عليه."
+  },
+  "approach": {
+    "en": "The evaluation focused on appointment booking and immediate booking. Issues were mapped to Nielsen heuristics, severity, and practical recommendations such as clearer progress labels, previous-step control, better field validation, stronger payment visibility, and help content for first-time users.",
+    "ar": "التقييم ركز على مسار حجز الموعد والحجز الفوري. كل مشكلة رُبطت بـNielsen heuristic ودرجة severity وتوصية عملية، مثل توضيح شريط التقدم، إضافة زر رجوع، تحسين التحقق من الحقول، إظهار تفاصيل الدفع، وتوفير إرشاد للمستخدم الجديد."
+  },
+  "methods": [
+    { "en": "Heuristic evaluation", "ar": "Heuristic Evaluation" },
+    { "en": "Task analysis", "ar": "تحليل المهام" },
+    { "en": "Severity rating", "ar": "تصنيف الشدة" },
+    { "en": "Actionable recommendations", "ar": "توصيات قابلة للتنفيذ" }
+  ],
+  "evidence": [
+    {
+      "kind": "callout",
+      "value": { "en": "3 platforms", "ar": "3 منصات" },
+      "label": {
+        "en": "Labayh, Tetamman, and Estenarh were compared through key booking tasks.",
+        "ar": "تمت مقارنة Labayh وTetamman وEstenarh من خلال مهام حجز أساسية."
+      }
+    },
+    {
+      "kind": "callout",
+      "value": { "en": "Severity 3-4", "ar": "شدة 3-4" },
+      "label": {
+        "en": "Major booking issues included unclear payment details, weak error recovery, and missing back control.",
+        "ar": "أبرز مشاكل الحجز كانت وضوح الدفع، التعافي من الخطأ، وغياب الرجوع الآمن."
+      }
+    },
+    {
+      "kind": "callout",
+      "value": { "en": "Nielsen heuristics", "ar": "Nielsen heuristics" },
+      "label": {
+        "en": "Findings were tied to visibility, error prevention, user control, and help/documentation.",
+        "ar": "الملاحظات ارتبطت بالوضوح، منع الأخطاء، تحكم المستخدم، والمساعدة."
+      }
+    }
+  ],
+  "images": [],
+  "closing": {
+    "en": "This is a strong evaluation case because it treats booking clarity as part of care. The recommendations are small, but they reduce avoidable stress in a sensitive journey.",
+    "ar": "هذا المشروع قوي لأنه يتعامل مع وضوح الحجز كجزء من الرعاية. التوصيات تبدو صغيرة، لكنها تقلل ضغطًا ممكن تفاديه في رحلة حساسة."
+  }
+}

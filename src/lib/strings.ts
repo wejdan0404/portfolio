@@ -47,15 +47,13 @@ export const strings = {
   caseStudyLabels: {
     problem: t("Problem", "المشكلة"),
     approach: t("Approach", "المقاربة"),
-    role: t("Role", "الدور"),
+    role: t("Project focus", "تركيز المشروع"),
     evidence: t("Evidence", "الأدلة"),
     closing: t("Takeaway", "الخلاصة"),
     tools: t("Methods and tools", "الأدوات والأساليب"),
     context: t("Context", "السياق"),
     outcome: t("Outcome", "النتيجة"),
     year: t("Year", "السنة"),
-    role_: t("My role", "دوري"),
-    teamSize: t("Team size", "حجم الفريق"),
     status: t("Status", "الحالة"),
   },
   home: {
@@ -155,8 +153,8 @@ export const strings = {
   work: {
     pageTitle: t("Work", "الأعمال"),
     pageLede: t(
-      "Six projects, academic and personal, each with its own evidence.",
-      "ستة مشاريع أكاديمية وشخصية، مع توضيح دوري وما يتوفر لكل مشروع من نتائج.",
+      "Academic and applied projects, each with a clear idea, focus, methods, and evidence where available.",
+      "مشاريع أكاديمية وتطبيقية، كل واحد منها يوضح الفكرة والتركيز والأساليب والأدلة المتوفرة.",
     ),
     openCase: t("Read the case", "اقرأ الدراسة"),
     allCases: t("All case studies", "جميع دراسات الحالة"),

@@ -6,7 +6,19 @@ import { type Locale } from "../../lib/i18n";
 export interface Props { locale: Locale; limit?: number; }
 const { locale, limit } = Astro.props;
 
-const order = ["mishkat", "arcadea", "rafiq", "wraf", "vui", "petcare"];
+const order = [
+  "mishkat",
+  "nusuk-accessibility",
+  "mental-health-platforms",
+  "wraf",
+  "rafiq",
+  "vui",
+  "arcadea",
+  "petcare",
+  "smart-farm-srs",
+  "flynas-redesign",
+  "fairmont-training",
+];
 const all = await getCollection("case-studies");
 all.sort((a, b) => order.indexOf(a.data.slug) - order.indexOf(b.data.slug));
 const entries = limit ? all.slice(0, limit) : all;

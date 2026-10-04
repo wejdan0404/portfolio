@@ -1,0 +1,40 @@
+{
+  "slug": "smart-farm-srs",
+  "tier": "early",
+  "status": "planned",
+  "order": 9,
+  "year": "2024",
+  "coverTreatment": "brand",
+  "tint": { "light": "#E8F1E3", "dark": "#1D3522" },
+  "title": {
+    "en": "Smart Farm SRS",
+    "ar": "توثيق متطلبات Smart Farm"
+  },
+  "sub": {
+    "en": "Requirements documentation for a farm management mobile app.",
+    "ar": "توثيق متطلبات لتطبيق إدارة مزرعة."
+  },
+  "context": {
+    "en": "Software Requirements Specification for agriculture support.",
+    "ar": "SRS لتطبيق يساعد في إدارة المحاصيل والتنبيهات الزراعية."
+  },
+  "problem": {
+    "en": "Farm management needs clear reminders, crop information, GPS context, weather awareness, and offline access because connectivity can be limited in agricultural areas.",
+    "ar": "إدارة المزرعة تحتاج تذكيرات واضحة، معلومات للمحاصيل، سياق GPS، حالة الطقس، وإمكانية استخدام بدون اتصال لأن الإنترنت قد يكون محدودًا في المناطق الزراعية."
+  },
+  "approach": {
+    "en": "The document defines scope, product functions, interface requirements, constraints, localization, accessibility, offline behavior, and database/GPS communication needs before interface design.",
+    "ar": "المستند يحدد النطاق، وظائف المنتج، متطلبات الواجهات، القيود، التوطين، إمكانية الوصول، العمل دون اتصال، واحتياج الاتصال بقاعدة البيانات وGPS قبل البدء بالواجهة."
+  },
+  "methods": [
+    { "en": "Requirements engineering", "ar": "هندسة المتطلبات" },
+    { "en": "Functional requirements", "ar": "متطلبات وظيفية" },
+    { "en": "Offline-first constraints", "ar": "قيود العمل دون اتصال" }
+  ],
+  "evidence": [],
+  "images": [],
+  "closing": {
+    "en": "This project is useful as a requirements case: it shows product thinking before interface work, especially around constraints and edge conditions.",
+    "ar": "هذا المشروع مفيد كحالة متطلبات: يوضح التفكير في المنتج قبل تصميم الواجهة، خصوصًا القيود والحالات الطرفية."
+  }
+}

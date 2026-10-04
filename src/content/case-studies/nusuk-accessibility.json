@@ -1,0 +1,66 @@
+{
+  "slug": "nusuk-accessibility",
+  "tier": "core",
+  "status": "tested",
+  "order": 2,
+  "year": "2024",
+  "coverTreatment": "brand",
+  "tint": { "light": "#E8EFEA", "dark": "#172E28" },
+  "title": {
+    "en": "Nusuk Accessibility Audit",
+    "ar": "تدقيق إمكانية الوصول لموقع Nusuk"
+  },
+  "sub": {
+    "en": "WCAG-oriented review of a high-impact service website.",
+    "ar": "مراجعة WCAG لموقع خدمي مهم."
+  },
+  "context": {
+    "en": "Accessibility review for a public-facing service journey.",
+    "ar": "مراجعة إمكانية وصول لتجربة خدمية يستخدمها جمهور واسع."
+  },
+  "problem": {
+    "en": "A service website can look complete while still blocking people who rely on keyboard navigation, screen readers, clear labels, or sufficient contrast. The audit focused on issues that directly affect access and task completion.",
+    "ar": "الموقع الخدمي ممكن يبان مكتمل بصريًا، لكنه يعيق مستخدمين يعتمدون على الكيبورد، قارئات الشاشة، التسميات الواضحة، أو تباين النص. التدقيق ركّز على المشاكل اللي تؤثر فعليًا على الوصول وإكمال المهمة."
+  },
+  "approach": {
+    "en": "The review compared results from WAVE, Silktide, and Accessibility Cloud Lite, then translated tool output into practical fixes: stronger text contrast, clear labels for controls and form fields, useful alternative text, better heading/list structure, and keyboard-friendly navigation.",
+    "ar": "المراجعة قارنت نتائج WAVE وSilktide وAccessibility Cloud Lite، ثم حولت مخرجات الأدوات إلى تحسينات واضحة: رفع التباين، تسمية الأزرار والحقول، تحسين النصوص البديلة، ترتيب العناوين والقوائم، ودعم التنقل بالكيبورد."
+  },
+  "methods": [
+    { "en": "WAVE audit", "ar": "تدقيق WAVE" },
+    { "en": "Silktide audit", "ar": "تدقيق Silktide" },
+    { "en": "Accessibility Cloud Lite review", "ar": "مراجعة Accessibility Cloud Lite" },
+    { "en": "WCAG 2.2 AA recommendations", "ar": "توصيات وفق WCAG 2.2 AA" }
+  ],
+  "evidence": [
+    {
+      "kind": "metric",
+      "value": "85",
+      "label": {
+        "en": "Low-contrast instances found by WAVE",
+        "ar": "حالة تباين منخفض ظهرت في WAVE"
+      }
+    },
+    {
+      "kind": "metric",
+      "value": "30",
+      "label": {
+        "en": "Empty buttons reported by WAVE",
+        "ar": "زر فارغ أظهره تقرير WAVE"
+      }
+    },
+    {
+      "kind": "metric",
+      "value": "32",
+      "label": {
+        "en": "Missing field labels noted by Silktide",
+        "ar": "حقل بدون تسمية حسب Silktide"
+      }
+    }
+  ],
+  "images": [],
+  "closing": {
+    "en": "The value of this case is not the number of issues alone. It shows how accessibility findings become concrete design and front-end decisions that make the experience usable for more people.",
+    "ar": "قيمة المشروع مو في عدد الأخطاء فقط؛ قيمته في تحويل نتائج التدقيق إلى قرارات تصميم وتطوير تخلي التجربة أوضح وقابلة للاستخدام لشريحة أكبر."
+  }
+}

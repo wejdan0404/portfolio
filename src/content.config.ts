@@ -3,12 +3,9 @@ import { glob } from "astro/loaders";
 
 const bilingual = z.object({ en: z.string(), ar: z.string() });
 
-// Case-study schema — permissive superset. Different content files currently
-// ship either the lean shape (slug, tier, status, order, title, sub, problem,
-// approach, role, evidence[], images[], closing, flags) or the richer shape
-// (adds year, context, teamSize, tagline, hero, quotes, methods, openItems,
-// sourceNote). Pages read the union; the scaffold/content agents should
-// pick one canonical shape and tighten this schema accordingly.
+// Case-study schema — permissive superset. Public copy intentionally avoids
+// personal role, teammate names, and team size. The fields stay optional only
+// so older content files do not break while they are cleaned up.
 const caseStudies = defineCollection({
   loader: glob({ pattern: "**/*.json", base: "./src/content/case-studies" }),
   schema: z
@@ -22,8 +19,7 @@ const caseStudies = defineCollection({
       tagline: bilingual.optional(),
       year: z.string().optional(),
       context: bilingual.optional(),
-      role: bilingual,
-      teamSize: z.number().optional(),
+      role: bilingual.optional(),
       hero: z
         .object({
           kind: z.enum(["image", "composition"]).optional(),
