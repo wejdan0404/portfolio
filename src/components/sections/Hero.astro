@@ -29,11 +29,11 @@ const copy = {
   <div class="container-wide hero-grid">
     <div class="hero-copy">
       <p class="hero-kicker"><span>{copy.kicker}</span></p>
-      <h1 id="hero-title" class="hero-title">
+      <h1 id="hero-title" aria-describedby="hero-lede" class="hero-title">
         <span class="hero-line hero-line-a">{copy.lineA}</span>
         <span class="hero-line hero-line-b">{copy.lineB}</span>
       </h1>
-      <p class="hero-lede">{copy.lede}</p>
+      <p id="hero-lede" class="hero-lede">{copy.lede}</p>
       <div class="hero-actions">
         <a href={localePath(locale, "work")} class="btn btn-primary">
           <span>{copy.ctaPrimary}</span>
